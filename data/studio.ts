@@ -44,6 +44,10 @@ export const navigation = [
   { label: "Diary", href: "#diary" }
 ];
 
+export const links = {
+  patreon: "https://www.patreon.com/silasims777"
+};
+
 export const characters: Character[] = [
   {
     name: "Mira Vale",

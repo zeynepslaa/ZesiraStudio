@@ -19,7 +19,7 @@ import { EditorialVisual } from "@/components/editorial-visual";
 import { motion, useScroll, useTransform } from "@/components/motion";
 import { Navbar } from "@/components/navbar";
 import { SectionHeading } from "@/components/section-heading";
-import { characters, diaryPosts, districts, downloads, timeline } from "@/data/studio";
+import { characters, diaryPosts, districts, downloads, links, timeline } from "@/data/studio";
 
 const fadeUp = {
   initial: { opacity: 0, y: 28 },
@@ -426,7 +426,9 @@ export default function Home() {
                 creator diary notes, locked builds, roadmap polls, and member-only lore.
               </p>
               <a
-                href="#"
+                href={links.patreon}
+                target="_blank"
+                rel="noreferrer"
                 className="mt-8 inline-flex items-center gap-3 rounded-full bg-champagne px-6 py-4 text-sm font-semibold text-espresso transition hover:bg-porcelain"
               >
                 Join Patreon

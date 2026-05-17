@@ -3,7 +3,7 @@
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { motion } from "@/components/motion";
-import { navigation } from "@/data/studio";
+import { links, navigation } from "@/data/studio";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -36,7 +36,9 @@ export function Navbar() {
         </div>
 
         <a
-          href="#patreon"
+          href={links.patreon}
+          target="_blank"
+          rel="noreferrer"
           className="hidden rounded-full bg-porcelain px-5 py-2.5 text-sm font-semibold text-espresso transition hover:bg-champagne md:inline-flex"
         >
           Join Patreon
@@ -70,7 +72,9 @@ export function Navbar() {
               </a>
             ))}
             <a
-              href="#patreon"
+              href={links.patreon}
+              target="_blank"
+              rel="noreferrer"
               onClick={() => setOpen(false)}
               className="rounded-2xl bg-porcelain px-4 py-3 text-center text-sm font-semibold text-espresso"
             >
