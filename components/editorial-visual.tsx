@@ -25,7 +25,7 @@ export function EditorialVisual({
     >
       <div className="relative z-10">
         <p className="text-[10px] uppercase tracking-[0.28em] text-champagne/85">{tone}</p>
-        <p className="mt-2 font-display text-3xl font-semibold leading-none text-porcelain">
+        <p className="mt-2 font-display text-3xl font-semibold leading-none text-porcelain drop-shadow">
           {label}
         </p>
       </div>

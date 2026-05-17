@@ -9,14 +9,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        porcelain: "#f6f0e8",
-        cream: "#efe4d4",
-        champagne: "#d9bd8c",
-        mocha: "#8a6d5b",
-        espresso: "#241916",
-        charcoal: "#151414",
-        fog: "#c9c0b8",
-        sage: "#9aa58f"
+        porcelain: "#fffaf3",
+        cream: "#f3e5d7",
+        champagne: "#b68b56",
+        mocha: "#9a7568",
+        espresso: "#3a2925",
+        charcoal: "#fbf4ec",
+        fog: "#6f625b",
+        sage: "#8f9f8a"
       },
       fontFamily: {
         display: ["var(--font-display)", "Georgia", "serif"],

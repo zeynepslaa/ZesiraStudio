@@ -11,7 +11,7 @@ export function SectionHeading({ eyebrow, title, body, align = "left" }: Section
       <p className="mb-4 text-xs font-semibold uppercase tracking-[0.32em] text-champagne/80">
         {eyebrow}
       </p>
-      <h2 className="font-display text-4xl font-semibold leading-[0.95] text-porcelain md:text-6xl">
+      <h2 className="font-display text-4xl font-semibold leading-[0.95] text-espresso md:text-6xl">
         {title}
       </h2>
       <p className="mt-5 text-base leading-8 text-fog md:text-lg">{body}</p>
