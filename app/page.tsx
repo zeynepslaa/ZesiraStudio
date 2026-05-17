@@ -15,7 +15,6 @@ import {
   Star,
   UsersRound
 } from "lucide-react";
-import { CustomCursor } from "@/components/cursor";
 import { EditorialVisual } from "@/components/editorial-visual";
 import { motion, useScroll, useTransform } from "@/components/motion";
 import { Navbar } from "@/components/navbar";
@@ -54,7 +53,6 @@ export default function Home() {
 
   return (
     <main className="relative overflow-hidden">
-      <CustomCursor />
       <Navbar />
 
       <section className="relative min-h-[100svh] overflow-hidden px-4 pb-12 pt-28 md:pt-36">
