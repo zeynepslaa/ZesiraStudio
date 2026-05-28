@@ -83,13 +83,13 @@ export default function Home() {
         <div className="hidden md:flex items-center gap-8">
           {["Work", "Studio", "Services", "Contact"].map((item) => (
             <a key={item} href={`#${item.toLowerCase()}`}
-              className="font-sans text-[10px] tracking-[0.18em] uppercase text-ash hover:text-sand transition-colors duration-300">{item}</a>
+              className="font-sans text-[10px] tracking-[0.18em] uppercase text-[#6B5D54] hover:text-sand transition-colors duration-300">{item}</a>
           ))}
         </div>
         <div className="flex items-center gap-3">
           <button className="font-sans text-[10px] tracking-[0.14em] uppercase text-sand border-b border-sand/40 pb-0.5">EN</button>
-          <span className="text-ash/40 text-xs">/</span>
-          <button className="font-sans text-[10px] tracking-[0.14em] uppercase text-ash hover:text-sand transition-colors duration-300">TR</button>
+          <span className="text-[#6B5D54]/40 text-xs">/</span>
+          <button className="font-sans text-[10px] tracking-[0.14em] uppercase text-[#6B5D54] hover:text-sand transition-colors duration-300">TR</button>
         </div>
       </nav>
 
@@ -102,7 +102,7 @@ export default function Home() {
           <div className="flex items-center justify-center gap-3 mb-8 opacity-0 animate-fadeIn" style={{ animationDelay: "1.1s", animationFillMode: "forwards" }}>
             <div className="w-6 h-px bg-sand" /><div className="w-1.5 h-1.5 rounded-full bg-sand" /><div className="w-6 h-px bg-sand" />
           </div>
-          <p className="font-serif italic text-ash text-sm md:text-base leading-loose mb-12 opacity-0 animate-fadeUp" style={{ animationDelay: "0.9s", animationFillMode: "forwards" }}>
+          <p className="font-serif italic text-[#6B5D54] text-sm md:text-base leading-loose mb-12 opacity-0 animate-fadeUp" style={{ animationDelay: "0.9s", animationFillMode: "forwards" }}>
             A digital atelier for modern brands.<br />Slow. Elegant. Felt.
           </p>
           <a href="#work" className="inline-block font-sans text-[10px] tracking-[0.22em] uppercase text-noir border-b border-sand/50 pb-1 hover:text-sand transition-colors duration-300 opacity-0 animate-fadeUp" style={{ animationDelay: "1.4s", animationFillMode: "forwards" }}>
@@ -114,13 +114,13 @@ export default function Home() {
       <section className="relative z-10 py-32 px-8 md:px-16 lg:px-32">
         <div className="max-w-3xl mx-auto">
           <p className="font-serif italic text-noir text-xl md:text-2xl leading-[2] mb-6">Most websites are made to be seen.</p>
-          <p className="font-serif italic text-ash text-xl md:text-2xl leading-[2] mb-6">We create them to be felt.</p>
+          <p className="font-serif italic text-[#6B5D54] text-xl md:text-2xl leading-[2] mb-6">We create them to be felt.</p>
           <p className="font-serif text-noir text-xl md:text-2xl leading-[2] mb-6">Zesira is not an agency. Not a tool.</p>
           <p className="font-serif italic text-sand text-xl md:text-2xl leading-[2] mb-12">A digital atelier for modern brands.</p>
           <div className="w-8 h-px bg-sand mb-12" />
-          <p className="font-serif italic text-ash text-lg leading-[2] mb-6">Here, everything is intentional —<br />a softness, a movement, a silence.</p>
+          <p className="font-serif italic text-[#6B5D54] text-lg leading-[2] mb-6">Here, everything is intentional —<br />a softness, a movement, a silence.</p>
           <p className="font-serif italic text-noir text-lg leading-[2] mb-12">Because aesthetics are never accidental.<br />They are decisions.</p>
-          <p className="font-serif text-ash text-lg leading-[2] mb-6">You may not have a luxury budget.<br />But your brand still deserves a cinematic presence.</p>
+          <p className="font-serif text-[#6B5D54] text-lg leading-[2] mb-6">You may not have a luxury budget.<br />But your brand still deserves a cinematic presence.</p>
           <p className="font-serif italic text-noir text-2xl md:text-3xl mt-12">Not a website. A presence.</p>
         </div>
       </section>
@@ -130,7 +130,7 @@ export default function Home() {
           <p className="font-sans text-[10px] tracking-[0.22em] uppercase text-sand mb-4">Selected Work</p>
           <h2 className="font-serif italic text-noir text-3xl md:text-4xl mb-16">Every project is a world of its own.</h2>
           <div className="py-24 text-center border-t border-b border-sand/15">
-            <p className="font-serif italic text-ash text-lg md:text-xl leading-loose mb-10">
+            <p className="font-serif italic text-[#6B5D54] text-lg md:text-xl leading-loose mb-10">
               Our first worlds are being crafted.<br />Something is coming.
             </p>
             <div className="flex items-center justify-center gap-3 mb-10">
@@ -149,7 +149,7 @@ export default function Home() {
         <div className="max-w-5xl mx-auto">
           <p className="font-sans text-[10px] tracking-[0.22em] uppercase text-sand mb-4">What we offer</p>
           <h2 className="font-serif italic text-noir text-3xl md:text-4xl mb-6">Each project is a world of its own.</h2>
-          <p className="font-sans text-[12px] text-ash leading-relaxed mb-24 max-w-xl">
+          <p className="font-sans text-[12px] text-[#6B5D54] leading-relaxed mb-24 max-w-xl">
             We don't offer templates or packages. We offer experiences — crafted around your brand's energy, story, and audience. Every project begins with a conversation.
           </p>
           <div className="space-y-0">
@@ -165,8 +165,8 @@ export default function Home() {
                 <div>
                   <h3 className="font-serif italic text-noir text-2xl md:text-3xl mb-4">{pkg.name}</h3>
                   <p className="font-serif italic text-sand text-base mb-6 leading-relaxed">{pkg.feeling}</p>
-                  <p className="font-sans text-[11px] text-ash leading-relaxed mb-6">{pkg.transformation}</p>
-                  <p className="font-sans text-[10px] tracking-[0.12em] uppercase text-ash/60"><span className="text-sand/60 mr-2">✦</span>{pkg.for}</p>
+                  <p className="font-sans text-[11px] text-[#6B5D54] leading-relaxed mb-6">{pkg.transformation}</p>
+                  <p className="font-sans text-[10px] tracking-[0.12em] uppercase text-[#6B5D54]/60"><span className="text-sand/60 mr-2">✦</span>{pkg.for}</p>
                 </div>
                 <div className="flex md:justify-end md:items-start">
                   <a href="#contact" className="font-sans text-[10px] tracking-[0.18em] uppercase text-noir border-b border-sand/40 pb-1 hover:text-sand transition-colors duration-300 self-start mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500">{pkg.cta}</a>
@@ -176,7 +176,7 @@ export default function Home() {
             <div className="border-t border-sand/20" />
           </div>
           <div className="mt-20 text-center">
-            <p className="font-serif italic text-ash text-lg mb-8">Every project begins with a conversation.</p>
+            <p className="font-serif italic text-[#6B5D54] text-lg mb-8">Every project begins with a conversation.</p>
             <a href="#contact" className="inline-block font-sans text-[10px] tracking-[0.22em] uppercase text-noir border-b border-sand/50 pb-1 hover:text-sand transition-colors duration-300">Start yours</a>
           </div>
         </div>
@@ -197,7 +197,7 @@ export default function Home() {
                 <div className="w-6 h-px bg-sand" /><div className="w-1.5 h-1.5 rounded-full bg-sand" /><div className="w-6 h-px bg-sand" />
               </div>
               <p className="font-serif italic text-noir text-2xl mb-4">Your message is on its way.</p>
-              <p className="font-sans text-[11px] text-ash tracking-[0.1em]">We'll be in touch soon.</p>
+              <p className="font-sans text-[11px] text-[#6B5D54] tracking-[0.1em]">We'll be in touch soon.</p>
             </div>
           ) : (
             <div className="space-y-10">
@@ -220,7 +220,7 @@ export default function Home() {
                   placeholder="Tell us about your brand, your vision, your world..." />
               </div>
               <div className="flex items-center justify-between pt-4">
-                <p className="font-sans text-[10px] text-ash/60 tracking-[0.08em]">info@zesirastudio.com</p>
+                <p className="font-sans text-[10px] text-[#6B5D54]/60 tracking-[0.08em]">info@zesirastudio.com</p>
                 <button onClick={handleSubmit}
                   className="font-sans text-[10px] tracking-[0.22em] uppercase text-noir border-b border-sand/50 pb-1 hover:text-sand hover:border-sand transition-colors duration-300">
                   Send →
@@ -234,8 +234,8 @@ export default function Home() {
       <footer className="relative z-10 py-10 px-8 border-t border-sand/20">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <span className="font-serif italic text-noir text-base">Zesira Studio</span>
-          <span className="font-sans text-[10px] tracking-[0.18em] uppercase text-ash">Not a website. A presence.</span>
-          <span className="font-sans text-[10px] tracking-[0.1em] text-ash/50">© 2025</span>
+          <span className="font-sans text-[10px] tracking-[0.18em] uppercase text-[#6B5D54]">Not a website. A presence.</span>
+          <span className="font-sans text-[10px] tracking-[0.1em] text-[#6B5D54]/50">© 2025</span>
         </div>
       </footer>
 
