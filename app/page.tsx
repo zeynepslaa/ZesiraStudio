@@ -270,48 +270,78 @@ export default function Home() {
           <a href="#contact" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.16em", textTransform: "uppercase", color: "#9A8878", borderBottom: "0.5px solid rgba(107,30,36,0.3)", paddingBottom: "2px", textDecoration: "none" }}>View All Projects →</a>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
-          {[
-            { title: "My Club", tag: "Brand & Website — Bridal Lace Atelier", sub: "Couture Lace", bg: "#EDE4D4", lace: true },
-            { title: "Lavin Beauty", tag: "Website Design — Luxury Skincare", bg: "#DDD0C0", lace: false },
-            { title: "Café Noir", tag: "Brand & Website — Cinematic Café", bg: "#1A1008", lace: false, dark: true },
-          ].map((p) => (
-            <div key={p.title} className="work-card" style={{ cursor: "pointer" }}>
-              <div style={{ aspectRatio: "4/3", background: p.bg, marginBottom: "12px", position: "relative", overflow: "hidden" }}>
-                {p.lace && (
-                  <>
-                    <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 35% 30%, #FFF8F0 0%, #EDE4D4 60%, #C4B09A 100%)" }} />
-                    <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.4 }} xmlns="http://www.w3.org/2000/svg">
-                      <defs>
-                        <pattern id="lc2" x="0" y="0" width="18" height="18" patternUnits="userSpaceOnUse">
-                          <circle cx="9" cy="9" r="5.5" fill="none" stroke="rgba(180,160,130,0.5)" strokeWidth="0.5" />
-                          <circle cx="9" cy="9" r="1" fill="rgba(180,160,130,0.4)" />
-                          <line x1="0" y1="9" x2="3.5" y2="9" stroke="rgba(180,160,130,0.3)" strokeWidth="0.4" />
-                          <line x1="14.5" y1="9" x2="18" y2="9" stroke="rgba(180,160,130,0.3)" strokeWidth="0.4" />
-                          <line x1="9" y1="0" x2="9" y2="3.5" stroke="rgba(180,160,130,0.3)" strokeWidth="0.4" />
-                          <line x1="9" y1="14.5" x2="9" y2="18" stroke="rgba(180,160,130,0.3)" strokeWidth="0.4" />
-                        </pattern>
-                      </defs>
-                      <rect width="100%" height="100%" fill="url(#lc2)" />
-                    </svg>
-                    <div style={{ position: "absolute", bottom: "12px", left: "14px", zIndex: 3 }}>
-                      <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "8px", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(107,30,36,0.6)", marginBottom: "2px" }}>Couture Lace</div>
-                      <div style={{ fontSize: "14px", color: "rgba(43,31,28,0.75)", fontStyle: "italic" }}>My Club</div>
-                    </div>
-                  </>
-                )}
-                {!p.lace && !p.dark && (
-                  <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% 25%, #F5EDE0, #C8B09A)" }} />
-                )}
-                {p.dark && (
-                  <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 25% 20%, #5C3D28, #1A1008)" }} />
-                )}
-                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 50%, rgba(43,31,28,0.25) 100%)" }} />
-                <div style={{ position: "absolute", bottom: "10px", right: "10px", zIndex: 3, background: "#6B1E24", color: "#F5F0E8", fontFamily: "Montserrat, sans-serif", fontSize: "9px", padding: "3px 8px", opacity: 0, transition: "opacity 0.4s" }} className="card-arrow">↗</div>
+
+          {/* MY CLUB — Real project */}
+          <div className="work-card" style={{ cursor: "pointer" }}>
+            <div style={{ aspectRatio: "4/3", background: "#EDE4D4", marginBottom: "12px", position: "relative", overflow: "hidden" }}>
+              <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 35% 30%, #FFF8F0 0%, #EDE4D4 60%, #C4B09A 100%)" }} />
+              <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.4 }} xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <pattern id="lc2" x="0" y="0" width="18" height="18" patternUnits="userSpaceOnUse">
+                    <circle cx="9" cy="9" r="5.5" fill="none" stroke="rgba(180,160,130,0.5)" strokeWidth="0.5" />
+                    <circle cx="9" cy="9" r="1" fill="rgba(180,160,130,0.4)" />
+                    <line x1="0" y1="9" x2="3.5" y2="9" stroke="rgba(180,160,130,0.3)" strokeWidth="0.4" />
+                    <line x1="14.5" y1="9" x2="18" y2="9" stroke="rgba(180,160,130,0.3)" strokeWidth="0.4" />
+                    <line x1="9" y1="0" x2="9" y2="3.5" stroke="rgba(180,160,130,0.3)" strokeWidth="0.4" />
+                    <line x1="9" y1="14.5" x2="9" y2="18" stroke="rgba(180,160,130,0.3)" strokeWidth="0.4" />
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#lc2)" />
+              </svg>
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 50%, rgba(43,31,28,0.2) 100%)" }} />
+              <div style={{ position: "absolute", bottom: "12px", left: "14px", zIndex: 3 }}>
+                <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "8px", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(107,30,36,0.6)", marginBottom: "2px" }}>Bridal Lace Atelier</div>
+                <div style={{ fontSize: "14px", color: "rgba(43,31,28,0.75)", fontStyle: "italic" }}>My Club</div>
               </div>
-              <div style={{ fontSize: "13px", color: "#2B1F1C", marginBottom: "4px" }}>{p.title}</div>
-              <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#9A8878" }}>{p.tag}</div>
+              <div style={{ position: "absolute", bottom: "10px", right: "10px", zIndex: 3, background: "#6B1E24", color: "#F5F0E8", fontFamily: "Montserrat, sans-serif", fontSize: "9px", padding: "3px 8px", opacity: 0, transition: "opacity 0.4s" }} className="card-arrow">↗</div>
             </div>
-          ))}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "4px" }}>
+              <div style={{ fontSize: "13px", color: "#2B1F1C" }}>My Club</div>
+            </div>
+            <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#9A8878" }}>Brand & Website — Bridal Lace Atelier</div>
+          </div>
+
+          {/* LAVIN BEAUTY — Concept */}
+          <div style={{ cursor: "default", opacity: 0.85 }}>
+            <div style={{ aspectRatio: "4/3", background: "#E8E0D4", marginBottom: "12px", position: "relative", overflow: "hidden" }}>
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, #EDE6DA 0%, #D4C8B8 100%)" }} />
+              {/* Minimal placeholder cross */}
+              <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="16" y1="4" x2="16" y2="28" stroke="rgba(43,31,28,0.15)" strokeWidth="0.8"/>
+                  <line x1="4" y1="16" x2="28" y2="16" stroke="rgba(43,31,28,0.15)" strokeWidth="0.8"/>
+                </svg>
+              </div>
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 60%, rgba(43,31,28,0.12) 100%)" }} />
+              {/* Concept label */}
+              <div style={{ position: "absolute", top: "12px", left: "12px", zIndex: 3, background: "rgba(245,240,232,0.85)", padding: "3px 8px" }}>
+                <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: "7px", letterSpacing: "0.18em", textTransform: "uppercase", color: "#9A8878" }}>Concept Project</span>
+              </div>
+            </div>
+            <div style={{ fontSize: "13px", color: "#2B1F1C", marginBottom: "4px" }}>Lavin Beauty</div>
+            <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#B09880" }}>Concept — Luxury Skincare</div>
+          </div>
+
+          {/* CAFÉ NOIR — Concept */}
+          <div style={{ cursor: "default", opacity: 0.85 }}>
+            <div style={{ aspectRatio: "4/3", background: "#2A1C14", marginBottom: "12px", position: "relative", overflow: "hidden" }}>
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, #3D2518 0%, #1A1008 100%)" }} />
+              <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="16" y1="4" x2="16" y2="28" stroke="rgba(196,168,130,0.2)" strokeWidth="0.8"/>
+                  <line x1="4" y1="16" x2="28" y2="16" stroke="rgba(196,168,130,0.2)" strokeWidth="0.8"/>
+                </svg>
+              </div>
+              <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, transparent 50%, rgba(10,5,2,0.4) 100%)" }} />
+              {/* Concept label */}
+              <div style={{ position: "absolute", top: "12px", left: "12px", zIndex: 3, background: "rgba(26,16,8,0.8)", padding: "3px 8px" }}>
+                <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: "7px", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(196,168,130,0.7)" }}>Concept Project</span>
+              </div>
+            </div>
+            <div style={{ fontSize: "13px", color: "#2B1F1C", marginBottom: "4px" }}>Café Noir</div>
+            <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#B09880" }}>Concept — Cinematic Café</div>
+          </div>
+
         </div>
       </section>
 
