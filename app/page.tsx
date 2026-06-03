@@ -1,10 +1,32 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [formData, setFormData] = useState({ name: "", brand: "", message: "" });
   const [sent, setSent] = useState(false);
+
+  // Intro states
+  const [introPhase, setIntroPhase] = useState<"logo" | "text" | "dissolve" | "done">("logo");
+  const [logoOpacity, setLogoOpacity] = useState(0);
+  const [logoBlur, setLogoBlur] = useState(8);
+  const [textOpacity, setTextOpacity] = useState(0);
+  const [microOpacity, setMicroOpacity] = useState(0);
+  const [screenOpacity, setScreenOpacity] = useState(1);
+
+  useEffect(() => {
+    // Phase 1: Logo fades in slowly
+    const t1 = setTimeout(() => { setLogoOpacity(1); setLogoBlur(0); }, 300);
+    // Phase 2: Text appears beneath logo
+    const t2 = setTimeout(() => { setTextOpacity(1); }, 1800);
+    // Phase 3: Micro text
+    const t3 = setTimeout(() => { setMicroOpacity(1); }, 2800);
+    // Phase 4: Begin dissolve
+    const t4 = setTimeout(() => { setScreenOpacity(0); }, 3800);
+    // Phase 5: Done — remove intro
+    const t5 = setTimeout(() => { setIntroPhase("done"); }, 5000);
+    return () => [t1, t2, t3, t4, t5].forEach(clearTimeout);
+  }, []);
 
   const handleSubmit = () => {
     if (!formData.name || !formData.message) return;
@@ -16,6 +38,90 @@ export default function Home() {
 
   return (
     <main style={{ background: "#F5F0E8", color: "#2B1F1C", fontFamily: "'Bodoni Moda', Georgia, serif", overflowX: "hidden" }}>
+
+      {/* ── INTRO SCREEN ── */}
+      {introPhase !== "done" && (
+        <div style={{
+          position: "fixed", inset: 0, zIndex: 1000,
+          background: "#F5F0E8",
+          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+          opacity: screenOpacity,
+          transition: "opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1)",
+          pointerEvents: screenOpacity === 0 ? "none" : "all",
+        }}>
+
+          {/* Film grain */}
+          <div style={{ position: "absolute", inset: 0, opacity: 0.045, backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`, backgroundSize: "200px", pointerEvents: "none" }} />
+
+          {/* Vignette */}
+          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, transparent 40%, rgba(43,31,28,0.18) 100%)", pointerEvents: "none" }} />
+
+          {/* Ambient warm glow */}
+          <div style={{ position: "absolute", top: "30%", left: "50%", transform: "translate(-50%, -50%)", width: "500px", height: "300px", background: "radial-gradient(ellipse, rgba(196,168,130,0.12) 0%, transparent 70%)", filter: "blur(60px)", pointerEvents: "none" }} />
+
+          {/* ZS Logo */}
+          <div style={{
+            opacity: logoOpacity,
+            filter: `blur(${logoBlur}px)`,
+            transition: "opacity 1.6s cubic-bezier(0.4, 0, 0.2, 1), filter 1.6s cubic-bezier(0.4, 0, 0.2, 1)",
+            marginBottom: "40px",
+          }}>
+            <svg viewBox="0 0 400 400" style={{ width: "clamp(120px, 16vw, 200px)" }} xmlns="http://www.w3.org/2000/svg">
+              <circle cx="200" cy="200" r="165" fill="none" stroke="#C4A882" strokeWidth="0.8" strokeOpacity="0.5" />
+              <circle cx="200" cy="200" r="155" fill="none" stroke="#C4A882" strokeWidth="0.4" strokeOpacity="0.22" />
+              <polygon points="200,30 203,40 213,40 205,46 208,57 200,51 192,57 195,46 187,40 197,40" fill="#C4A882" opacity="0.85" />
+              <circle cx="55" cy="158" r="2.5" fill="#C4A882" opacity="0.35" />
+              <circle cx="345" cy="158" r="2.5" fill="#C4A882" opacity="0.35" />
+              <circle cx="75" cy="242" r="1.8" fill="#C4A882" opacity="0.25" />
+              <circle cx="325" cy="242" r="1.8" fill="#C4A882" opacity="0.25" />
+              <text x="200" y="228" textAnchor="middle" fontFamily="'Bodoni Moda', Georgia, serif" fontSize="110" fill="#2B1F1C" letterSpacing="-2" opacity="0.88">ZS</text>
+              <line x1="144" y1="255" x2="196" y2="255" stroke="#C4A882" strokeWidth="0.8" opacity="0.6" />
+              <circle cx="200" cy="255" r="2.5" fill="#C4A882" opacity="0.75" />
+              <line x1="204" y1="255" x2="256" y2="255" stroke="#C4A882" strokeWidth="0.8" opacity="0.6" />
+              <text x="200" y="290" textAnchor="middle" fontFamily="'Montserrat', sans-serif" fontSize="16" fill="#9A8878" letterSpacing="12" fontWeight="300">STUDIO</text>
+            </svg>
+          </div>
+
+          {/* Studio name */}
+          <div style={{
+            opacity: textOpacity,
+            transform: textOpacity === 1 ? "translateY(0)" : "translateY(10px)",
+            transition: "opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1), transform 1.4s cubic-bezier(0.4, 0, 0.2, 1)",
+            textAlign: "center",
+            marginBottom: "16px",
+          }}>
+            <div style={{ fontFamily: "'Bodoni Moda', Georgia, serif", fontSize: "clamp(18px, 2.5vw, 26px)", letterSpacing: "0.18em", color: "#2B1F1C", fontWeight: 400, marginBottom: "6px" }}>
+              ZESIRA STUDIO
+            </div>
+            <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.28em", textTransform: "uppercase", color: "#9A8878" }}>
+              digital atelier for modern brands
+            </div>
+          </div>
+
+          {/* Micro text */}
+          <div style={{
+            opacity: microOpacity,
+            transition: "opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
+            textAlign: "center",
+            marginBottom: "22px",
+          }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "12px", justifyContent: "center" }}>
+              <div style={{ width: "24px", height: "0.5px", background: "#C4A882", opacity: 0.6 }} />
+              <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.22em", color: "#B09880", textTransform: "uppercase" }}>Not a website. A presence.</span>
+              <div style={{ width: "24px", height: "0.5px", background: "#C4A882", opacity: 0.6 }} />
+            </div>
+          </div>
+
+          {/* Bordo yıldız */}
+          <div style={{
+            opacity: microOpacity,
+            transition: "opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1) 0.4s",
+            fontSize: "18px",
+            color: "#6B1E24",
+            lineHeight: 1,
+          }}>✦</div>
+        </div>
+      )}
 
       {/* Grain texture */}
       <div style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 200, opacity: 0.04,
