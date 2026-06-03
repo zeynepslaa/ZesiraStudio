@@ -9,12 +9,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        canvas: "#F7F2EC",
-        linen: "#EDE4D8",
-        noir: "#241E18",
+        canvas: "#F6F2EC",
+        linen: "#E9DED2",
+        noir: "#2B1F1C",
         ash: "#9A8878",
         sand: "#C4A882",
         dusk: "#A89888",
+        bordo: "#6B1E24",
+        "bordo-dark": "#4A1219",
+        "bordo-light": "#8B2E35",
       },
       fontFamily: {
         serif: ["Bodoni Moda", "Georgia", "serif"],
