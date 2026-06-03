@@ -15,327 +15,323 @@ export default function Home() {
   };
 
   return (
-    <main className="overflow-x-hidden" style={{ background: "#6B1E24", color: "#F6F2EC" }}>
+    <main style={{ background: "#F5F0E8", color: "#2B1F1C", fontFamily: "'Bodoni Moda', Georgia, serif", overflowX: "hidden" }}>
 
-      {/* ── NAVBAR ── */}
-      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm" style={{ background: "rgba(74,18,25,0.95)", borderBottom: "0.5px solid rgba(246,242,236,0.12)" }}>
-        <div className="max-w-7xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
-          <a href="#" className="flex flex-col leading-none">
-            <span className="font-serif text-sm tracking-[0.2em] uppercase font-bold" style={{ color: "#F6F2EC" }}>Zesira</span>
-            <span className="font-serif text-sm tracking-[0.2em] uppercase font-bold" style={{ color: "#F6F2EC" }}>Studio</span>
+      {/* Grain texture */}
+      <div style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 200, opacity: 0.04,
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+        backgroundSize: "200px" }} />
+
+      {/* NAV */}
+      <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50, background: "rgba(245,240,232,0.93)", backdropFilter: "blur(12px)", borderBottom: "0.5px solid rgba(43,31,28,0.1)" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 40px", height: "64px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <a href="#" style={{ textDecoration: "none" }}>
+            <div style={{ fontSize: "8.5px", letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: "bold", color: "#2B1F1C", lineHeight: 1.4 }}>Zesira</div>
+            <div style={{ fontSize: "8.5px", letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: "bold", color: "#2B1F1C", lineHeight: 1.4 }}>Studio</div>
           </a>
 
-          <nav className="hidden md:flex items-center gap-8">
+          <nav style={{ display: "flex", gap: "32px" }} className="hidden-mobile">
             {["Work", "Services", "About", "Journal", "Contact"].map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`}
-                className="font-sans text-[11px] tracking-[0.18em] uppercase transition-colors duration-200"
-                style={{ color: "rgba(246,242,236,0.55)" }}
-                onMouseEnter={e => (e.currentTarget.style.color = "#F6F2EC")}
-                onMouseLeave={e => (e.currentTarget.style.color = "rgba(246,242,236,0.55)")}>
-                {item}
-              </a>
+              <a key={item} href={`#${item.toLowerCase()}`} style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.18em", textTransform: "uppercase", color: "#9A8878", textDecoration: "none" }}>{item}</a>
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center gap-4">
-            <div className="flex items-center gap-2">
-              <button className="font-sans text-[10px] tracking-[0.14em] uppercase" style={{ color: "#F6F2EC" }}>EN</button>
-              <span className="text-xs" style={{ color: "rgba(246,242,236,0.3)" }}>/</span>
-              <button className="font-sans text-[10px] tracking-[0.14em] uppercase transition-colors" style={{ color: "rgba(246,242,236,0.55)" }}>TR</button>
+          <div style={{ display: "flex", alignItems: "center", gap: "16px" }} className="hidden-mobile">
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <button style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.12em", color: "#2B1F1C", background: "none", border: "none", cursor: "pointer" }}>EN</button>
+              <span style={{ color: "rgba(43,31,28,0.25)", fontSize: "11px" }}>/</span>
+              <button style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.12em", color: "#9A8878", background: "none", border: "none", cursor: "pointer" }}>TR</button>
             </div>
-            <a href="#contact" className="font-sans text-[10px] tracking-[0.16em] uppercase px-5 py-2.5 transition-colors duration-200 font-semibold"
-              style={{ background: "#F6F2EC", color: "#6B1E24" }}
-              onMouseEnter={e => (e.currentTarget.style.background = "#E9DED2")}
-              onMouseLeave={e => (e.currentTarget.style.background = "#F6F2EC")}>
+            <a href="#contact" style={{ background: "#6B1E24", color: "#F5F0E8", fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.16em", textTransform: "uppercase", padding: "8px 18px", fontWeight: 600, textDecoration: "none" }}>
               Let's Work Together
             </a>
           </div>
 
-          <button className="md:hidden flex flex-col gap-1.5 p-2" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
-            <span className="block w-6 transition-all duration-300" style={{ height: "1px", background: "#F6F2EC", transform: menuOpen ? "rotate(45deg) translateY(7px)" : "none" }} />
-            <span className="block w-6 transition-all duration-300" style={{ height: "1px", background: "#F6F2EC", opacity: menuOpen ? 0 : 1 }} />
-            <span className="block w-6 transition-all duration-300" style={{ height: "1px", background: "#F6F2EC", transform: menuOpen ? "rotate(-45deg) translateY(-7px)" : "none" }} />
+          {/* Mobile hamburger */}
+          <button onClick={() => setMenuOpen(!menuOpen)} style={{ display: "none", flexDirection: "column", gap: "5px", background: "none", border: "none", cursor: "pointer", padding: "4px" }} className="show-mobile">
+            {[0, 1, 2].map((i) => (
+              <span key={i} style={{ display: "block", width: "22px", height: "1px", background: "#2B1F1C", transition: "all 0.3s",
+                transform: menuOpen ? (i === 0 ? "rotate(45deg) translateY(6px)" : i === 2 ? "rotate(-45deg) translateY(-6px)" : "none") : "none",
+                opacity: menuOpen && i === 1 ? 0 : 1 }} />
+            ))}
           </button>
         </div>
 
         {menuOpen && (
-          <div className="md:hidden px-6 py-6 flex flex-col gap-5" style={{ background: "#4A1219", borderTop: "0.5px solid rgba(246,242,236,0.12)" }}>
+          <div style={{ background: "#F5F0E8", borderTop: "0.5px solid rgba(43,31,28,0.1)", padding: "24px 40px", display: "flex", flexDirection: "column", gap: "20px" }}>
             {["Work", "Services", "About", "Journal", "Contact"].map((item) => (
               <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)}
-                className="font-sans text-[12px] tracking-[0.2em] uppercase transition-colors"
-                style={{ color: "rgba(246,242,236,0.6)" }}>
-                {item}
-              </a>
+                style={{ fontFamily: "Montserrat, sans-serif", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "#9A8878", textDecoration: "none" }}>{item}</a>
             ))}
             <a href="#contact" onClick={() => setMenuOpen(false)}
-              className="font-sans text-[10px] tracking-[0.16em] uppercase px-5 py-3 text-center font-semibold mt-2"
-              style={{ background: "#F6F2EC", color: "#6B1E24" }}>
+              style={{ background: "#6B1E24", color: "#F5F0E8", fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.16em", textTransform: "uppercase", padding: "12px 18px", textAlign: "center", textDecoration: "none", fontWeight: 600, marginTop: "8px" }}>
               Let's Work Together
             </a>
           </div>
         )}
       </header>
 
-      {/* ── HERO ── */}
-      <section className="pt-16 min-h-screen grid md:grid-cols-2">
-        <div className="flex flex-col justify-center px-8 md:px-14 lg:px-20 py-20 md:py-0">
-          <p className="font-sans text-[10px] tracking-[0.28em] uppercase mb-8" style={{ color: "#C4A882" }}>Digital Atelier</p>
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-[3.5rem] leading-[1.15] mb-8" style={{ color: "#F6F2EC" }}>
-            Beautiful<br />websites for<br />modern brands.
+      {/* HERO */}
+      <section style={{ paddingTop: "64px", display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "100vh" }}>
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", padding: "60px 40px 60px 60px" }}>
+          <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.3em", textTransform: "uppercase", color: "#6B1E24", marginBottom: "20px" }}>Digital Atelier</p>
+          <h1 style={{ fontSize: "clamp(32px, 4vw, 52px)", lineHeight: 1.18, color: "#2B1F1C", marginBottom: "20px", fontStyle: "italic", fontWeight: 400 }}>
+            Quiet brands<br />leave the<br /><span style={{ fontStyle: "normal", color: "#6B1E24" }}>loudest marks.</span>
           </h1>
-          <p className="font-sans text-[12px] leading-relaxed mb-10 max-w-xs" style={{ color: "rgba(246,242,236,0.6)" }}>
-            We create aesthetic, fast and conversion-focused websites for businesses that deserve to look expensive.
+          <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "11px", color: "#9A8878", lineHeight: 2, marginBottom: "28px", maxWidth: "280px" }}>
+            We design digital atmospheres for brands that understand the power of restraint.
           </p>
-          <a href="#work"
-            className="font-sans text-[10px] tracking-[0.18em] uppercase px-6 py-3 transition-colors duration-200 flex items-center gap-2 w-fit font-semibold"
-            style={{ background: "#F6F2EC", color: "#6B1E24" }}
-            onMouseEnter={e => (e.currentTarget.style.background = "#E9DED2")}
-            onMouseLeave={e => (e.currentTarget.style.background = "#F6F2EC")}>
-            View Our Work <span className="text-sm">↗</span>
+          <a href="#work" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#6B1E24", color: "#F5F0E8", fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.16em", textTransform: "uppercase", padding: "12px 22px", fontWeight: 600, textDecoration: "none", width: "fit-content" }}>
+            Enter the studio ↗
           </a>
         </div>
 
-        <div className="relative min-h-[420px] md:min-h-0 flex items-center justify-center overflow-hidden" style={{ background: "#5a1820" }}>
-          <svg viewBox="0 0 400 400" className="w-[280px] md:w-[340px] lg:w-[380px] select-none" xmlns="http://www.w3.org/2000/svg">
+        <div style={{ position: "relative", overflow: "hidden", background: "#EDE4D8", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 60% 40%, #E8D8C0 0%, #D4C4A8 50%, #BFB09A 100%)" }} />
+          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, transparent 40%, rgba(43,31,28,0.1) 100%)" }} />
+          {/* Lace pattern */}
+          <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.07 }} xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="lace" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+                <circle cx="15" cy="15" r="8" fill="none" stroke="#2B1F1C" strokeWidth="0.5" />
+                <circle cx="15" cy="15" r="1.5" fill="#2B1F1C" opacity="0.5" />
+                <line x1="0" y1="15" x2="7" y2="15" stroke="#2B1F1C" strokeWidth="0.3" />
+                <line x1="23" y1="15" x2="30" y2="15" stroke="#2B1F1C" strokeWidth="0.3" />
+                <line x1="15" y1="0" x2="15" y2="7" stroke="#2B1F1C" strokeWidth="0.3" />
+                <line x1="15" y1="23" x2="15" y2="30" stroke="#2B1F1C" strokeWidth="0.3" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#lace)" />
+          </svg>
+          {/* Logo */}
+          <svg viewBox="0 0 400 400" style={{ width: "clamp(200px, 28vw, 340px)", position: "relative", zIndex: 2 }} xmlns="http://www.w3.org/2000/svg">
             <circle cx="200" cy="200" r="165" fill="none" stroke="#C4A882" strokeWidth="0.8" strokeOpacity="0.5" />
-            <circle cx="200" cy="200" r="155" fill="none" stroke="#C4A882" strokeWidth="0.4" strokeOpacity="0.25" />
-            <polygon points="200,30 203,40 213,40 205,46 208,57 200,51 192,57 195,46 187,40 197,40" fill="#C4A882" opacity="0.9" />
-            <circle cx="60" cy="155" r="2" fill="#C4A882" opacity="0.4" />
-            <circle cx="340" cy="155" r="2" fill="#C4A882" opacity="0.4" />
-            <circle cx="80" cy="240" r="1.5" fill="#C4A882" opacity="0.3" />
-            <circle cx="320" cy="240" r="1.5" fill="#C4A882" opacity="0.3" />
-            <circle cx="130" cy="80" r="1.5" fill="#C4A882" opacity="0.3" />
-            <circle cx="270" cy="80" r="1.5" fill="#C4A882" opacity="0.3" />
-            <text x="200" y="228" textAnchor="middle" fontFamily="'Bodoni Moda', Georgia, serif"
-              fontSize="110" fill="#F6F2EC" letterSpacing="-2">ZS</text>
-            <line x1="140" y1="255" x2="196" y2="255" stroke="#C4A882" strokeWidth="0.8" opacity="0.7" />
-            <circle cx="200" cy="255" r="2.5" fill="#C4A882" opacity="0.8" />
-            <line x1="204" y1="255" x2="260" y2="255" stroke="#C4A882" strokeWidth="0.8" opacity="0.7" />
-            <text x="200" y="290" textAnchor="middle" fontFamily="'Montserrat', sans-serif"
-              fontSize="16" fill="#C4A882" letterSpacing="12" fontWeight="300">STUDIO</text>
+            <circle cx="200" cy="200" r="155" fill="none" stroke="#C4A882" strokeWidth="0.4" strokeOpacity="0.22" />
+            <polygon points="200,30 203,40 213,40 205,46 208,57 200,51 192,57 195,46 187,40 197,40" fill="#C4A882" opacity="0.85" />
+            <circle cx="55" cy="158" r="2.5" fill="#C4A882" opacity="0.35" />
+            <circle cx="345" cy="158" r="2.5" fill="#C4A882" opacity="0.35" />
+            <circle cx="75" cy="242" r="1.8" fill="#C4A882" opacity="0.25" />
+            <circle cx="325" cy="242" r="1.8" fill="#C4A882" opacity="0.25" />
+            <text x="200" y="228" textAnchor="middle" fontFamily="'Bodoni Moda', Georgia, serif" fontSize="110" fill="#2B1F1C" letterSpacing="-2" opacity="0.88">ZS</text>
+            <line x1="144" y1="255" x2="196" y2="255" stroke="#C4A882" strokeWidth="0.8" opacity="0.6" />
+            <circle cx="200" cy="255" r="2.5" fill="#C4A882" opacity="0.75" />
+            <line x1="204" y1="255" x2="256" y2="255" stroke="#C4A882" strokeWidth="0.8" opacity="0.6" />
+            <text x="200" y="290" textAnchor="middle" fontFamily="'Montserrat', sans-serif" fontSize="16" fill="#9A8878" letterSpacing="12" fontWeight="300">STUDIO</text>
           </svg>
         </div>
       </section>
 
-      {/* ── PROCESS STRIP ── */}
-      <section style={{ background: "#4A1219", borderTop: "0.5px solid rgba(246,242,236,0.1)", borderBottom: "0.5px solid rgba(246,242,236,0.1)" }} className="py-12 px-8 md:px-14 lg:px-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { num: "01", title: "Strategy", desc: "We understand your brand, audience and goals." },
-              { num: "02", title: "Design", desc: "We craft a custom website that fits your brand perfectly." },
-              { num: "03", title: "Build", desc: "AI-powered systems help us deliver beautifully, fast." },
-              { num: "04", title: "Launch", desc: "Your new website goes live and starts working for you." },
-            ].map((step) => (
-              <div key={step.num} className="flex flex-col gap-3">
-                <span className="font-sans text-[11px] tracking-[0.2em]" style={{ color: "#C4A882" }}>{step.num}</span>
-                <h3 className="font-serif text-lg" style={{ color: "#F6F2EC" }}>{step.title}</h3>
-                <p className="font-sans text-[11px] leading-relaxed" style={{ color: "rgba(246,242,236,0.45)" }}>{step.desc}</p>
-              </div>
-            ))}
+      {/* PROCESS — koyu bordo #4A1219 */}
+      <section style={{ background: "#4A1219", padding: "48px 60px", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "32px" }}>
+        {[
+          { num: "01", title: "Strategy", desc: "We understand your brand, audience and goals." },
+          { num: "02", title: "Design", desc: "We craft a custom experience that fits your brand perfectly." },
+          { num: "03", title: "Build", desc: "AI-powered systems help us deliver beautifully, fast." },
+          { num: "04", title: "Launch", desc: "Your new website goes live and starts working for you." },
+        ].map((s) => (
+          <div key={s.num}>
+            <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", color: "#C4A882", marginBottom: "8px", letterSpacing: "0.14em" }}>{s.num}</div>
+            <div style={{ fontSize: "14px", color: "#F5F0E8", marginBottom: "6px" }}>{s.title}</div>
+            <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", color: "rgba(245,240,232,0.38)", lineHeight: 1.8 }}>{s.desc}</div>
           </div>
+        ))}
+      </section>
+
+      {/* ABOUT */}
+      <section style={{ padding: "80px 60px", display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: "60px", alignItems: "center", borderBottom: "0.5px solid rgba(43,31,28,0.08)" }}>
+        <div>
+          <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.24em", textTransform: "uppercase", color: "#6B1E24", marginBottom: "16px" }}>AI-Powered Creative Studio</p>
+          <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "11px", color: "#9A8878", lineHeight: 2 }}>
+            We combine AI-powered workflows with design, strategy and storytelling — giving your brand a digital presence that instantly stands out.
+          </p>
+        </div>
+        <div style={{ paddingLeft: "40px", borderLeft: "0.5px solid rgba(43,31,28,0.08)" }}>
+          <p style={{ fontSize: "22px", fontStyle: "italic", color: "#2B1F1C", lineHeight: 1.5, marginBottom: "12px" }}>Most websites are made to be seen.</p>
+          <p style={{ fontSize: "22px", fontStyle: "italic", color: "#B09880", lineHeight: 1.5, marginBottom: "20px" }}>We create them to be felt.</p>
+          <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "11px", color: "#9A8878", lineHeight: 2 }}>
+            A digital atelier for modern brands — where everything is intentional. A softness, a movement, a silence. Because aesthetics are never accidental. They are decisions.
+          </p>
         </div>
       </section>
 
-      {/* ── ABOUT ── */}
-      <section className="py-24 px-8 md:px-14 lg:px-20">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-[1fr_1.6fr] gap-12 items-center">
+      {/* WORK */}
+      <section id="work" style={{ padding: "80px 60px", borderBottom: "0.5px solid rgba(43,31,28,0.08)" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "40px" }}>
           <div>
-            <p className="font-sans text-[10px] tracking-[0.26em] uppercase mb-6" style={{ color: "#C4A882" }}>AI-Powered Creative Studio</p>
-            <p className="font-sans text-[12px] leading-relaxed" style={{ color: "rgba(246,242,236,0.55)" }}>
-              We combine AI-powered workflows with design, strategy and storytelling to give your brand a digital presence that instantly stands out.
-            </p>
+            <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.26em", textTransform: "uppercase", color: "#6B1E24", marginBottom: "8px" }}>Selected Work</p>
+            <h2 style={{ fontSize: "28px", color: "#2B1F1C", fontWeight: 400 }}>Every project is a world of its own.</h2>
           </div>
-          <div className="hidden md:block pl-12" style={{ borderLeft: "0.5px solid rgba(246,242,236,0.15)" }}>
-            <p className="font-serif italic text-2xl md:text-3xl leading-[1.5] mb-6" style={{ color: "#F6F2EC" }}>
-              Most websites are made to be seen.
-            </p>
-            <p className="font-serif italic text-2xl md:text-3xl leading-[1.5] mb-6" style={{ color: "rgba(246,242,236,0.5)" }}>
-              We create them to be felt.
-            </p>
-            <p className="font-sans text-[11px] leading-relaxed max-w-md" style={{ color: "rgba(246,242,236,0.45)" }}>
-              Zesira is not an agency. Not a tool. A digital atelier for modern brands — where everything is intentional. A softness, a movement, a silence. Because aesthetics are never accidental. They are decisions.
-            </p>
-          </div>
-          <div className="md:hidden">
-            <p className="font-serif italic text-2xl leading-[1.5] mb-4" style={{ color: "#F6F2EC" }}>Most websites are made to be seen.</p>
-            <p className="font-serif italic text-xl leading-[1.5] mb-6" style={{ color: "rgba(246,242,236,0.5)" }}>We create them to be felt.</p>
-            <p className="font-sans text-[11px] leading-relaxed" style={{ color: "rgba(246,242,236,0.45)" }}>A digital atelier for modern brands — where everything is intentional.</p>
-          </div>
+          <a href="#contact" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.16em", textTransform: "uppercase", color: "#9A8878", borderBottom: "0.5px solid rgba(107,30,36,0.3)", paddingBottom: "2px", textDecoration: "none" }}>View All Projects →</a>
         </div>
-      </section>
-
-      {/* ── FEATURED WORK ── */}
-      <section id="work" className="py-20 px-8 md:px-14 lg:px-20" style={{ borderTop: "0.5px solid rgba(246,242,236,0.12)" }}>
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-end justify-between mb-12">
-            <div>
-              <p className="font-sans text-[10px] tracking-[0.26em] uppercase mb-3" style={{ color: "#C4A882" }}>Featured Work</p>
-              <h2 className="font-serif text-3xl md:text-4xl" style={{ color: "#F6F2EC" }}>Every project is a world of its own.</h2>
-            </div>
-            <a href="#contact" className="hidden md:flex items-center gap-2 font-sans text-[10px] tracking-[0.18em] uppercase transition-colors pb-1"
-              style={{ color: "rgba(246,242,236,0.45)", borderBottom: "0.5px solid rgba(246,242,236,0.25)" }}>
-              View All Projects <span>→</span>
-            </a>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { title: "Bridal House", tag: "Redesign", bg: "#8B2E35" },
-              { title: "Lavin Beauty", tag: "Website Design", bg: "#7a2530" },
-              { title: "Café Noir", tag: "Brand & Website", bg: "#3d0e14" },
-            ].map((project) => (
-              <div key={project.title} className="group cursor-pointer">
-                <div className="aspect-[4/3] overflow-hidden mb-4 relative" style={{ background: project.bg }}>
-                  <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105" style={{ background: project.bg }} />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="font-serif text-3xl" style={{ opacity: 0.15, color: "#F6F2EC" }}>{project.title.charAt(0)}</span>
-                  </div>
-                  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="font-sans text-[9px] tracking-widest uppercase px-3 py-1.5" style={{ background: "#F6F2EC", color: "#6B1E24" }}>↗</span>
-                  </div>
-                </div>
-                <div className="flex items-end justify-between">
-                  <div>
-                    <p className="font-serif text-lg" style={{ color: "#F6F2EC" }}>{project.title}</p>
-                    <p className="font-sans text-[10px] tracking-[0.14em] uppercase mt-1" style={{ color: "rgba(246,242,236,0.45)" }}>{project.tag}</p>
-                  </div>
-                  <span className="text-sm transition-colors duration-300" style={{ color: "rgba(246,242,236,0.4)" }}>↗</span>
-                </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
+          {[
+            { title: "My Club", tag: "Brand & Website — Bridal Lace Atelier", sub: "Couture Lace", bg: "#EDE4D4", lace: true },
+            { title: "Lavin Beauty", tag: "Website Design — Luxury Skincare", bg: "#DDD0C0", lace: false },
+            { title: "Café Noir", tag: "Brand & Website — Cinematic Café", bg: "#1A1008", lace: false, dark: true },
+          ].map((p) => (
+            <div key={p.title} className="work-card" style={{ cursor: "pointer" }}>
+              <div style={{ aspectRatio: "4/3", background: p.bg, marginBottom: "12px", position: "relative", overflow: "hidden" }}>
+                {p.lace && (
+                  <>
+                    <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 35% 30%, #FFF8F0 0%, #EDE4D4 60%, #C4B09A 100%)" }} />
+                    <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.4 }} xmlns="http://www.w3.org/2000/svg">
+                      <defs>
+                        <pattern id="lc2" x="0" y="0" width="18" height="18" patternUnits="userSpaceOnUse">
+                          <circle cx="9" cy="9" r="5.5" fill="none" stroke="rgba(180,160,130,0.5)" strokeWidth="0.5" />
+                          <circle cx="9" cy="9" r="1" fill="rgba(180,160,130,0.4)" />
+                          <line x1="0" y1="9" x2="3.5" y2="9" stroke="rgba(180,160,130,0.3)" strokeWidth="0.4" />
+                          <line x1="14.5" y1="9" x2="18" y2="9" stroke="rgba(180,160,130,0.3)" strokeWidth="0.4" />
+                          <line x1="9" y1="0" x2="9" y2="3.5" stroke="rgba(180,160,130,0.3)" strokeWidth="0.4" />
+                          <line x1="9" y1="14.5" x2="9" y2="18" stroke="rgba(180,160,130,0.3)" strokeWidth="0.4" />
+                        </pattern>
+                      </defs>
+                      <rect width="100%" height="100%" fill="url(#lc2)" />
+                    </svg>
+                    <div style={{ position: "absolute", bottom: "12px", left: "14px", zIndex: 3 }}>
+                      <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "8px", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(107,30,36,0.6)", marginBottom: "2px" }}>Couture Lace</div>
+                      <div style={{ fontSize: "14px", color: "rgba(43,31,28,0.75)", fontStyle: "italic" }}>My Club</div>
+                    </div>
+                  </>
+                )}
+                {!p.lace && !p.dark && (
+                  <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% 25%, #F5EDE0, #C8B09A)" }} />
+                )}
+                {p.dark && (
+                  <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 25% 20%, #5C3D28, #1A1008)" }} />
+                )}
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 50%, rgba(43,31,28,0.25) 100%)" }} />
+                <div style={{ position: "absolute", bottom: "10px", right: "10px", zIndex: 3, background: "#6B1E24", color: "#F5F0E8", fontFamily: "Montserrat, sans-serif", fontSize: "9px", padding: "3px 8px", opacity: 0, transition: "opacity 0.4s" }} className="card-arrow">↗</div>
               </div>
-            ))}
-          </div>
-
-          <div className="mt-10 md:hidden text-center">
-            <a href="#contact" className="font-sans text-[10px] tracking-[0.18em] uppercase pb-1"
-              style={{ color: "rgba(246,242,236,0.45)", borderBottom: "0.5px solid rgba(246,242,236,0.25)" }}>
-              View All Projects →
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ── SERVICES (cream on bordo) ── */}
-      <section id="services" className="py-20 px-8 md:px-14 lg:px-20" style={{ background: "#F6F2EC", color: "#2B1F1C" }}>
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 mb-16 items-end">
-            <div>
-              <p className="font-sans text-[10px] tracking-[0.26em] uppercase mb-4" style={{ color: "#6B1E24" }}>What We Offer</p>
-              <h2 className="font-serif text-3xl md:text-4xl leading-[1.2]" style={{ color: "#2B1F1C" }}>
-                Design that<br />feels like your<br />brand.
-              </h2>
+              <div style={{ fontSize: "13px", color: "#2B1F1C", marginBottom: "4px" }}>{p.title}</div>
+              <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#9A8878" }}>{p.tag}</div>
             </div>
-            <p className="font-sans text-[12px] leading-relaxed max-w-sm self-end" style={{ color: "#9A8878" }}>
-              We don't offer templates or packages. We offer experiences — crafted around your brand's energy, story, and audience.
-            </p>
-          </div>
-
-          <div className="space-y-0">
-            {[
-              { num: "I", name: "Starter Presence", feeling: "Your first step into the world — quiet, but unforgettable.", for: "New brands, solo founders, first digital presence.", cta: "Begin quietly →" },
-              { num: "II", name: "Editorial Brand Site", feeling: "Your brand, given a cinematic world to live in.", for: "Established brands ready to go deeper.", cta: "Build your world →" },
-              { num: "III", name: "Luxury Launch Experience", feeling: "Not a launch. An arrival.", for: "Brands that deserve more than a website.", cta: "Let's talk →" },
-            ].map((pkg) => (
-              <div key={pkg.num} className="group py-10 grid md:grid-cols-[60px_1fr_auto] gap-6 items-start px-2 transition-colors duration-500"
-                style={{ borderTop: "0.5px solid #E9DED2" }}
-                onMouseEnter={e => (e.currentTarget.style.background = "rgba(107,30,36,0.04)")}
-                onMouseLeave={e => (e.currentTarget.style.background = "transparent")}>
-                <span className="font-serif italic text-xl" style={{ color: "#6B1E24", opacity: 0.6 }}>{pkg.num}</span>
-                <div>
-                  <h3 className="font-serif text-xl md:text-2xl mb-3" style={{ color: "#2B1F1C" }}>{pkg.name}</h3>
-                  <p className="font-serif italic text-sm leading-relaxed mb-3" style={{ color: "#9A8878" }}>{pkg.feeling}</p>
-                  <p className="font-sans text-[10px] tracking-[0.12em] uppercase" style={{ color: "#C4A882" }}>
-                    <span style={{ color: "#6B1E24", marginRight: "6px" }}>✦</span>{pkg.for}
-                  </p>
-                </div>
-                <a href="#contact" className="font-sans text-[10px] tracking-[0.18em] uppercase pb-1 self-start mt-1 whitespace-nowrap transition-all duration-300"
-                  style={{ color: "#9A8878", borderBottom: "0.5px solid transparent" }}
-                  onMouseEnter={e => { e.currentTarget.style.color = "#6B1E24"; e.currentTarget.style.borderBottomColor = "#6B1E24"; }}
-                  onMouseLeave={e => { e.currentTarget.style.color = "#9A8878"; e.currentTarget.style.borderBottomColor = "transparent"; }}>
-                  {pkg.cta}
-                </a>
-              </div>
-            ))}
-            <div style={{ borderTop: "0.5px solid #E9DED2" }} />
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* ── CONTACT ── */}
-      <section id="contact" className="py-24 px-8 md:px-14 lg:px-20">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-start">
-          <div>
-            <p className="font-sans text-[10px] tracking-[0.26em] uppercase mb-6" style={{ color: "#C4A882" }}>Contact</p>
-            <h2 className="font-serif text-4xl md:text-5xl leading-[1.2] mb-8" style={{ color: "#F6F2EC" }}>
-              Tell us about<br />your world.
-            </h2>
-            <p className="font-serif italic text-base leading-relaxed mb-10" style={{ color: "rgba(246,242,236,0.5)" }}>
-              Every project begins with a conversation.<br />We'd love to hear about yours.
-            </p>
-            <div className="space-y-4">
-              {["Website Design", "Brand Identity", "AI Creative Content"].map((s) => (
-                <div key={s} className="flex items-center gap-3">
-                  <span style={{ color: "#C4A882", fontSize: "10px" }}>✦</span>
-                  <span className="font-sans text-[11px] tracking-[0.08em]" style={{ color: "rgba(246,242,236,0.55)" }}>{s}</span>
-                </div>
+      {/* SERVICES */}
+      <section id="services">
+        <div style={{ padding: "64px 60px 48px", borderBottom: "0.5px solid rgba(43,31,28,0.07)" }}>
+          <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.26em", textTransform: "uppercase", color: "#6B1E24", marginBottom: "16px" }}>What We Build</p>
+          <h2 style={{ fontSize: "26px", fontStyle: "italic", color: "#2B1F1C", lineHeight: 1.4, marginBottom: "12px" }}>Some brands are visited.<br />Others are entered.</h2>
+          <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "11px", color: "#9A8878", lineHeight: 2, maxWidth: "480px" }}>
+            We don't build websites. We build worlds — atmospheric, intentional, impossible to forget.
+          </p>
+        </div>
+
+        {[
+          { num: "I", name: "Starter Presence", bg: "#F5F0E8", headline: "Your brand's first breath in a room.", quote: "Before a word is read, something is already felt.", body: "A color temperature. A silence between elements. Not a first website — a first impression, considered and quiet. We translate what you know about yourself into atmosphere.", for: "New brands and solo founders who refuse to begin with something generic.", outcome: "You stop apologizing for your early stage. You arrive.", cta: "Begin quietly →", includes: ["Single-page site", "Typography pairing", "Atmosphere direction", "Motion entrances", "Mobile-first build"] },
+          { num: "II", name: "Editorial Brand Site", bg: "#F0EAE0", headline: "A world your clients step inside.", quote: "Every scroll is a reveal. Every section breathes.", body: "There is a difference between a brand that exists online and one that has a world. Your clients will not browse it. They will move through it — and leave feeling something they cannot name.", for: "Established brands ready for a presence that matches their actual level.", outcome: "You move from commodity to category.", cta: "Build your world →", includes: ["Multi-page site", "Editorial layout", "Scroll storytelling", "Motion design", "Typography system", "Brand voice"] },
+          { num: "III", name: "Luxury Launch Experience", bg: "#4A1219", dark: true, headline: "This is not a launch. This is an arrival.", quote: "Some moments in a brand's life are thresholds.", body: "A rebrand. A new era. An entry into a market that doesn't yet know your name — but will. We treat your launch the way a fashion house treats a collection: with precision, restraint, and certainty.", for: "Brands entering a new era. Founders who understand the way you arrive shapes everything.", outcome: "Your brand occupies a position before it has history.", cta: "Let's talk →", includes: ["Full brand identity", "10-page site", "Motion system", "Photography direction", "Launch strategy", "30-day support"] },
+        ].map((pkg, i) => (
+          <div key={pkg.num} style={{ background: pkg.bg, padding: "56px 60px", borderBottom: i < 2 ? "0.5px solid rgba(43,31,28,0.07)" : "none", position: "relative" }}>
+            {/* Watermark number */}
+            <div style={{ position: "absolute", top: "24px", right: "56px", fontSize: "120px", fontStyle: "italic", color: pkg.dark ? "rgba(245,240,232,0.04)" : "rgba(43,31,28,0.03)", lineHeight: 1, pointerEvents: "none", userSelect: "none" }}>{pkg.num}</div>
+
+            {/* Divider glyph between packages */}
+            {i > 0 && (
+              <div style={{ display: "none" }} />
+            )}
+
+            <div style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: "48px" }}>
+              <div>
+                <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", fontStyle: "italic", color: pkg.dark ? "#C4A882" : "#6B1E24", marginBottom: "12px", display: "block" }}>{pkg.num} — {pkg.name}</span>
+                <h3 style={{ fontSize: "22px", color: pkg.dark ? "#F5F0E8" : "#2B1F1C", marginBottom: "12px", lineHeight: 1.25, fontWeight: 400 }}>{pkg.headline}</h3>
+                <p style={{ fontSize: "12px", fontStyle: "italic", color: pkg.dark ? "rgba(245,240,232,0.42)" : "#7A6A5E", lineHeight: 1.8, marginBottom: "12px" }}>"{pkg.quote}"</p>
+                <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", color: pkg.dark ? "rgba(245,240,232,0.33)" : "#9A8878", lineHeight: 2 }}>{pkg.body}</p>
+              </div>
+              <div>
+                <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.24em", textTransform: "uppercase", color: pkg.dark ? "#C4A882" : "#6B1E24", marginBottom: "10px" }}>Who It's For</div>
+                <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", color: pkg.dark ? "rgba(245,240,232,0.33)" : "#9A8878", lineHeight: 1.9, marginBottom: "20px" }}>{pkg.for}</p>
+                <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.24em", textTransform: "uppercase", color: pkg.dark ? "#C4A882" : "#6B1E24", marginBottom: "10px" }}>What You Leave With</div>
+                <p style={{ fontSize: "12px", fontStyle: "italic", color: pkg.dark ? "rgba(245,240,232,0.68)" : "#5C4A3E", lineHeight: 1.7 }}>{pkg.outcome}</p>
+              </div>
+            </div>
+
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginTop: "28px", paddingTop: "20px", borderTop: `0.5px solid ${pkg.dark ? "rgba(245,240,232,0.07)" : "rgba(43,31,28,0.07)"}` }}>
+              {pkg.includes.map((inc) => (
+                <span key={inc} style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.08em", color: pkg.dark ? "rgba(245,240,232,0.2)" : "rgba(43,31,28,0.28)", border: `0.5px solid ${pkg.dark ? "rgba(245,240,232,0.09)" : "rgba(43,31,28,0.1)"}`, padding: "4px 10px" }}>{inc}</span>
               ))}
             </div>
+            <div style={{ marginTop: "16px", display: "inline-block", fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.2em", textTransform: "uppercase", color: pkg.dark ? "rgba(245,240,232,0.22)" : "rgba(43,31,28,0.28)", borderBottom: `0.5px solid ${pkg.dark ? "rgba(245,240,232,0.1)" : "rgba(43,31,28,0.14)"}`, paddingBottom: "2px", cursor: "pointer" }}>{pkg.cta}</div>
           </div>
+        ))}
+      </section>
 
-          <div>
-            {sent ? (
-              <div className="py-16 text-center">
-                <div className="w-12 h-px mx-auto mb-8" style={{ background: "#C4A882" }} />
-                <p className="font-serif italic text-2xl mb-4" style={{ color: "#F6F2EC" }}>Your message is on its way.</p>
-                <p className="font-sans text-[11px] tracking-[0.1em]" style={{ color: "rgba(246,242,236,0.5)" }}>We'll be in touch soon.</p>
+      {/* CONTACT */}
+      <section id="contact" style={{ padding: "80px 60px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "60px", background: "linear-gradient(135deg, #F5F0E8, #F0EAE0)", borderTop: "0.5px solid rgba(43,31,28,0.08)" }}>
+        <div>
+          <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.26em", textTransform: "uppercase", color: "#6B1E24", marginBottom: "16px" }}>Contact</p>
+          <h2 style={{ fontSize: "32px", color: "#2B1F1C", lineHeight: 1.3, marginBottom: "16px", fontStyle: "italic", fontWeight: 400 }}>Tell us about<br />your world.</h2>
+          <p style={{ fontSize: "13px", fontStyle: "italic", color: "#9A8878", lineHeight: 1.9, marginBottom: "28px" }}>Every project begins with a conversation.<br />We'd love to hear about yours.</p>
+          <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+            {["Website Design", "Brand Identity", "AI Creative Content"].map((s) => (
+              <div key={s} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <span style={{ color: "#6B1E24", fontSize: "11px" }}>✦</span>
+                <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", color: "#9A8878" }}>{s}</span>
               </div>
-            ) : (
-              <div className="space-y-8">
-                {[
-                  { key: "name", label: "Your name", placeholder: "How should we address you?" },
-                  { key: "brand", label: "Your brand", placeholder: "What world are we building?" },
-                ].map((field) => (
-                  <div key={field.key} className="pb-3" style={{ borderBottom: "0.5px solid rgba(246,242,236,0.2)" }}>
-                    <label className="font-sans text-[10px] tracking-[0.2em] uppercase block mb-3" style={{ color: "rgba(246,242,236,0.5)" }}>{field.label}</label>
-                    <input type="text" value={formData[field.key as "name" | "brand"]}
-                      onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })}
-                      className="w-full font-serif text-lg outline-none"
-                      style={{ background: "transparent", color: "#F6F2EC" }}
-                      placeholder={field.placeholder} />
-                  </div>
-                ))}
-                <div className="pb-3" style={{ borderBottom: "0.5px solid rgba(246,242,236,0.2)" }}>
-                  <label className="font-sans text-[10px] tracking-[0.2em] uppercase block mb-3" style={{ color: "rgba(246,242,236,0.5)" }}>Your message</label>
-                  <textarea value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    rows={4} className="w-full font-serif text-lg outline-none resize-none"
-                    style={{ background: "transparent", color: "#F6F2EC" }}
-                    placeholder="Tell us about your brand, your vision, your world..." />
-                </div>
-                <div className="flex items-center justify-between pt-2">
-                  <p className="font-sans text-[10px] tracking-[0.08em]" style={{ color: "rgba(246,242,236,0.35)" }}>info@zesirastudio.com</p>
-                  <button onClick={handleSubmit}
-                    className="font-sans text-[10px] tracking-[0.2em] uppercase px-6 py-3 transition-colors duration-200 font-semibold"
-                    style={{ background: "#F6F2EC", color: "#6B1E24" }}
-                    onMouseEnter={e => (e.currentTarget.style.background = "#E9DED2")}
-                    onMouseLeave={e => (e.currentTarget.style.background = "#F6F2EC")}>
-                    Send →
-                  </button>
-                </div>
-              </div>
-            )}
+            ))}
           </div>
+        </div>
+
+        <div>
+          {sent ? (
+            <div style={{ padding: "60px 0", textAlign: "center" }}>
+              <div style={{ width: "40px", height: "1px", background: "#C4A882", margin: "0 auto 28px" }} />
+              <p style={{ fontSize: "20px", fontStyle: "italic", color: "#2B1F1C", marginBottom: "10px" }}>Your message is on its way.</p>
+              <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", color: "#9A8878", letterSpacing: "0.1em" }}>We'll be in touch soon.</p>
+            </div>
+          ) : (
+            <div>
+              {[
+                { key: "name", label: "Your name", placeholder: "How should we address you?" },
+                { key: "brand", label: "Your brand", placeholder: "What world are we building?" },
+                { key: "message", label: "Your message", placeholder: "Tell us about your vision, your brand, your world...", textarea: true },
+              ].map((f) => (
+                <div key={f.key} style={{ borderBottom: "0.5px solid rgba(43,31,28,0.12)", paddingBottom: "10px", marginBottom: "16px" }}>
+                  <label style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.2em", textTransform: "uppercase", color: "#9A8878", display: "block", marginBottom: "6px" }}>{f.label}</label>
+                  {f.textarea ? (
+                    <textarea value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      rows={4} placeholder={f.placeholder}
+                      style={{ width: "100%", background: "transparent", fontSize: "13px", fontStyle: "italic", color: "#2B1F1C", outline: "none", border: "none", resize: "none", fontFamily: "'Bodoni Moda', Georgia, serif" }} />
+                  ) : (
+                    <input type="text" value={formData[f.key as "name" | "brand"]}
+                      onChange={(e) => setFormData({ ...formData, [f.key]: e.target.value })}
+                      placeholder={f.placeholder}
+                      style={{ width: "100%", background: "transparent", fontSize: "13px", fontStyle: "italic", color: "#2B1F1C", outline: "none", border: "none", fontFamily: "'Bodoni Moda', Georgia, serif" }} />
+                  )}
+                </div>
+              ))}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "8px" }}>
+                <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", color: "rgba(43,31,28,0.28)" }}>info@zesirastudio.com</span>
+                <button onClick={handleSubmit} style={{ background: "#6B1E24", color: "#F5F0E8", fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.18em", textTransform: "uppercase", padding: "10px 22px", fontWeight: 600, border: "none", cursor: "pointer" }}>Send →</button>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
-      <footer className="py-10 px-8 md:px-14 lg:px-20" style={{ borderTop: "0.5px solid rgba(246,242,236,0.12)" }}>
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <span className="font-serif italic text-base" style={{ color: "#F6F2EC" }}>Zesira Studio</span>
-          <span className="font-sans text-[10px] tracking-[0.2em] uppercase" style={{ color: "rgba(246,242,236,0.45)" }}>Not a website. A presence.</span>
-          <span className="font-sans text-[10px] tracking-[0.1em]" style={{ color: "rgba(246,242,236,0.3)" }}>© 2025</span>
-        </div>
+      {/* FOOTER */}
+      <footer style={{ padding: "24px 60px", borderTop: "0.5px solid rgba(43,31,28,0.1)", display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F5F0E8" }}>
+        <span style={{ fontSize: "12px", fontStyle: "italic", color: "#2B1F1C" }}>Zesira Studio</span>
+        <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.2em", textTransform: "uppercase", color: "#9A8878" }}>Not a website. A presence.</span>
+        <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", color: "rgba(43,31,28,0.28)" }}>© 2025</span>
       </footer>
+
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Montserrat:wght@300;400;500;600&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        input::placeholder, textarea::placeholder { color: rgba(43,31,28,0.2); font-style: italic; }
+        .work-card:hover .card-arrow { opacity: 1 !important; }
+        @media (max-width: 768px) {
+          .hidden-mobile { display: none !important; }
+          .show-mobile { display: flex !important; }
+          section { grid-template-columns: 1fr !important; }
+          h1 { font-size: 36px !important; }
+          .pgrid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </main>
   );
 }
