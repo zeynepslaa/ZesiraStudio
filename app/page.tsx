@@ -269,7 +269,36 @@ export default function Home() {
           </div>
           <a href="#contact" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.16em", textTransform: "uppercase", color: "#9A8878", borderBottom: "0.5px solid rgba(107,30,36,0.3)", paddingBottom: "2px", textDecoration: "none" }}>View All Projects →</a>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "20px" }}>
+
+          {/* AURELLE — Concept, live external */}
+          <a href="https://aurelle-nine.vercel.app" target="_blank" rel="noreferrer" className="work-card" style={{ cursor: "pointer", textDecoration: "none", color: "inherit", display: "block" }}>
+            <div style={{ aspectRatio: "4/3", marginBottom: "12px", position: "relative", overflow: "hidden" }}>
+              <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 60% 40%, #F7EEE8 0%, #EDD8CC 45%, #D4B8AC 100%)" }} />
+              <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.25 }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+                <ellipse cx="200" cy="150" rx="60" ry="90" fill="none" stroke="#8B5E52" strokeWidth="0.6" />
+                <ellipse cx="200" cy="150" rx="38" ry="62" fill="none" stroke="#8B5E52" strokeWidth="0.4" />
+                <line x1="200" y1="60" x2="200" y2="240" stroke="#8B5E52" strokeWidth="0.5" />
+                <line x1="140" y1="150" x2="260" y2="150" stroke="#8B5E52" strokeWidth="0.5" />
+                <circle cx="200" cy="150" r="4" fill="none" stroke="#8B5E52" strokeWidth="0.6" />
+                <ellipse cx="115" cy="95" rx="26" ry="16" fill="none" stroke="#8B5E52" strokeWidth="0.4" transform="rotate(-30 115 95)" />
+                <ellipse cx="285" cy="205" rx="26" ry="16" fill="none" stroke="#8B5E52" strokeWidth="0.4" transform="rotate(30 285 205)" />
+                <ellipse cx="285" cy="95" rx="20" ry="13" fill="none" stroke="#8B5E52" strokeWidth="0.35" transform="rotate(25 285 95)" />
+                <ellipse cx="115" cy="205" rx="20" ry="13" fill="none" stroke="#8B5E52" strokeWidth="0.35" transform="rotate(-25 115 205)" />
+              </svg>
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 50%, rgba(107,50,42,0.18) 100%)" }} />
+              <div style={{ position: "absolute", top: "12px", left: "12px", zIndex: 3, background: "rgba(245,240,232,0.85)", padding: "3px 8px" }}>
+                <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: "7px", letterSpacing: "0.18em", textTransform: "uppercase", color: "#9A8878" }}>Concept Project</span>
+              </div>
+              <div style={{ position: "absolute", bottom: "12px", left: "14px", zIndex: 3 }}>
+                <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "8px", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(107,30,36,0.55)", marginBottom: "2px" }}>Luxury Skin Atelier</div>
+                <div style={{ fontSize: "14px", color: "rgba(43,31,28,0.75)", fontStyle: "italic" }}>Aurelle</div>
+              </div>
+              <div style={{ position: "absolute", bottom: "10px", right: "10px", zIndex: 3, background: "#6B1E24", color: "#F5F0E8", fontFamily: "Montserrat, sans-serif", fontSize: "9px", padding: "3px 8px", opacity: 0, transition: "opacity 0.4s" }} className="card-arrow">↗</div>
+            </div>
+            <div style={{ fontSize: "13px", color: "#2B1F1C", marginBottom: "4px" }}>Aurelle Skin Atelier</div>
+            <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#B09880" }}>Concept — Luxury Skincare</div>
+          </a>
 
           {/* MY CLUB — Real project */}
           <div className="work-card" style={{ cursor: "pointer" }}>
@@ -295,9 +324,7 @@ export default function Home() {
               </div>
               <div style={{ position: "absolute", bottom: "10px", right: "10px", zIndex: 3, background: "#6B1E24", color: "#F5F0E8", fontFamily: "Montserrat, sans-serif", fontSize: "9px", padding: "3px 8px", opacity: 0, transition: "opacity 0.4s" }} className="card-arrow">↗</div>
             </div>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "4px" }}>
-              <div style={{ fontSize: "13px", color: "#2B1F1C" }}>My Club</div>
-            </div>
+            <div style={{ fontSize: "13px", color: "#2B1F1C", marginBottom: "4px" }}>My Club</div>
             <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#9A8878" }}>Brand & Website — Bridal Lace Atelier</div>
           </div>
 
@@ -305,7 +332,6 @@ export default function Home() {
           <div style={{ cursor: "default", opacity: 0.85 }}>
             <div style={{ aspectRatio: "4/3", background: "#E8E0D4", marginBottom: "12px", position: "relative", overflow: "hidden" }}>
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, #EDE6DA 0%, #D4C8B8 100%)" }} />
-              {/* Minimal placeholder cross */}
               <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <line x1="16" y1="4" x2="16" y2="28" stroke="rgba(43,31,28,0.15)" strokeWidth="0.8"/>
@@ -313,7 +339,6 @@ export default function Home() {
                 </svg>
               </div>
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 60%, rgba(43,31,28,0.12) 100%)" }} />
-              {/* Concept label */}
               <div style={{ position: "absolute", top: "12px", left: "12px", zIndex: 3, background: "rgba(245,240,232,0.85)", padding: "3px 8px" }}>
                 <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: "7px", letterSpacing: "0.18em", textTransform: "uppercase", color: "#9A8878" }}>Concept Project</span>
               </div>
@@ -333,7 +358,6 @@ export default function Home() {
                 </svg>
               </div>
               <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, transparent 50%, rgba(10,5,2,0.4) 100%)" }} />
-              {/* Concept label */}
               <div style={{ position: "absolute", top: "12px", left: "12px", zIndex: 3, background: "rgba(26,16,8,0.8)", padding: "3px 8px" }}>
                 <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: "7px", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(196,168,130,0.7)" }}>Concept Project</span>
               </div>
