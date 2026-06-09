@@ -269,7 +269,7 @@ export default function Home() {
           </div>
           <a href="#contact" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.16em", textTransform: "uppercase", color: "#9A8878", borderBottom: "0.5px solid rgba(107,30,36,0.3)", paddingBottom: "2px", textDecoration: "none" }}>View All Projects →</a>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "20px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
 
           {/* AURELLE — Concept, live external */}
           <a href="https://aurelle-nine.vercel.app" target="_blank" rel="noreferrer" className="work-card" style={{ cursor: "pointer", textDecoration: "none", color: "inherit", display: "block" }}>
@@ -298,6 +298,41 @@ export default function Home() {
             </div>
             <div style={{ fontSize: "13px", color: "#2B1F1C", marginBottom: "4px" }}>Aurelle Skin Atelier</div>
             <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#B09880" }}>Concept — Luxury Skincare</div>
+          </a>
+
+          {/* MAISON CELESTE — Concept, live external */}
+          <a href="https://maison-celeste-xi.vercel.app" target="_blank" rel="noreferrer" className="work-card" style={{ cursor: "pointer", textDecoration: "none", color: "inherit", display: "block" }}>
+            <div style={{ aspectRatio: "4/3", marginBottom: "12px", position: "relative", overflow: "hidden" }}>
+              <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 40% 35%, #1C1830 0%, #0E0C1E 55%, #07060F 100%)" }} />
+              <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.5 }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+                <circle cx="200" cy="130" r="55" fill="none" stroke="#C4A882" strokeWidth="0.5" />
+                <circle cx="200" cy="130" r="38" fill="none" stroke="#C4A882" strokeWidth="0.3" />
+                <circle cx="200" cy="130" r="2.5" fill="#C4A882" opacity="0.7" />
+                <circle cx="120" cy="80" r="1.2" fill="#C4A882" opacity="0.6" />
+                <circle cx="310" cy="60" r="0.8" fill="#C4A882" opacity="0.5" />
+                <circle cx="60" cy="160" r="1" fill="#C4A882" opacity="0.4" />
+                <circle cx="350" cy="190" r="1.4" fill="#C4A882" opacity="0.55" />
+                <circle cx="270" cy="220" r="0.9" fill="#C4A882" opacity="0.45" />
+                <circle cx="90" cy="240" r="1.1" fill="#C4A882" opacity="0.4" />
+                <circle cx="340" cy="130" r="0.7" fill="#C4A882" opacity="0.5" />
+                <circle cx="50" cy="90" r="1.3" fill="#C4A882" opacity="0.5" />
+                <line x1="155" y1="85" x2="200" y2="130" stroke="#C4A882" strokeWidth="0.3" opacity="0.25" />
+                <line x1="245" y1="85" x2="200" y2="130" stroke="#C4A882" strokeWidth="0.3" opacity="0.25" />
+                <line x1="155" y1="175" x2="200" y2="130" stroke="#C4A882" strokeWidth="0.3" opacity="0.25" />
+                <line x1="245" y1="175" x2="200" y2="130" stroke="#C4A882" strokeWidth="0.3" opacity="0.25" />
+              </svg>
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 50%, rgba(7,6,15,0.5) 100%)" }} />
+              <div style={{ position: "absolute", top: "12px", left: "12px", zIndex: 3, background: "rgba(14,12,30,0.75)", padding: "3px 8px" }}>
+                <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: "7px", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(196,168,130,0.7)" }}>Concept Project</span>
+              </div>
+              <div style={{ position: "absolute", bottom: "12px", left: "14px", zIndex: 3 }}>
+                <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "8px", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(196,168,130,0.5)", marginBottom: "2px" }}>Fine Jewellery Maison</div>
+                <div style={{ fontSize: "14px", color: "rgba(245,240,232,0.8)", fontStyle: "italic" }}>Maison Céleste</div>
+              </div>
+              <div style={{ position: "absolute", bottom: "10px", right: "10px", zIndex: 3, background: "#6B1E24", color: "#F5F0E8", fontFamily: "Montserrat, sans-serif", fontSize: "9px", padding: "3px 8px", opacity: 0, transition: "opacity 0.4s" }} className="card-arrow">↗</div>
+            </div>
+            <div style={{ fontSize: "13px", color: "#2B1F1C", marginBottom: "4px" }}>Maison Céleste</div>
+            <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#B09880" }}>Concept — Fine Jewellery</div>
           </a>
 
           {/* MY CLUB — Real project */}
