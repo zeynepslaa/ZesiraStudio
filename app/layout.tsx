@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Zesira Studio — Not a website. A presence.",
-  description: "A digital atelier for modern brands. Cinematic, editorial, emotionally immersive web experiences.",
+  title: "Zesira Studio — Modern Markalar İçin Web Siteleri ve Dijital Deneyimler",
+  description: "Modern markalar için web siteleri, kimlik sistemleri ve dijital deneyimler.",
   openGraph: {
     title: "Zesira Studio",
-    description: "Not a website. A presence.",
+    description: "Modern markalar için web siteleri, kimlik sistemleri ve dijital deneyimler.",
     url: "https://zesirastudio.com",
     siteName: "Zesira Studio",
     type: "website",

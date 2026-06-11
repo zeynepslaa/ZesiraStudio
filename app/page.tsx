@@ -2,504 +2,782 @@
 import { useState, useEffect } from "react";
 
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [formData, setFormData] = useState({ name: "", brand: "", message: "" });
-  const [sent, setSent] = useState(false);
+  // ── Intro states ──
+  const [introDone, setIntroDone] = useState(false);
+  const [voraOp, setVoraOp] = useState(0);
+  const [celesteOp, setCelesteOp] = useState(0);
+  const [aurelleOp, setAurelleOp] = useState(0);
+  const [studioOp, setStudioOp] = useState(0);
+  const [tagOp, setTagOp] = useState(0);
+  const [overlayOp, setOverlayOp] = useState(1);
 
-  // Intro states
-  const [introPhase, setIntroPhase] = useState<"logo" | "text" | "dissolve" | "done">("logo");
-  const [logoOpacity, setLogoOpacity] = useState(0);
-  const [logoBlur, setLogoBlur] = useState(8);
-  const [textOpacity, setTextOpacity] = useState(0);
-  const [microOpacity, setMicroOpacity] = useState(0);
-  const [screenOpacity, setScreenOpacity] = useState(1);
+  // ── UI states ──
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [form, setForm] = useState({
+    brand: "", name: "", email: "", phone: "",
+    social: "", paket: "", butce: "", asama: "", mesaj: "",
+  });
 
   useEffect(() => {
-    // Phase 1: Logo fades in slowly
-    const t1 = setTimeout(() => { setLogoOpacity(1); setLogoBlur(0); }, 300);
-    // Phase 2: Text appears beneath logo
-    const t2 = setTimeout(() => { setTextOpacity(1); }, 1800);
-    // Phase 3: Micro text
-    const t3 = setTimeout(() => { setMicroOpacity(1); }, 2800);
-    // Phase 4: Begin dissolve
-    const t4 = setTimeout(() => { setScreenOpacity(0); }, 3800);
-    // Phase 5: Done — remove intro
-    const t5 = setTimeout(() => { setIntroPhase("done"); }, 5000);
-    return () => [t1, t2, t3, t4, t5].forEach(clearTimeout);
+    const seq: [number, () => void][] = [
+      [300,  () => setVoraOp(1)],
+      [1900, () => { setCelesteOp(1); setVoraOp(0); }],
+      [3500, () => { setAurelleOp(1); setCelesteOp(0); }],
+      [5100, () => setAurelleOp(0)],
+      [5700, () => setStudioOp(1)],
+      [6600, () => setTagOp(1)],
+      [7800, () => setOverlayOp(0)],
+      [9500, () => setIntroDone(true)],
+    ];
+    const timers = seq.map(([t, fn]) => setTimeout(fn, t));
+    return () => timers.forEach(clearTimeout);
   }, []);
 
   const handleSubmit = () => {
-    if (!formData.name || !formData.message) return;
-    const subject = `New inquiry from ${formData.name}${formData.brand ? ` — ${formData.brand}` : ""}`;
-    const body = `Name: ${formData.name}\nBrand: ${formData.brand}\n\nMessage:\n${formData.message}`;
-    window.location.href = `mailto:info@zesirastudio.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    if (!form.name || !form.email) return;
+    const body = [
+      `Marka: ${form.brand}`,
+      `Ad Soyad: ${form.name}`,
+      `E-posta: ${form.email}`,
+      `Telefon: ${form.phone}`,
+      `Instagram/Website: ${form.social}`,
+      `Paket: ${form.paket}`,
+      `Bütçe: ${form.butce}`,
+      `Aşama: ${form.asama}`,
+      `\nProje:\n${form.mesaj}`,
+    ].join("\n");
+    window.location.href = `mailto:info@zesirastudio.com?subject=${encodeURIComponent(`Proje Başvurusu — ${form.brand || form.name}`)}&body=${encodeURIComponent(body)}`;
     setSent(true);
   };
 
-  return (
-    <main style={{ background: "#F5F0E8", color: "#2B1F1C", fontFamily: "'Bodoni Moda', Georgia, serif", overflowX: "hidden" }}>
+  // ── Design tokens ──
+  const C = {
+    bg:     "#F8F5F0",
+    ink:    "#1A1714",
+    ash:    "#7A7268",
+    bordo:  "#6B1E24",
+    dark:   "#14110E",
+    sand:   "#C4A882",
+    border: "rgba(26,23,20,0.08)",
+    serif:  "'Bodoni Moda', Georgia, serif",
+    sans:   "Montserrat, sans-serif",
+  };
 
-      {/* ── INTRO SCREEN ── */}
-      {introPhase !== "done" && (
+  // ── Image URLs from real project sites ──
+  const IMG = {
+    voraHero:      "https://vora-istanbul.vercel.app/images/vision.png",
+    celesteHero:   "https://maison-celeste-xi.vercel.app/images/homepage.png",
+    aurelleHero:   "https://aurelle-nine.vercel.app/images/hero-reception.jpg",
+    voraCard:      "https://vora-istanbul.vercel.app/images/facade-detail.png",
+    celesteCard:   "https://maison-celeste-xi.vercel.app/images/thehouse.png",
+    aurelleCard:   "https://aurelle-nine.vercel.app/images/philosophy-book.jpg",
+  };
+
+  // ── Project data ──
+  const projects = [
+    {
+      num: "01", name: "VORA Istanbul",
+      real: true, type: "GERÇEK PROJE",
+      paket: "Luxury Launch Experience",
+      sektor: "Konut · Lüks Rezidans · Boğaz",
+      desc: "Boğaz'da on iki rezidans için tam kapsamlı marka lansmanı. Çift dilli deneyim, hareket tasarımı ve kapsamlı içerik sistemi.",
+      tags: ["Web Sitesi", "TR / EN", "Animasyon", "CMS", "Sosyal Medya Kiti"],
+      url: "https://vora-istanbul.vercel.app",
+      img: IMG.voraCard,
+      flip: false,
+    },
+    {
+      num: "02", name: "Maison Céleste",
+      real: false, type: "KONSEPT PROJE",
+      paket: "Editorial Brand Site",
+      sektor: "Moda · Bridal Couture · Paris",
+      desc: "Paris merkezli bir bridal couture evi için editoryal marka deneyimi. Koleksiyon sayfaları, atölye anlatımı ve hikâye odaklı tasarım.",
+      tags: ["Web Sitesi", "Editoryal Tasarım", "Koleksiyon Sayfaları", "Marka Hikâyesi"],
+      url: "https://maison-celeste-xi.vercel.app",
+      img: IMG.celesteCard,
+      flip: true,
+    },
+    {
+      num: "03", name: "Aurelle Skin Atelier",
+      real: false, type: "KONSEPT PROJE",
+      paket: "Starter Presence",
+      sektor: "Güzellik · Dermatoloji · Nişantaşı",
+      desc: "Dermatoloji liderliğinde bir cilt atölyesi için sade ve güven veren dijital varlık. Minimal ama profesyonel bir ilk izlenim.",
+      tags: ["Web Sitesi", "Randevu Sistemi", "Marka Yönlendirmesi", "Mobil Uyumlu"],
+      url: "https://aurelle-nine.vercel.app",
+      img: IMG.aurelleCard,
+      flip: false,
+    },
+  ];
+
+  // ── Package data ──
+  const packages = [
+    {
+      num: "I", name: "Starter Presence",
+      tagline: "Dijital varlığını oluşturmak isteyen markalar için.",
+      kimFor: "Yeni kurulan markalar, solo kurucular ve dijital varlığına ilk adımını atan işletmeler.",
+      includes: [
+        "3 sayfaya kadar özel tasarım",
+        "Mobil uyumlu tasarım",
+        "İletişim formu",
+        "WhatsApp butonu",
+        "Temel SEO ayarları",
+        "Domain bağlantısı",
+        "Yayına alma desteği",
+        "1 revizyon turu",
+      ],
+      excludes: ["CMS (içerik yönetim sistemi)", "Animasyon", "Çoklu dil desteği"],
+      platform: "Framer / Next.js",
+      timeline: "2–3 hafta",
+      revisions: "1 tur",
+      project: { name: "Aurelle Skin Atelier", url: "https://aurelle-nine.vercel.app" },
+      dark: false,
+    },
+    {
+      num: "II", name: "Editorial Brand Site",
+      badge: "En Çok Tercih Edilen",
+      tagline: "Marka deneyimini derinleştirmek isteyen işletmeler için.",
+      kimFor: "Büyüyen markalar, hizmet sunan işletmeler, hikâyesini ve estetiğini öne çıkarmak isteyen stüdyolar.",
+      includes: [
+        "Starter kapsamındaki her şey",
+        "6 sayfaya kadar özel tasarım",
+        "Koleksiyon / hizmet sunum sayfaları",
+        "Marka hikâyesi bölümü",
+        "Gelişmiş içerik yapısı",
+        "Editoryal tasarım anlayışı",
+        "Stratejik yönlendirme",
+        "Google Business Profili kurulumu",
+        "2 revizyon turu",
+      ],
+      excludes: ["CMS (içerik yönetim sistemi)", "Animasyon", "Çoklu dil desteği"],
+      platform: "Framer / Next.js / WordPress",
+      timeline: "4–6 hafta",
+      revisions: "2 tur",
+      project: { name: "Maison Céleste", url: "https://maison-celeste-xi.vercel.app" },
+      dark: true,
+    },
+    {
+      num: "III", name: "Luxury Launch Experience",
+      tagline: "Kalıcı bir izlenim bırakmak isteyen markalar için.",
+      kimFor: "Yeni bir dönem açan markalar, prestijli lansman gerektiren projeler ve uluslararası hedef kitleye hitap eden işletmeler.",
+      includes: [
+        "Editorial kapsamındaki her şey",
+        "Animasyon ve hareket tasarımı",
+        "Çoklu dil desteği (TR / EN)",
+        "CMS — içerik yönetim sistemi",
+        "Sosyal medya kiti",
+        "Google Business Profili",
+        "3 revizyon turu",
+        "30 gün yayın sonrası destek",
+      ],
+      excludes: [],
+      platform: "Next.js (önerilir)",
+      timeline: "6–10 hafta",
+      revisions: "3 tur",
+      project: { name: "VORA Istanbul", url: "https://vora-istanbul.vercel.app" },
+      dark: false,
+    },
+  ];
+
+  // ── Process steps ──
+  const steps = [
+    { n: "01", title: "Keşif",       desc: "Markanızı, hedef kitlenizi ve proje kapsamını birlikte belirliyoruz." },
+    { n: "02", title: "Teklif",      desc: "Detaylı proje teklifi ve bütçe netleştirilir." },
+    { n: "03", title: "Sözleşme",    desc: "Sözleşme imzalanır, ön ödeme alınır. Proje resmi olarak başlar." },
+    { n: "04", title: "İçerik",      desc: "Tüm metin, görsel ve marka materyalleri toplanır." },
+    { n: "05", title: "Tasarım",     desc: "Sayfa tasarımları hazırlanır ve onaylanır." },
+    { n: "06", title: "Yayın",       desc: "Site inşa edilir, test edilir ve yayına alınır." },
+    { n: "07", title: "Destek",      desc: "Yayın sonrası 30 gün teknik destek ve küçük düzeltmeler." },
+  ];
+
+  return (
+    <main style={{ background: C.bg, color: C.ink, fontFamily: C.sans, overflowX: "hidden" }}>
+
+      {/* ─────────────────── INTRO ─────────────────── */}
+      {!introDone && (
         <div style={{
           position: "fixed", inset: 0, zIndex: 1000,
-          background: "#F5F0E8",
-          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-          opacity: screenOpacity,
-          transition: "opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1)",
-          pointerEvents: screenOpacity === 0 ? "none" : "all",
+          background: "#0C0B09",
+          opacity: overlayOp,
+          transition: "opacity 2s cubic-bezier(0.4,0,0.2,1)",
+          pointerEvents: overlayOp < 0.05 ? "none" : "all",
         }}>
-
-          {/* Film grain */}
-          <div style={{ position: "absolute", inset: 0, opacity: 0.045, backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`, backgroundSize: "200px", pointerEvents: "none" }} />
+          {/* Project images — cross-fading */}
+          {[
+            { src: IMG.voraHero,    op: voraOp },
+            { src: IMG.celesteHero, op: celesteOp },
+            { src: IMG.aurelleHero, op: aurelleOp },
+          ].map((img, i) => (
+            <img key={i} src={img.src} alt="" style={{
+              position: "absolute", inset: 0, width: "100%", height: "100%",
+              objectFit: "cover",
+              opacity: img.op * 0.6,
+              transition: "opacity 1.6s ease",
+            }} />
+          ))}
 
           {/* Vignette */}
-          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, transparent 40%, rgba(43,31,28,0.18) 100%)", pointerEvents: "none" }} />
+          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, rgba(12,11,9,0.2) 0%, rgba(12,11,9,0.65) 100%)" }} />
 
-          {/* Ambient warm glow */}
-          <div style={{ position: "absolute", top: "30%", left: "50%", transform: "translate(-50%, -50%)", width: "500px", height: "300px", background: "radial-gradient(ellipse, rgba(196,168,130,0.12) 0%, transparent 70%)", filter: "blur(60px)", pointerEvents: "none" }} />
-
-          {/* ZS Logo */}
+          {/* Studio reveal */}
           <div style={{
-            opacity: logoOpacity,
-            filter: `blur(${logoBlur}px)`,
-            transition: "opacity 1.6s cubic-bezier(0.4, 0, 0.2, 1), filter 1.6s cubic-bezier(0.4, 0, 0.2, 1)",
-            marginBottom: "40px",
+            position: "absolute", inset: 0,
+            display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+            gap: "14px",
           }}>
-            <svg viewBox="0 0 400 400" style={{ width: "clamp(120px, 16vw, 200px)" }} xmlns="http://www.w3.org/2000/svg">
-              <circle cx="200" cy="200" r="165" fill="none" stroke="#C4A882" strokeWidth="0.8" strokeOpacity="0.5" />
-              <circle cx="200" cy="200" r="155" fill="none" stroke="#C4A882" strokeWidth="0.4" strokeOpacity="0.22" />
-              <polygon points="200,30 203,40 213,40 205,46 208,57 200,51 192,57 195,46 187,40 197,40" fill="#C4A882" opacity="0.85" />
-              <circle cx="55" cy="158" r="2.5" fill="#C4A882" opacity="0.35" />
-              <circle cx="345" cy="158" r="2.5" fill="#C4A882" opacity="0.35" />
-              <circle cx="75" cy="242" r="1.8" fill="#C4A882" opacity="0.25" />
-              <circle cx="325" cy="242" r="1.8" fill="#C4A882" opacity="0.25" />
-              <text x="200" y="228" textAnchor="middle" fontFamily="'Bodoni Moda', Georgia, serif" fontSize="110" fill="#2B1F1C" letterSpacing="-2" opacity="0.88">ZS</text>
-              <line x1="144" y1="255" x2="196" y2="255" stroke="#C4A882" strokeWidth="0.8" opacity="0.6" />
-              <circle cx="200" cy="255" r="2.5" fill="#C4A882" opacity="0.75" />
-              <line x1="204" y1="255" x2="256" y2="255" stroke="#C4A882" strokeWidth="0.8" opacity="0.6" />
-              <text x="200" y="290" textAnchor="middle" fontFamily="'Montserrat', sans-serif" fontSize="16" fill="#9A8878" letterSpacing="12" fontWeight="300">STUDIO</text>
-            </svg>
-          </div>
-
-          {/* Studio name */}
-          <div style={{
-            opacity: textOpacity,
-            transform: textOpacity === 1 ? "translateY(0)" : "translateY(10px)",
-            transition: "opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1), transform 1.4s cubic-bezier(0.4, 0, 0.2, 1)",
-            textAlign: "center",
-            marginBottom: "16px",
-          }}>
-            <div style={{ fontFamily: "'Bodoni Moda', Georgia, serif", fontSize: "clamp(18px, 2.5vw, 26px)", letterSpacing: "0.18em", color: "#2B1F1C", fontWeight: 400, marginBottom: "6px" }}>
-              ZESIRA STUDIO
+            <div style={{
+              opacity: studioOp,
+              transition: "opacity 1.8s ease",
+              fontFamily: C.serif,
+              fontSize: "clamp(22px, 3.5vw, 46px)",
+              letterSpacing: "0.22em",
+              color: "#F8F5F0",
+              fontWeight: 400,
+              textTransform: "uppercase",
+            }}>
+              Zesira Studio
             </div>
-            <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.28em", textTransform: "uppercase", color: "#9A8878" }}>
-              digital atelier for modern brands
+            <div style={{
+              opacity: tagOp,
+              transition: "opacity 1.4s ease",
+              fontFamily: C.sans,
+              fontSize: "10px",
+              letterSpacing: "0.18em",
+              color: "rgba(248,245,240,0.45)",
+              textTransform: "uppercase",
+              textAlign: "center",
+              maxWidth: "440px",
+              padding: "0 24px",
+            }}>
+              Modern markalar için web siteleri, kimlik sistemleri ve dijital deneyimler
             </div>
           </div>
-
-          {/* Micro text */}
-          <div style={{
-            opacity: microOpacity,
-            transition: "opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
-            textAlign: "center",
-            marginBottom: "22px",
-          }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "12px", justifyContent: "center" }}>
-              <div style={{ width: "24px", height: "0.5px", background: "#C4A882", opacity: 0.6 }} />
-              <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.22em", color: "#B09880", textTransform: "uppercase" }}>Not a website. A presence.</span>
-              <div style={{ width: "24px", height: "0.5px", background: "#C4A882", opacity: 0.6 }} />
-            </div>
-          </div>
-
-          {/* Bordo yıldız */}
-          <div style={{
-            opacity: microOpacity,
-            transition: "opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1) 0.4s",
-            fontSize: "18px",
-            color: "#6B1E24",
-            lineHeight: 1,
-          }}>✦</div>
         </div>
       )}
 
-      {/* Grain texture */}
-      <div style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 200, opacity: 0.04,
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-        backgroundSize: "200px" }} />
-
-      {/* NAV */}
-      <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50, background: "rgba(245,240,232,0.93)", backdropFilter: "blur(12px)", borderBottom: "0.5px solid rgba(43,31,28,0.1)" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 40px", height: "64px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <a href="#" style={{ textDecoration: "none" }}>
-            <div style={{ fontSize: "8.5px", letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: "bold", color: "#2B1F1C", lineHeight: 1.4 }}>Zesira</div>
-            <div style={{ fontSize: "8.5px", letterSpacing: "0.2em", textTransform: "uppercase", fontWeight: "bold", color: "#2B1F1C", lineHeight: 1.4 }}>Studio</div>
+      {/* ─────────────────── NAV ─────────────────── */}
+      <header style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
+        background: "rgba(248,245,240,0.95)",
+        backdropFilter: "blur(16px)",
+        borderBottom: `0.5px solid ${C.border}`,
+      }}>
+        <div style={{
+          maxWidth: "1200px", margin: "0 auto",
+          padding: "0 48px", height: "60px",
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+        }}>
+          <a href="#" style={{ textDecoration: "none", color: C.ink }}>
+            <span style={{ fontFamily: C.serif, fontSize: "15px", letterSpacing: "0.05em" }}>Zesira Studio</span>
           </a>
 
-          <nav style={{ display: "flex", gap: "32px" }} className="hidden-mobile">
-            {["Work", "Services", "About", "Contact"].map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`} style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.18em", textTransform: "uppercase", color: "#9A8878", textDecoration: "none" }}>{item}</a>
+          <nav style={{ display: "flex", gap: "36px" }} className="nav-desktop">
+            {[["Projeler","#projeler"],["Paketler","#paketler"],["Süreç","#surec"],["Hakkında","#hakkinda"],["İletişim","#iletisim"]].map(([label, href]) => (
+              <a key={href} href={href} style={{
+                fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.18em",
+                textTransform: "uppercase", color: C.ash, textDecoration: "none",
+              }}>{label}</a>
             ))}
           </nav>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "16px" }} className="hidden-mobile">
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <button style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.12em", color: "#2B1F1C", background: "none", border: "none", cursor: "pointer" }}>EN</button>
-              <span style={{ color: "rgba(43,31,28,0.25)", fontSize: "11px" }}>/</span>
-              <button style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.12em", color: "#9A8878", background: "none", border: "none", cursor: "pointer" }}>TR</button>
-            </div>
-            <a href="#contact" style={{ background: "#6B1E24", color: "#F5F0E8", fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.16em", textTransform: "uppercase", padding: "8px 18px", fontWeight: 600, textDecoration: "none" }}>
-              Let's Work Together
-            </a>
-          </div>
+          <a href="#iletisim" className="nav-desktop" style={{
+            fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.16em",
+            textTransform: "uppercase", color: "#F8F5F0",
+            background: C.bordo, padding: "8px 18px", textDecoration: "none",
+          }}>
+            Başlayalım
+          </a>
 
           {/* Mobile hamburger */}
-          <button onClick={() => setMenuOpen(!menuOpen)} style={{ display: "none", flexDirection: "column", gap: "5px", background: "none", border: "none", cursor: "pointer", padding: "4px" }} className="show-mobile">
-            {[0, 1, 2].map((i) => (
-              <span key={i} style={{ display: "block", width: "22px", height: "1px", background: "#2B1F1C", transition: "all 0.3s",
-                transform: menuOpen ? (i === 0 ? "rotate(45deg) translateY(6px)" : i === 2 ? "rotate(-45deg) translateY(-6px)" : "none") : "none",
-                opacity: menuOpen && i === 1 ? 0 : 1 }} />
+          <button onClick={() => setMenuOpen(!menuOpen)} className="nav-mobile" style={{
+            background: "none", border: "none", cursor: "pointer",
+            display: "none", flexDirection: "column", gap: "5px", padding: "4px",
+          }}>
+            {[0,1,2].map(i => (
+              <span key={i} style={{
+                display: "block", width: "22px", height: "1px", background: C.ink, transition: "all 0.3s",
+                transform: menuOpen ? (i===0 ? "rotate(45deg) translateY(6px)" : i===2 ? "rotate(-45deg) translateY(-6px)" : "none") : "none",
+                opacity: menuOpen && i===1 ? 0 : 1,
+              }} />
             ))}
           </button>
         </div>
 
         {menuOpen && (
-          <div style={{ background: "#F5F0E8", borderTop: "0.5px solid rgba(43,31,28,0.1)", padding: "24px 40px", display: "flex", flexDirection: "column", gap: "20px" }}>
-            {["Work", "Services", "About", "Contact"].map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)}
-                style={{ fontFamily: "Montserrat, sans-serif", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "#9A8878", textDecoration: "none" }}>{item}</a>
+          <div style={{
+            background: C.bg, borderTop: `0.5px solid ${C.border}`,
+            padding: "24px 48px", display: "flex", flexDirection: "column", gap: "20px",
+          }}>
+            {[["Projeler","#projeler"],["Paketler","#paketler"],["Süreç","#surec"],["Hakkında","#hakkinda"],["İletişim","#iletisim"]].map(([label, href]) => (
+              <a key={href} href={href} onClick={() => setMenuOpen(false)} style={{
+                fontFamily: C.sans, fontSize: "11px", letterSpacing: "0.2em",
+                textTransform: "uppercase", color: C.ash, textDecoration: "none",
+              }}>{label}</a>
             ))}
-            <a href="#contact" onClick={() => setMenuOpen(false)}
-              style={{ background: "#6B1E24", color: "#F5F0E8", fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.16em", textTransform: "uppercase", padding: "12px 18px", textAlign: "center", textDecoration: "none", fontWeight: 600, marginTop: "8px" }}>
-              Let's Work Together
-            </a>
+            <a href="#iletisim" onClick={() => setMenuOpen(false)} style={{
+              fontFamily: C.sans, fontSize: "11px", letterSpacing: "0.16em",
+              textTransform: "uppercase", color: "#F8F5F0",
+              background: C.bordo, padding: "10px 18px", textDecoration: "none",
+              display: "inline-block", width: "fit-content",
+            }}>Başlayalım</a>
           </div>
         )}
       </header>
 
-      {/* HERO */}
-      <section style={{ paddingTop: "64px", display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: "100vh" }}>
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", padding: "60px 40px 60px 60px" }}>
-          <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.3em", textTransform: "uppercase", color: "#6B1E24", marginBottom: "20px" }}>Digital Atelier</p>
-          <h1 style={{ fontSize: "clamp(32px, 4vw, 52px)", lineHeight: 1.18, color: "#2B1F1C", marginBottom: "20px", fontStyle: "italic", fontWeight: 400 }}>
-            Quiet brands<br />leave the<br /><span style={{ fontStyle: "normal", color: "#6B1E24" }}>loudest marks.</span>
-          </h1>
-          <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "11px", color: "#9A8878", lineHeight: 2, marginBottom: "28px", maxWidth: "280px" }}>
-            We design digital atmospheres for brands that understand the power of restraint.
-          </p>
-          <a href="#work" style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "#6B1E24", color: "#F5F0E8", fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.16em", textTransform: "uppercase", padding: "12px 22px", fontWeight: 600, textDecoration: "none", width: "fit-content" }}>
-            Enter the studio ↗
-          </a>
+      {/* ─────────────────── PROJELER ─────────────────── */}
+      <section id="projeler" style={{ paddingTop: "120px" }}>
+        {/* Section header */}
+        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "60px 48px 56px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+            <div>
+              <p style={{ fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.26em", textTransform: "uppercase", color: C.bordo, marginBottom: "12px" }}>Seçili Projeler</p>
+              <h2 style={{ fontFamily: C.serif, fontSize: "clamp(28px, 3vw, 40px)", fontWeight: 400, color: C.ink, lineHeight: 1.2 }}>
+                Her proje bir dünyadır.
+              </h2>
+            </div>
+            <p style={{ fontFamily: C.sans, fontSize: "10px", color: C.ash, maxWidth: "260px", lineHeight: 2, textAlign: "right" }} className="nav-desktop">
+              Gerçek projeler ve konsept çalışmalar — her biri farklı bir paketi temsil eder.
+            </p>
+          </div>
         </div>
 
-        <div style={{ position: "relative", overflow: "hidden", background: "#EDE4D8", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 60% 40%, #E8D8C0 0%, #D4C4A8 50%, #BFB09A 100%)" }} />
-          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, transparent 40%, rgba(43,31,28,0.1) 100%)" }} />
-          {/* Lace pattern */}
-          <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.07 }} xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="lace" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
-                <circle cx="15" cy="15" r="8" fill="none" stroke="#2B1F1C" strokeWidth="0.5" />
-                <circle cx="15" cy="15" r="1.5" fill="#2B1F1C" opacity="0.5" />
-                <line x1="0" y1="15" x2="7" y2="15" stroke="#2B1F1C" strokeWidth="0.3" />
-                <line x1="23" y1="15" x2="30" y2="15" stroke="#2B1F1C" strokeWidth="0.3" />
-                <line x1="15" y1="0" x2="15" y2="7" stroke="#2B1F1C" strokeWidth="0.3" />
-                <line x1="15" y1="23" x2="15" y2="30" stroke="#2B1F1C" strokeWidth="0.3" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#lace)" />
-          </svg>
-          {/* Logo */}
-          <svg viewBox="0 0 400 400" style={{ width: "clamp(200px, 28vw, 340px)", position: "relative", zIndex: 2 }} xmlns="http://www.w3.org/2000/svg">
-            <circle cx="200" cy="200" r="165" fill="none" stroke="#C4A882" strokeWidth="0.8" strokeOpacity="0.5" />
-            <circle cx="200" cy="200" r="155" fill="none" stroke="#C4A882" strokeWidth="0.4" strokeOpacity="0.22" />
-            <polygon points="200,30 203,40 213,40 205,46 208,57 200,51 192,57 195,46 187,40 197,40" fill="#C4A882" opacity="0.85" />
-            <circle cx="55" cy="158" r="2.5" fill="#C4A882" opacity="0.35" />
-            <circle cx="345" cy="158" r="2.5" fill="#C4A882" opacity="0.35" />
-            <circle cx="75" cy="242" r="1.8" fill="#C4A882" opacity="0.25" />
-            <circle cx="325" cy="242" r="1.8" fill="#C4A882" opacity="0.25" />
-            <text x="200" y="228" textAnchor="middle" fontFamily="'Bodoni Moda', Georgia, serif" fontSize="110" fill="#2B1F1C" letterSpacing="-2" opacity="0.88">ZS</text>
-            <line x1="144" y1="255" x2="196" y2="255" stroke="#C4A882" strokeWidth="0.8" opacity="0.6" />
-            <circle cx="200" cy="255" r="2.5" fill="#C4A882" opacity="0.75" />
-            <line x1="204" y1="255" x2="256" y2="255" stroke="#C4A882" strokeWidth="0.8" opacity="0.6" />
-            <text x="200" y="290" textAnchor="middle" fontFamily="'Montserrat', sans-serif" fontSize="16" fill="#9A8878" letterSpacing="12" fontWeight="300">STUDIO</text>
-          </svg>
-        </div>
-      </section>
+        {/* Project rows */}
+        {projects.map((p) => (
+          <div key={p.num} style={{ borderTop: `0.5px solid ${C.border}` }}>
+            <div style={{
+              maxWidth: "1200px", margin: "0 auto",
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+            }} className="project-row">
+              {/* Image */}
+              <div style={{
+                order: p.flip ? 2 : 1,
+                aspectRatio: "4/3",
+                overflow: "hidden",
+                position: "relative",
+              }}>
+                <img src={p.img} alt={p.name} style={{
+                  width: "100%", height: "100%",
+                  objectFit: "cover", display: "block",
+                  transition: "transform 0.6s ease",
+                }} className="project-img" />
+              </div>
 
-      {/* PROCESS — koyu bordo #4A1219 */}
-      <section style={{ background: "#4A1219", padding: "48px 60px", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "32px" }}>
-        {[
-          { num: "01", title: "Strategy", desc: "We understand your brand, audience and goals." },
-          { num: "02", title: "Design", desc: "We craft a custom experience that fits your brand perfectly." },
-          { num: "03", title: "Build", desc: "AI-powered systems help us deliver beautifully, fast." },
-          { num: "04", title: "Launch", desc: "Your new website goes live and starts working for you." },
-        ].map((s) => (
-          <div key={s.num}>
-            <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", color: "#C4A882", marginBottom: "8px", letterSpacing: "0.14em" }}>{s.num}</div>
-            <div style={{ fontSize: "14px", color: "#F5F0E8", marginBottom: "6px" }}>{s.title}</div>
-            <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", color: "rgba(245,240,232,0.38)", lineHeight: 1.8 }}>{s.desc}</div>
+              {/* Info */}
+              <div style={{
+                order: p.flip ? 1 : 2,
+                padding: "56px 52px",
+                display: "flex", flexDirection: "column", justifyContent: "center",
+                borderLeft: p.flip ? "none" : `0.5px solid ${C.border}`,
+                borderRight: p.flip ? `0.5px solid ${C.border}` : "none",
+              }}>
+                {/* Type badge */}
+                <div style={{ marginBottom: "20px" }}>
+                  <span style={{
+                    fontFamily: C.sans, fontSize: "8.5px", letterSpacing: "0.2em",
+                    textTransform: "uppercase",
+                    background: p.real ? C.bordo : "transparent",
+                    color: p.real ? "#F8F5F0" : C.ash,
+                    border: p.real ? "none" : `0.5px solid ${C.border}`,
+                    padding: "3px 10px",
+                  }}>
+                    {p.type}
+                  </span>
+                </div>
+
+                <div style={{ fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(26,23,20,0.3)", marginBottom: "6px" }}>{p.num}</div>
+
+                <h3 style={{
+                  fontFamily: C.serif, fontSize: "clamp(20px, 2.2vw, 30px)",
+                  fontWeight: 400, color: C.ink, lineHeight: 1.2, marginBottom: "6px",
+                }}>{p.name}</h3>
+
+                <div style={{ fontFamily: C.sans, fontSize: "9px", letterSpacing: "0.14em", textTransform: "uppercase", color: C.bordo, marginBottom: "24px" }}>{p.paket}</div>
+
+                <div style={{ width: "28px", height: "0.5px", background: C.border, marginBottom: "20px" }} />
+
+                <p style={{ fontFamily: C.sans, fontSize: "11px", color: C.ash, lineHeight: 2, marginBottom: "16px", maxWidth: "340px" }}>{p.desc}</p>
+
+                <div style={{ fontFamily: C.sans, fontSize: "10px", color: "rgba(26,23,20,0.35)", marginBottom: "24px", letterSpacing: "0.06em" }}>{p.sektor}</div>
+
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "32px" }}>
+                  {p.tags.map(tag => (
+                    <span key={tag} style={{
+                      fontFamily: C.sans, fontSize: "8.5px", letterSpacing: "0.08em",
+                      color: "rgba(26,23,20,0.38)", border: `0.5px solid ${C.border}`,
+                      padding: "3px 10px",
+                    }}>{tag}</span>
+                  ))}
+                </div>
+
+                <a href={p.url} target="_blank" rel="noreferrer" style={{
+                  fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.18em",
+                  textTransform: "uppercase", color: C.ink, textDecoration: "none",
+                  borderBottom: `0.5px solid ${C.ink}`, paddingBottom: "2px",
+                  display: "inline-flex", alignItems: "center", gap: "8px",
+                  width: "fit-content", transition: "color 0.3s, border-color 0.3s",
+                }}>
+                  Projeyi İncele <span>→</span>
+                </a>
+              </div>
+            </div>
           </div>
         ))}
       </section>
 
-      {/* ABOUT */}
-      <section style={{ padding: "80px 60px", display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: "60px", alignItems: "center", borderBottom: "0.5px solid rgba(43,31,28,0.08)" }}>
-        <div>
-          <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.24em", textTransform: "uppercase", color: "#6B1E24", marginBottom: "16px" }}>AI-Powered Creative Studio</p>
-          <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "11px", color: "#9A8878", lineHeight: 2 }}>
-            We combine AI-powered workflows with design, strategy and storytelling — giving your brand a digital presence that instantly stands out.
-          </p>
-        </div>
-        <div style={{ paddingLeft: "40px", borderLeft: "0.5px solid rgba(43,31,28,0.08)" }}>
-          <p style={{ fontSize: "22px", fontStyle: "italic", color: "#2B1F1C", lineHeight: 1.5, marginBottom: "12px" }}>Most websites are made to be seen.</p>
-          <p style={{ fontSize: "22px", fontStyle: "italic", color: "#B09880", lineHeight: 1.5, marginBottom: "20px" }}>We create them to be felt.</p>
-          <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "11px", color: "#9A8878", lineHeight: 2 }}>
-            A digital atelier for modern brands — where everything is intentional. A softness, a movement, a silence. Because aesthetics are never accidental. They are decisions.
-          </p>
-        </div>
-      </section>
-
-      {/* WORK */}
-      <section id="work" style={{ padding: "80px 60px", borderBottom: "0.5px solid rgba(43,31,28,0.08)" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "40px" }}>
-          <div>
-            <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.26em", textTransform: "uppercase", color: "#6B1E24", marginBottom: "8px" }}>Selected Work</p>
-            <h2 style={{ fontSize: "28px", color: "#2B1F1C", fontWeight: 400 }}>Every project is a world of its own.</h2>
+      {/* ─────────────────── PAKETLER ─────────────────── */}
+      <section id="paketler" style={{ borderTop: `0.5px solid ${C.border}` }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "80px 48px 56px" }}>
+          <p style={{ fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.26em", textTransform: "uppercase", color: C.bordo, marginBottom: "12px" }}>Paketler</p>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+            <h2 style={{ fontFamily: C.serif, fontSize: "clamp(28px, 3vw, 40px)", fontWeight: 400 }}>Hangi paket size uygun?</h2>
+            <p style={{ fontFamily: C.sans, fontSize: "10px", color: C.ash, maxWidth: "300px", lineHeight: 2, textAlign: "right" }} className="nav-desktop">
+              Her paket farklı bir ihtiyaca ve sürece göre tasarlandı.
+            </p>
           </div>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
 
-          {/* AURELLE — Concept, live external */}
-          <a href="https://aurelle-nine.vercel.app" target="_blank" rel="noreferrer" className="work-card" style={{ cursor: "pointer", textDecoration: "none", color: "inherit", display: "block" }}>
-            <div style={{ aspectRatio: "4/3", marginBottom: "12px", position: "relative", overflow: "hidden" }}>
-              {/* Aurelle palette: warm blush rose */}
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, #F5EAE0 0%, #E8C9B8 40%, #D4A898 100%)" }} />
-              {/* Subtle texture */}
-              <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle at 70% 30%, rgba(255,240,230,0.6) 0%, transparent 60%)" }} />
-              {/* Logo centré */}
-              <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "10px" }}>
-                <svg viewBox="0 0 200 120" width="160" xmlns="http://www.w3.org/2000/svg">
-                  {/* Decorative arc */}
-                  <path d="M 60 60 Q 100 20 140 60" fill="none" stroke="#8B5040" strokeWidth="0.8" opacity="0.6" />
-                  <path d="M 70 60 Q 100 28 130 60" fill="none" stroke="#8B5040" strokeWidth="0.5" opacity="0.35" />
-                  {/* Small diamond */}
-                  <polygon points="100,38 103,44 100,50 97,44" fill="none" stroke="#8B5040" strokeWidth="0.7" opacity="0.55" />
-                  {/* Wordmark */}
-                  <text x="100" y="78" textAnchor="middle" fontFamily="'Bodoni Moda', Georgia, serif" fontSize="26" fill="#5C3228" letterSpacing="4" fontStyle="italic">Aurelle</text>
-                  {/* Tagline */}
-                  <line x1="52" y1="88" x2="90" y2="88" stroke="#8B5040" strokeWidth="0.5" opacity="0.5" />
-                  <text x="100" y="91" textAnchor="middle" fontFamily="Montserrat, sans-serif" fontSize="6" fill="#8B5040" letterSpacing="3" opacity="0.7">SKIN ATELIER</text>
-                  <line x1="110" y1="88" x2="148" y2="88" stroke="#8B5040" strokeWidth="0.5" opacity="0.5" />
-                </svg>
-              </div>
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 55%, rgba(90,40,30,0.15) 100%)" }} />
-              <div style={{ position: "absolute", top: "12px", left: "12px", zIndex: 3, background: "rgba(245,235,228,0.85)", padding: "3px 8px" }}>
-                <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: "7px", letterSpacing: "0.18em", textTransform: "uppercase", color: "#9A8878" }}>Concept Project</span>
-              </div>
-              <div style={{ position: "absolute", bottom: "10px", right: "10px", zIndex: 3, background: "#6B1E24", color: "#F5F0E8", fontFamily: "Montserrat, sans-serif", fontSize: "9px", padding: "3px 8px", opacity: 0, transition: "opacity 0.4s" }} className="card-arrow">↗</div>
-            </div>
-            <div style={{ fontSize: "13px", color: "#2B1F1C", marginBottom: "4px" }}>Aurelle Skin Atelier</div>
-            <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#B09880" }}>Concept — Luxury Skincare</div>
-          </a>
+        {/* Package grid */}
+        <div style={{
+          maxWidth: "1200px", margin: "0 auto", padding: "0 48px 100px",
+          display: "grid", gridTemplateColumns: "repeat(3, 1fr)",
+          gap: "0", border: `0.5px solid ${C.border}`,
+        }} className="package-grid">
+          {packages.map((pkg, i) => (
+            <div key={pkg.num} style={{
+              background: pkg.dark ? C.dark : C.bg,
+              padding: "44px 36px 48px",
+              position: "relative",
+              borderRight: i < 2 ? `0.5px solid ${pkg.dark ? "rgba(248,245,240,0.08)" : C.border}` : "none",
+            }}>
+              {pkg.badge && (
+                <div style={{
+                  position: "absolute", top: "20px", right: "20px",
+                  fontFamily: C.sans, fontSize: "8px", letterSpacing: "0.14em",
+                  textTransform: "uppercase", color: "#F8F5F0",
+                  background: C.bordo, padding: "3px 10px",
+                }}>{pkg.badge}</div>
+              )}
 
-          {/* MAISON CELESTE — Concept, live external */}
-          <a href="https://maison-celeste-xi.vercel.app" target="_blank" rel="noreferrer" className="work-card" style={{ cursor: "pointer", textDecoration: "none", color: "inherit", display: "block" }}>
-            <div style={{ aspectRatio: "4/3", marginBottom: "12px", position: "relative", overflow: "hidden" }}>
-              {/* Maison Céleste palette: deep midnight navy */}
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(150deg, #12102A 0%, #0A0818 55%, #050410 100%)" }} />
-              <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle at 30% 40%, rgba(40,30,80,0.5) 0%, transparent 55%)" }} />
-              {/* Star field */}
-              <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }} xmlns="http://www.w3.org/2000/svg">
-                {[{x:15,y:12},{x:88,y:8},{x:42,y:22},{x:76,y:18},{x:95,y:35},{x:8,y:48},{x:62,y:6},{x:30,y:55},{x:82,y:52},{x:18,y:70},{x:55,y:75},{x:90,y:68},{x:72,y:82},{x:35,y:88},{x:10,y:90}].map((s,i)=>
-                  <circle key={i} cx={`${s.x}%`} cy={`${s.y}%`} r={i%3===0?"1.2":"0.7"} fill="#C4A882" opacity={i%2===0?"0.6":"0.35"} />
-                )}
-              </svg>
-              {/* Logo centré */}
-              <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-                <svg viewBox="0 0 200 130" width="170" xmlns="http://www.w3.org/2000/svg">
-                  {/* Outer circle */}
-                  <circle cx="100" cy="52" r="30" fill="none" stroke="#C4A882" strokeWidth="0.6" opacity="0.5" />
-                  <circle cx="100" cy="52" r="23" fill="none" stroke="#C4A882" strokeWidth="0.4" opacity="0.3" />
-                  {/* 8-point star */}
-                  <polygon points="100,26 101.8,48.2 124,46 103.5,52 124,58 101.8,55.8 100,78 98.2,55.8 76,58 96.5,52 76,46 98.2,48.2" fill="#C4A882" opacity="0.75" />
-                  <circle cx="100" cy="52" r="2.5" fill="#C4A882" opacity="0.9" />
-                  {/* Brand name */}
-                  <text x="100" y="96" textAnchor="middle" fontFamily="Montserrat, sans-serif" fontSize="7.5" fill="#C4A882" letterSpacing="5" opacity="0.55">MAISON</text>
-                  <text x="100" y="112" textAnchor="middle" fontFamily="'Bodoni Moda', Georgia, serif" fontSize="20" fill="#E8D8B8" letterSpacing="3" fontStyle="italic">Céleste</text>
-                </svg>
+              {/* Header */}
+              <div style={{ marginBottom: "28px" }}>
+                <div style={{ fontFamily: C.sans, fontSize: "9px", letterSpacing: "0.2em", textTransform: "uppercase", color: pkg.dark ? "rgba(248,245,240,0.28)" : C.ash, marginBottom: "8px" }}>
+                  Paket {pkg.num}
+                </div>
+                <h3 style={{ fontFamily: C.serif, fontSize: "21px", fontWeight: 400, color: pkg.dark ? "#F8F5F0" : C.ink, marginBottom: "10px", lineHeight: 1.25 }}>
+                  {pkg.name}
+                </h3>
+                <p style={{ fontFamily: C.sans, fontSize: "10px", color: pkg.dark ? "rgba(248,245,240,0.4)" : C.ash, lineHeight: 1.9 }}>
+                  {pkg.tagline}
+                </p>
               </div>
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 55%, rgba(5,4,16,0.4) 100%)" }} />
-              <div style={{ position: "absolute", top: "12px", left: "12px", zIndex: 3, background: "rgba(14,12,30,0.8)", padding: "3px 8px" }}>
-                <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: "7px", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(196,168,130,0.7)" }}>Concept Project</span>
-              </div>
-              <div style={{ position: "absolute", bottom: "10px", right: "10px", zIndex: 3, background: "#6B1E24", color: "#F5F0E8", fontFamily: "Montserrat, sans-serif", fontSize: "9px", padding: "3px 8px", opacity: 0, transition: "opacity 0.4s" }} className="card-arrow">↗</div>
-            </div>
-            <div style={{ fontSize: "13px", color: "#2B1F1C", marginBottom: "4px" }}>Maison Céleste</div>
-            <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#B09880" }}>Concept — Fine Jewellery</div>
-          </a>
 
-          {/* VORA ISTANBUL — Concept, Luxury Launch Experience */}
-          <a href="https://vora-istanbul.vercel.app" target="_blank" rel="noreferrer" className="work-card" style={{ cursor: "pointer", textDecoration: "none", color: "inherit", display: "block" }}>
-            <div style={{ aspectRatio: "4/3", marginBottom: "12px", position: "relative", overflow: "hidden" }}>
-              {/* VORA palette: dark concrete / steel / Bosphorus */}
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg, #181C20 0%, #111418 55%, #0C1016 100%)" }} />
-              {/* Bosphorus water hint at bottom */}
-              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "38%", background: "linear-gradient(to top, rgba(28,42,52,0.85) 0%, transparent 100%)" }} />
-              {/* Board-formed concrete lines */}
-              <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.12 }} xmlns="http://www.w3.org/2000/svg">
-                {[0,1,2,3,4,5,6,7].map(i => (
-                  <line key={i} x1="0" y1={`${12 + i * 12}%`} x2="100%" y2={`${12 + i * 12}%`} stroke="#A0926A" strokeWidth="0.5" />
+              <div style={{ height: "0.5px", background: pkg.dark ? "rgba(248,245,240,0.1)" : C.border, marginBottom: "24px" }} />
+
+              {/* Who it's for */}
+              <div style={{ marginBottom: "22px" }}>
+                <div style={{ fontFamily: C.sans, fontSize: "8.5px", letterSpacing: "0.18em", textTransform: "uppercase", color: pkg.dark ? C.sand : C.bordo, marginBottom: "8px" }}>Kimler İçin</div>
+                <p style={{ fontFamily: C.sans, fontSize: "10px", color: pkg.dark ? "rgba(248,245,240,0.4)" : C.ash, lineHeight: 1.9 }}>{pkg.kimFor}</p>
+              </div>
+
+              {/* Includes */}
+              <div style={{ marginBottom: "18px" }}>
+                <div style={{ fontFamily: C.sans, fontSize: "8.5px", letterSpacing: "0.18em", textTransform: "uppercase", color: pkg.dark ? C.sand : C.bordo, marginBottom: "10px" }}>Dahil</div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                  {pkg.includes.map(item => (
+                    <div key={item} style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
+                      <span style={{ color: pkg.dark ? C.sand : C.bordo, fontSize: "10px", lineHeight: 1.7, flexShrink: 0 }}>✓</span>
+                      <span style={{ fontFamily: C.sans, fontSize: "10px", color: pkg.dark ? "rgba(248,245,240,0.6)" : C.ink, lineHeight: 1.7 }}>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Excludes */}
+              {pkg.excludes.length > 0 && (
+                <div style={{ marginBottom: "22px" }}>
+                  <div style={{ fontFamily: C.sans, fontSize: "8.5px", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(26,23,20,0.28)", marginBottom: "10px" }}>Dahil Değil</div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                    {pkg.excludes.map(item => (
+                      <div key={item} style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
+                        <span style={{ color: "rgba(26,23,20,0.28)", fontSize: "10px", lineHeight: 1.7, flexShrink: 0 }}>—</span>
+                        <span style={{ fontFamily: C.sans, fontSize: "10px", color: "rgba(26,23,20,0.35)", lineHeight: 1.7 }}>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div style={{ height: "0.5px", background: pkg.dark ? "rgba(248,245,240,0.1)" : C.border, margin: "22px 0" }} />
+
+              {/* Meta */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "24px" }}>
+                {[
+                  { label: "Platform",  val: pkg.platform },
+                  { label: "Teslim",    val: pkg.timeline },
+                  { label: "Revizyon",  val: pkg.revisions },
+                ].map(m => (
+                  <div key={m.label}>
+                    <div style={{ fontFamily: C.sans, fontSize: "8px", letterSpacing: "0.16em", textTransform: "uppercase", color: pkg.dark ? "rgba(248,245,240,0.28)" : C.ash, marginBottom: "4px" }}>{m.label}</div>
+                    <div style={{ fontFamily: C.sans, fontSize: "10px", color: pkg.dark ? "rgba(248,245,240,0.65)" : C.ink }}>{m.val}</div>
+                  </div>
                 ))}
-              </svg>
-              {/* Centered logo */}
-              <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-                <svg viewBox="0 0 220 110" width="180" xmlns="http://www.w3.org/2000/svg">
-                  {/* Bronze top rule */}
-                  <line x1="60" y1="18" x2="160" y2="18" stroke="#A0926A" strokeWidth="0.6" opacity="0.7" />
-                  {/* Wordmark */}
-                  <text x="110" y="58" textAnchor="middle" fontFamily="'Bodoni Moda', Georgia, serif" fontSize="38" fill="#E8DEC8" letterSpacing="10" fontWeight="400">VORA</text>
-                  {/* Subline */}
-                  <text x="110" y="76" textAnchor="middle" fontFamily="Montserrat, sans-serif" fontSize="6.5" fill="#A0926A" letterSpacing="4.5" opacity="0.8">ISTANBUL</text>
-                  {/* Bronze bottom rule */}
-                  <line x1="60" y1="88" x2="160" y2="88" stroke="#A0926A" strokeWidth="0.6" opacity="0.7" />
-                  {/* Tagline */}
-                  <text x="110" y="100" textAnchor="middle" fontFamily="Montserrat, sans-serif" fontSize="5.5" fill="#6A7A82" letterSpacing="2.5" opacity="0.65">TWELVE RESIDENCES · BOSPHORUS</text>
-                </svg>
               </div>
-              <div style={{ position: "absolute", top: "12px", left: "12px", zIndex: 3, background: "rgba(18,20,24,0.82)", padding: "3px 8px" }}>
-                <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: "7px", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(160,146,106,0.75)" }}>Concept Project</span>
-              </div>
-              <div style={{ position: "absolute", bottom: "10px", right: "10px", zIndex: 3, background: "#6B1E24", color: "#F5F0E8", fontFamily: "Montserrat, sans-serif", fontSize: "9px", padding: "3px 8px", opacity: 0, transition: "opacity 0.4s" }} className="card-arrow">↗</div>
-            </div>
-            <div style={{ fontSize: "13px", color: "#2B1F1C", marginBottom: "4px" }}>VORA Istanbul</div>
-            <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#B09880" }}>Luxury Launch — Residential</div>
-          </a>
 
+              {/* Example project */}
+              <div style={{
+                marginBottom: "24px", padding: "12px 16px",
+                background: pkg.dark ? "rgba(248,245,240,0.04)" : "rgba(26,23,20,0.03)",
+                borderLeft: `2px solid ${pkg.dark ? C.sand : C.bordo}`,
+              }}>
+                <div style={{ fontFamily: C.sans, fontSize: "8px", letterSpacing: "0.16em", textTransform: "uppercase", color: pkg.dark ? C.sand : C.bordo, marginBottom: "5px" }}>Örnek Proje</div>
+                <a href={pkg.project.url} target="_blank" rel="noreferrer" style={{ fontFamily: C.sans, fontSize: "10px", color: pkg.dark ? "rgba(248,245,240,0.65)" : C.ink, textDecoration: "none" }}>
+                  {pkg.project.name} →
+                </a>
+              </div>
+
+              {/* CTA */}
+              <a href="#iletisim" style={{
+                display: "block", textAlign: "center",
+                fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: pkg.dark ? "#F8F5F0" : C.ink,
+                border: `0.5px solid ${pkg.dark ? "rgba(248,245,240,0.25)" : "rgba(26,23,20,0.22)"}`,
+                padding: "12px 0", textDecoration: "none",
+              }}>
+                Teklif Al
+              </a>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* SERVICES */}
-      <section id="services">
-        <div style={{ padding: "64px 60px 48px", borderBottom: "0.5px solid rgba(43,31,28,0.07)" }}>
-          <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.26em", textTransform: "uppercase", color: "#6B1E24", marginBottom: "16px" }}>What We Build</p>
-          <h2 style={{ fontSize: "26px", fontStyle: "italic", color: "#2B1F1C", lineHeight: 1.4, marginBottom: "12px" }}>Some brands are visited.<br />Others are entered.</h2>
-          <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "11px", color: "#9A8878", lineHeight: 2, maxWidth: "480px" }}>
-            We don't build websites. We build worlds — atmospheric, intentional, impossible to forget.
-          </p>
-        </div>
-
-        {[
-          { num: "I", name: "Starter Presence", bg: "#F5F0E8", headline: "Your brand's first breath in a room.", quote: "Before a word is read, something is already felt.", body: "A color temperature. A silence between elements. Not a first website — a first impression, considered and quiet. We translate what you know about yourself into atmosphere.", for: "New brands and solo founders who refuse to begin with something generic.", outcome: "You stop apologizing for your early stage. You arrive.", cta: "Begin quietly →", includes: ["Single-page site", "Typography pairing", "Atmosphere direction", "Motion entrances", "Mobile-first build"] },
-          { num: "II", name: "Editorial Brand Site", bg: "#6B1E24", dark: true, headline: "A world your clients step inside.", quote: "Every scroll is a reveal. Every section breathes.", body: "There is a difference between a brand that exists online and one that has a world. Your clients will not browse it. They will move through it — and leave feeling something they cannot name.", for: "Established brands ready for a presence that matches their actual level.", outcome: "You move from commodity to category.", cta: "Build your world →", includes: ["Multi-page site", "Editorial layout", "Scroll storytelling", "Motion design", "Typography system", "Brand voice"] },
-          { num: "III", name: "Luxury Launch Experience", bg: "#F0EAE0", dark: false, headline: "This is not a launch. This is an arrival.", quote: "Some moments in a brand's life are thresholds.", body: "A rebrand. A new era. An entry into a market that doesn't yet know your name — but will. We treat your launch the way a fashion house treats a collection: with precision, restraint, and certainty.", for: "Brands entering a new era. Founders who understand the way you arrive shapes everything.", outcome: "Your brand occupies a position before it has history.", cta: "Let's talk →", includes: ["Full brand identity", "10-page site", "Motion system", "Photography direction", "Launch strategy", "30-day support"] },
-        ].map((pkg, i) => (
-          <div key={pkg.num} style={{ background: pkg.bg, padding: "56px 60px", borderBottom: i < 2 ? "0.5px solid rgba(43,31,28,0.07)" : "none", position: "relative" }}>
-            {/* Watermark number */}
-            <div style={{ position: "absolute", top: "24px", right: "56px", fontSize: "120px", fontStyle: "italic", color: pkg.dark ? "rgba(245,240,232,0.04)" : "rgba(43,31,28,0.03)", lineHeight: 1, pointerEvents: "none", userSelect: "none" }}>{pkg.num}</div>
-
-            {/* Divider glyph between packages */}
-            {i > 0 && (
-              <div style={{ display: "none" }} />
-            )}
-
-            <div style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: "48px" }}>
-              <div>
-                <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", fontStyle: "italic", color: pkg.dark ? "#C4A882" : "#6B1E24", marginBottom: "12px", display: "block" }}>{pkg.num} — {pkg.name}</span>
-                <h3 style={{ fontSize: "22px", color: pkg.dark ? "#F5F0E8" : "#2B1F1C", marginBottom: "12px", lineHeight: 1.25, fontWeight: 400 }}>{pkg.headline}</h3>
-                <p style={{ fontSize: "12px", fontStyle: "italic", color: pkg.dark ? "rgba(245,240,232,0.42)" : "#7A6A5E", lineHeight: 1.8, marginBottom: "12px" }}>"{pkg.quote}"</p>
-                <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", color: pkg.dark ? "rgba(245,240,232,0.33)" : "#9A8878", lineHeight: 2 }}>{pkg.body}</p>
-              </div>
-              <div>
-                <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.24em", textTransform: "uppercase", color: pkg.dark ? "#C4A882" : "#6B1E24", marginBottom: "10px" }}>Who It's For</div>
-                <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", color: pkg.dark ? "rgba(245,240,232,0.33)" : "#9A8878", lineHeight: 1.9, marginBottom: "20px" }}>{pkg.for}</p>
-                <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.24em", textTransform: "uppercase", color: pkg.dark ? "#C4A882" : "#6B1E24", marginBottom: "10px" }}>What You Leave With</div>
-                <p style={{ fontSize: "12px", fontStyle: "italic", color: pkg.dark ? "rgba(245,240,232,0.68)" : "#5C4A3E", lineHeight: 1.7 }}>{pkg.outcome}</p>
-              </div>
-            </div>
-
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginTop: "28px", paddingTop: "20px", borderTop: `0.5px solid ${pkg.dark ? "rgba(245,240,232,0.07)" : "rgba(43,31,28,0.07)"}` }}>
-              {pkg.includes.map((inc) => (
-                <span key={inc} style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.08em", color: pkg.dark ? "rgba(245,240,232,0.2)" : "rgba(43,31,28,0.28)", border: `0.5px solid ${pkg.dark ? "rgba(245,240,232,0.09)" : "rgba(43,31,28,0.1)"}`, padding: "4px 10px" }}>{inc}</span>
-              ))}
-            </div>
-            <div style={{ marginTop: "16px", display: "inline-block", fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.2em", textTransform: "uppercase", color: pkg.dark ? "rgba(245,240,232,0.22)" : "rgba(43,31,28,0.28)", borderBottom: `0.5px solid ${pkg.dark ? "rgba(245,240,232,0.1)" : "rgba(43,31,28,0.14)"}`, paddingBottom: "2px", cursor: "pointer" }}>{pkg.cta}</div>
+      {/* ─────────────────── SÜREÇ ─────────────────── */}
+      <section id="surec" style={{ borderTop: `0.5px solid ${C.border}`, padding: "100px 0" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 48px" }}>
+          <div style={{ marginBottom: "60px" }}>
+            <p style={{ fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.26em", textTransform: "uppercase", color: C.bordo, marginBottom: "12px" }}>Süreç</p>
+            <h2 style={{ fontFamily: C.serif, fontSize: "clamp(28px, 3vw, 40px)", fontWeight: 400, marginBottom: "14px" }}>Nasıl çalışıyoruz?</h2>
+            <p style={{ fontFamily: C.sans, fontSize: "11px", color: C.ash, lineHeight: 2, maxWidth: "440px" }}>
+              Her proje keşiften desteğe yedi adımda ilerler. Şeffaf bir süreç, net beklentiler.
+            </p>
           </div>
-        ))}
-      </section>
 
-      {/* CONTACT */}
-      <section id="contact" style={{ padding: "80px 60px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "60px", background: "linear-gradient(135deg, #F5F0E8, #F0EAE0)", borderTop: "0.5px solid rgba(43,31,28,0.08)" }}>
-        <div>
-          <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.26em", textTransform: "uppercase", color: "#6B1E24", marginBottom: "16px" }}>Contact</p>
-          <h2 style={{ fontSize: "32px", color: "#2B1F1C", lineHeight: 1.3, marginBottom: "16px", fontStyle: "italic", fontWeight: 400 }}>Tell us about<br />your world.</h2>
-          <p style={{ fontSize: "13px", fontStyle: "italic", color: "#9A8878", lineHeight: 1.9, marginBottom: "28px" }}>Every project begins with a conversation.<br />We'd love to hear about yours.</p>
-          <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-            {["Website Design", "Brand Identity", "AI Creative Content"].map((s) => (
-              <div key={s} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <span style={{ color: "#6B1E24", fontSize: "11px" }}>✦</span>
-                <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", color: "#9A8878" }}>{s}</span>
+          {/* Steps */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)" }} className="steps-grid">
+            {steps.map((s, i) => (
+              <div key={s.n} style={{
+                borderLeft: `0.5px solid ${C.border}`,
+                padding: "24px 18px",
+              }}>
+                <div style={{ fontFamily: C.sans, fontSize: "9px", letterSpacing: "0.14em", color: C.bordo, marginBottom: "12px" }}>{s.n}</div>
+                <div style={{ fontFamily: C.serif, fontSize: "14px", color: C.ink, marginBottom: "10px" }}>{s.title}</div>
+                <p style={{ fontFamily: C.sans, fontSize: "9.5px", color: C.ash, lineHeight: 1.9 }}>{s.desc}</p>
               </div>
             ))}
           </div>
-        </div>
 
-        <div>
-          {sent ? (
-            <div style={{ padding: "60px 0", textAlign: "center" }}>
-              <div style={{ width: "40px", height: "1px", background: "#C4A882", margin: "0 auto 28px" }} />
-              <p style={{ fontSize: "20px", fontStyle: "italic", color: "#2B1F1C", marginBottom: "10px" }}>Your message is on its way.</p>
-              <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", color: "#9A8878", letterSpacing: "0.1em" }}>We'll be in touch soon.</p>
-            </div>
-          ) : (
-            <div>
-              {[
-                { key: "name", label: "Your name", placeholder: "How should we address you?" },
-                { key: "brand", label: "Your brand", placeholder: "What world are we building?" },
-                { key: "message", label: "Your message", placeholder: "Tell us about your vision, your brand, your world...", textarea: true },
-              ].map((f) => (
-                <div key={f.key} style={{ borderBottom: "0.5px solid rgba(43,31,28,0.12)", paddingBottom: "10px", marginBottom: "16px" }}>
-                  <label style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.2em", textTransform: "uppercase", color: "#9A8878", display: "block", marginBottom: "6px" }}>{f.label}</label>
-                  {f.textarea ? (
-                    <textarea value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      rows={4} placeholder={f.placeholder}
-                      style={{ width: "100%", background: "transparent", fontSize: "13px", fontStyle: "italic", color: "#2B1F1C", outline: "none", border: "none", resize: "none", fontFamily: "'Bodoni Moda', Georgia, serif" }} />
-                  ) : (
-                    <input type="text" value={formData[f.key as "name" | "brand"]}
-                      onChange={(e) => setFormData({ ...formData, [f.key]: e.target.value })}
-                      placeholder={f.placeholder}
-                      style={{ width: "100%", background: "transparent", fontSize: "13px", fontStyle: "italic", color: "#2B1F1C", outline: "none", border: "none", fontFamily: "'Bodoni Moda', Georgia, serif" }} />
-                  )}
-                </div>
-              ))}
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "8px" }}>
-                <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", color: "rgba(43,31,28,0.28)" }}>info@zesirastudio.com</span>
-                <button onClick={handleSubmit} style={{ background: "#6B1E24", color: "#F5F0E8", fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.18em", textTransform: "uppercase", padding: "10px 22px", fontWeight: 600, border: "none", cursor: "pointer" }}>Send →</button>
-              </div>
-            </div>
-          )}
+          {/* System note */}
+          <div style={{ marginTop: "44px", padding: "24px 28px", background: "rgba(26,23,20,0.03)", borderLeft: `2px solid ${C.bordo}` }}>
+            <div style={{ fontFamily: C.sans, fontSize: "8.5px", letterSpacing: "0.2em", textTransform: "uppercase", color: C.bordo, marginBottom: "10px" }}>Operasyonel Sistem</div>
+            <p style={{ fontFamily: C.sans, fontSize: "10px", color: C.ash, lineHeight: 2 }}>
+              Her proje keşif formu, teklif PDF'i, sözleşme, içerik talep formu ve proje başlangıç rehberiyle desteklenir.
+              Takip sistemi, mesaj şablonları ve teslim süreci her projede standart olarak uygulanır.
+              Müşteri her aşamada ne olduğunu, ne zaman olacağını ve ne beklemesi gerektiğini bilir.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer style={{ padding: "24px 60px", borderTop: "0.5px solid rgba(43,31,28,0.1)", display: "flex", justifyContent: "space-between", alignItems: "center", background: "#F5F0E8" }}>
-        <span style={{ fontSize: "12px", fontStyle: "italic", color: "#2B1F1C" }}>Zesira Studio</span>
-        <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.2em", textTransform: "uppercase", color: "#9A8878" }}>Not a website. A presence.</span>
-        <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", color: "rgba(43,31,28,0.28)" }}>© 2025</span>
+      {/* ─────────────────── HAKKINDA ─────────────────── */}
+      <section id="hakkinda" style={{ borderTop: `0.5px solid ${C.border}`, padding: "100px 0" }}>
+        <div style={{
+          maxWidth: "1200px", margin: "0 auto", padding: "0 48px",
+          display: "grid", gridTemplateColumns: "1fr 1fr",
+          gap: "80px", alignItems: "center",
+        }} className="about-grid">
+          {/* Photo slot */}
+          <div style={{
+            aspectRatio: "3/4",
+            background: "rgba(26,23,20,0.05)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            overflow: "hidden",
+          }}>
+            <span style={{ fontFamily: C.sans, fontSize: "9px", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(26,23,20,0.2)" }}>Fotoğraf</span>
+          </div>
+
+          {/* Bio */}
+          <div>
+            <p style={{ fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.26em", textTransform: "uppercase", color: C.bordo, marginBottom: "20px" }}>Hakkında</p>
+            <h2 style={{ fontFamily: C.serif, fontSize: "clamp(22px, 2.5vw, 34px)", fontWeight: 400, lineHeight: 1.35, marginBottom: "32px", color: C.ink }}>
+              Zesira Studio, modern markaların dijital deneyimlerini tasarlar.
+            </h2>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
+              <p style={{ fontFamily: C.sans, fontSize: "11px", color: C.ash, lineHeight: 2 }}>
+                Zesira'nın arkasında Zeynep Sıla Yılmaz var. Markaların dijital varlıklarını oluştururken yalnızca güzel görünen değil, gerçekten işe yarayan sistemler yaratmayı önemsiyor.
+              </p>
+              <p style={{ fontFamily: C.sans, fontSize: "11px", color: C.ash, lineHeight: 2 }}>
+                Her proje bir keşifle başlar. Markanın ne söylemek istediğini, kime hitap ettiğini ve nasıl hissettirmesi gerektiğini anlamadan tasarıma geçilmez.
+              </p>
+              <p style={{ fontFamily: C.sans, fontSize: "11px", color: C.ink, lineHeight: 2, fontStyle: "italic" }}>
+                "Zesira'yı kurduğumda aklımda tek bir soru vardı: Türkiye'deki modern markalar, uluslararası kalitede bir dijital deneyimi neden burada bulamasın?"
+              </p>
+            </div>
+
+            <div style={{ marginTop: "36px", display: "flex", gap: "32px" }}>
+              {[["3+", "Yıl Deneyim"], ["12+", "Tamamlanan Proje"], ["3", "Aktif Paket"]].map(([n, l]) => (
+                <div key={l}>
+                  <div style={{ fontFamily: C.serif, fontSize: "26px", color: C.ink, marginBottom: "4px" }}>{n}</div>
+                  <div style={{ fontFamily: C.sans, fontSize: "9px", letterSpacing: "0.14em", textTransform: "uppercase", color: C.ash }}>{l}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────── İLETİŞİM ─────────────────── */}
+      <section id="iletisim" style={{ background: C.dark, padding: "100px 0" }}>
+        <div style={{
+          maxWidth: "1200px", margin: "0 auto", padding: "0 48px",
+          display: "grid", gridTemplateColumns: "1fr 1.4fr",
+          gap: "80px",
+        }} className="contact-grid">
+          {/* Left */}
+          <div>
+            <p style={{ fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.26em", textTransform: "uppercase", color: C.sand, marginBottom: "20px" }}>İletişim</p>
+            <h2 style={{ fontFamily: C.serif, fontSize: "clamp(24px, 2.5vw, 36px)", fontWeight: 400, lineHeight: 1.35, color: "#F8F5F0", marginBottom: "24px" }}>
+              Projenizi konuşalım.
+            </h2>
+            <p style={{ fontFamily: C.sans, fontSize: "11px", color: "rgba(248,245,240,0.4)", lineHeight: 2, marginBottom: "36px" }}>
+              Formu doldurun ya da doğrudan WhatsApp'tan ulaşın. 24 saat içinde geri dönerim.
+            </p>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+              <a href="mailto:info@zesirastudio.com" style={{ fontFamily: C.sans, fontSize: "10px", color: "rgba(248,245,240,0.45)", textDecoration: "none", letterSpacing: "0.06em" }}>
+                info@zesirastudio.com
+              </a>
+              <a href="https://wa.me/905XXXXXXXXX" target="_blank" rel="noreferrer" style={{
+                display: "inline-flex", alignItems: "center", gap: "10px",
+                fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.16em",
+                textTransform: "uppercase", color: "#F8F5F0",
+                background: "#25D366", padding: "10px 20px",
+                textDecoration: "none", width: "fit-content",
+              }}>
+                WhatsApp ile Ulaş
+              </a>
+            </div>
+          </div>
+
+          {/* Form */}
+          <div>
+            {sent ? (
+              <div style={{ paddingTop: "60px", textAlign: "center" }}>
+                <div style={{ width: "40px", height: "0.5px", background: C.sand, margin: "0 auto 32px" }} />
+                <p style={{ fontFamily: C.serif, fontSize: "22px", color: "#F8F5F0", marginBottom: "12px", fontWeight: 400 }}>Başvurunuz alındı.</p>
+                <p style={{ fontFamily: C.sans, fontSize: "10px", color: "rgba(248,245,240,0.4)", letterSpacing: "0.1em" }}>24 saat içinde geri dönüyorum.</p>
+              </div>
+            ) : (
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                {[
+                  { key: "brand", label: "Marka Adı",            placeholder: "Markanızın adı" },
+                  { key: "name",  label: "Ad Soyad",             placeholder: "Adınız ve soyadınız" },
+                  { key: "email", label: "E-posta",              placeholder: "email@adresiniz.com" },
+                  { key: "phone", label: "Telefon / WhatsApp",   placeholder: "+90 5XX XXX XX XX" },
+                  { key: "social",label: "Instagram / Website",  placeholder: "@marka veya www.marka.com" },
+                ].map(f => (
+                  <div key={f.key} style={{ borderBottom: "0.5px solid rgba(248,245,240,0.1)", paddingBottom: "12px", marginBottom: "16px" }}>
+                    <label style={{ fontFamily: C.sans, fontSize: "9px", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(248,245,240,0.3)", display: "block", marginBottom: "6px" }}>{f.label}</label>
+                    <input
+                      type="text"
+                      value={form[f.key as keyof typeof form]}
+                      onChange={e => setForm({ ...form, [f.key]: e.target.value })}
+                      placeholder={f.placeholder}
+                      style={{ width: "100%", background: "transparent", border: "none", outline: "none", fontFamily: C.sans, fontSize: "12px", color: "#F8F5F0" }}
+                    />
+                  </div>
+                ))}
+
+                {/* Selects */}
+                {[
+                  { key: "paket", label: "İlgilenilen Paket", opts: ["Starter Presence","Editorial Brand Site","Luxury Launch Experience","Henüz karar vermedim"] },
+                  { key: "butce", label: "Bütçe Aralığı",     opts: ["10.000 – 25.000 ₺","25.000 – 50.000 ₺","50.000 – 100.000 ₺","100.000 ₺ üzeri","Henüz bilmiyorum"] },
+                  { key: "asama", label: "Proje Aşaması",     opts: ["Fikir aşamasında","Marka hazır, site yok","Mevcut siteyi yenilemek istiyorum","Acil — lansman tarihi var"] },
+                ].map(f => (
+                  <div key={f.key} style={{ borderBottom: "0.5px solid rgba(248,245,240,0.1)", paddingBottom: "12px", marginBottom: "16px" }}>
+                    <label style={{ fontFamily: C.sans, fontSize: "9px", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(248,245,240,0.3)", display: "block", marginBottom: "6px" }}>{f.label}</label>
+                    <select
+                      value={form[f.key as keyof typeof form]}
+                      onChange={e => setForm({ ...form, [f.key]: e.target.value })}
+                      style={{ width: "100%", background: "transparent", border: "none", outline: "none", fontFamily: C.sans, fontSize: "12px", color: "#F8F5F0", cursor: "pointer" }}
+                    >
+                      <option value="" style={{ background: C.dark, color: C.ink }}>Seçiniz</option>
+                      {f.opts.map(o => <option key={o} value={o} style={{ background: "#1E1A16", color: "#F8F5F0" }}>{o}</option>)}
+                    </select>
+                  </div>
+                ))}
+
+                {/* Message */}
+                <div style={{ borderBottom: "0.5px solid rgba(248,245,240,0.1)", paddingBottom: "12px", marginBottom: "28px" }}>
+                  <label style={{ fontFamily: C.sans, fontSize: "9px", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(248,245,240,0.3)", display: "block", marginBottom: "6px" }}>Proje Hakkında</label>
+                  <textarea
+                    value={form.mesaj}
+                    onChange={e => setForm({ ...form, mesaj: e.target.value })}
+                    rows={4}
+                    placeholder="Markanızı, projenizi ve beklentilerinizi kısaca anlatın..."
+                    style={{ width: "100%", background: "transparent", border: "none", outline: "none", resize: "none", fontFamily: C.sans, fontSize: "12px", color: "#F8F5F0" }}
+                  />
+                </div>
+
+                <button onClick={handleSubmit} style={{
+                  background: C.bordo, color: "#F8F5F0",
+                  fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.18em",
+                  textTransform: "uppercase", padding: "14px 32px",
+                  border: "none", cursor: "pointer", width: "fit-content",
+                }}>
+                  Başvuruyu Gönder →
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────── FOOTER ─────────────────── */}
+      <footer style={{
+        background: C.dark, borderTop: "0.5px solid rgba(248,245,240,0.07)",
+        padding: "20px 48px",
+        display: "flex", justifyContent: "space-between", alignItems: "center",
+      }}>
+        <span style={{ fontFamily: C.serif, fontSize: "13px", color: "rgba(248,245,240,0.45)" }}>Zesira Studio</span>
+        <span style={{ fontFamily: C.sans, fontSize: "9px", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(248,245,240,0.22)" }}>© 2025</span>
       </footer>
 
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Montserrat:wght@300;400;500;600&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        input::placeholder, textarea::placeholder { color: rgba(43,31,28,0.2); font-style: italic; }
-        .work-card:hover .card-arrow { opacity: 1 !important; }
-        @media (max-width: 768px) {
-          .hidden-mobile { display: none !important; }
-          .show-mobile { display: flex !important; }
-          section { grid-template-columns: 1fr !important; }
-          h1 { font-size: 36px !important; }
-          .pgrid { grid-template-columns: 1fr !important; }
+        body { background: #F8F5F0; }
+        input::placeholder, textarea::placeholder { color: rgba(248,245,240,0.2); font-style: italic; }
+
+        .nav-desktop { display: flex !important; }
+        .nav-mobile  { display: none  !important; }
+
+        .project-img:hover { transform: scale(1.03); }
+
+        @media (max-width: 900px) {
+          .nav-desktop { display: none  !important; }
+          .nav-mobile  { display: flex  !important; }
+          .project-row { grid-template-columns: 1fr !important; }
+          .package-grid { grid-template-columns: 1fr !important; }
+          .about-grid   { grid-template-columns: 1fr !important; }
+          .contact-grid { grid-template-columns: 1fr !important; }
+          .steps-grid   { grid-template-columns: repeat(4, 1fr) !important; }
+        }
+        @media (max-width: 540px) {
+          .steps-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
       `}</style>
     </main>
