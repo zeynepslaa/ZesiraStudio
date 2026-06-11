@@ -137,7 +137,7 @@ export default function Home() {
           </a>
 
           <nav style={{ display: "flex", gap: "32px" }} className="hidden-mobile">
-            {["Work", "Services", "About", "Journal", "Contact"].map((item) => (
+            {["Work", "Services", "About", "Contact"].map((item) => (
               <a key={item} href={`#${item.toLowerCase()}`} style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.18em", textTransform: "uppercase", color: "#9A8878", textDecoration: "none" }}>{item}</a>
             ))}
           </nav>
@@ -165,7 +165,7 @@ export default function Home() {
 
         {menuOpen && (
           <div style={{ background: "#F5F0E8", borderTop: "0.5px solid rgba(43,31,28,0.1)", padding: "24px 40px", display: "flex", flexDirection: "column", gap: "20px" }}>
-            {["Work", "Services", "About", "Journal", "Contact"].map((item) => (
+            {["Work", "Services", "About", "Contact"].map((item) => (
               <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)}
                 style={{ fontFamily: "Montserrat, sans-serif", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "#9A8878", textDecoration: "none" }}>{item}</a>
             ))}
@@ -267,7 +267,6 @@ export default function Home() {
             <p style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.26em", textTransform: "uppercase", color: "#6B1E24", marginBottom: "8px" }}>Selected Work</p>
             <h2 style={{ fontSize: "28px", color: "#2B1F1C", fontWeight: 400 }}>Every project is a world of its own.</h2>
           </div>
-          <a href="#contact" style={{ fontFamily: "Montserrat, sans-serif", fontSize: "10px", letterSpacing: "0.16em", textTransform: "uppercase", color: "#9A8878", borderBottom: "0.5px solid rgba(107,30,36,0.3)", paddingBottom: "2px", textDecoration: "none" }}>View All Projects →</a>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "20px" }}>
 
