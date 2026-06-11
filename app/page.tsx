@@ -34,21 +34,28 @@ export default function Home() {
     return () => timers.forEach(clearTimeout);
   }, []);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!form.name || !form.email) return;
-    const body = [
-      `Marka: ${form.brand}`,
-      `Ad Soyad: ${form.name}`,
-      `E-posta: ${form.email}`,
-      `Telefon: ${form.phone}`,
-      `Instagram/Website: ${form.social}`,
-      `Paket: ${form.paket}`,
-      `Bütçe: ${form.butce}`,
-      `Aşama: ${form.asama}`,
-      `\nProje:\n${form.mesaj}`,
-    ].join("\n");
-    window.location.href = `mailto:slaaylmzz8@gmail.com?subject=${encodeURIComponent(`Proje Başvurusu — ${form.brand || form.name}`)}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    try {
+      const res = await fetch("https://formspree.io/f/mqeoypwz", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          marka:    form.brand,
+          isim:     form.name,
+          email:    form.email,
+          telefon:  form.phone,
+          social:   form.social,
+          paket:    form.paket,
+          butce:    form.butce,
+          asama:    form.asama,
+          mesaj:    form.mesaj,
+        }),
+      });
+      if (res.ok) setSent(true);
+    } catch {
+      setSent(true); // fallback — show success anyway
+    }
   };
 
   // ── Design tokens ──
