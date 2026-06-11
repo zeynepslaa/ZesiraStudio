@@ -115,6 +115,7 @@ export default function Home() {
   const packages = [
     {
       num: "I", name: "Starter Presence",
+      price: "9.900 ₺", normalPrice: "14.900 ₺",
       tagline: "Dijital varlığını oluşturmak isteyen markalar için.",
       kimFor: "Yeni kurulan markalar, solo kurucular ve dijital varlığına ilk adımını atan işletmeler.",
       includes: [
@@ -136,6 +137,7 @@ export default function Home() {
     },
     {
       num: "II", name: "Editorial Brand Site",
+      price: "24.900 ₺", normalPrice: "34.900 ₺",
       badge: "En Çok Tercih Edilen",
       tagline: "Marka deneyimini derinleştirmek isteyen işletmeler için.",
       kimFor: "Büyüyen markalar, hizmet sunan işletmeler, hikâyesini ve estetiğini öne çıkarmak isteyen stüdyolar.",
@@ -159,6 +161,7 @@ export default function Home() {
     },
     {
       num: "III", name: "Luxury Launch Experience",
+      price: "44.900 ₺", normalPrice: "64.900 ₺",
       tagline: "Kalıcı bir izlenim bırakmak isteyen markalar için.",
       kimFor: "Yeni bir dönem açan markalar, prestijli lansman gerektiren projeler ve uluslararası hedef kitleye hitap eden işletmeler.",
       includes: [
@@ -461,7 +464,7 @@ export default function Home() {
               )}
 
               {/* Header */}
-              <div style={{ marginBottom: "28px" }}>
+              <div style={{ marginBottom: "24px" }}>
                 <div style={{ fontFamily: C.sans, fontSize: "9px", letterSpacing: "0.2em", textTransform: "uppercase", color: pkg.dark ? "rgba(248,245,240,0.28)" : C.ash, marginBottom: "8px" }}>
                   Paket {pkg.num}
                 </div>
@@ -471,6 +474,38 @@ export default function Home() {
                 <p style={{ fontFamily: C.sans, fontSize: "10px", color: pkg.dark ? "rgba(248,245,240,0.4)" : C.ash, lineHeight: 1.9 }}>
                   {pkg.tagline}
                 </p>
+              </div>
+
+              {/* Price block */}
+              <div style={{
+                display: "flex", alignItems: "flex-end", gap: "10px",
+                marginBottom: "8px",
+              }}>
+                <span style={{
+                  fontFamily: C.serif, fontSize: "28px", fontWeight: 400,
+                  color: pkg.dark ? "#F8F5F0" : C.ink, lineHeight: 1,
+                }}>{(pkg as any).price}</span>
+                <span style={{
+                  fontFamily: C.sans, fontSize: "10px",
+                  color: pkg.dark ? "rgba(248,245,240,0.3)" : "rgba(26,23,20,0.3)",
+                  textDecoration: "line-through", paddingBottom: "3px",
+                }}>{(pkg as any).normalPrice}</span>
+              </div>
+              <div style={{
+                display: "inline-flex", alignItems: "center", gap: "5px",
+                marginBottom: "22px",
+              }}>
+                <span style={{
+                  fontFamily: C.sans, fontSize: "8px", letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  color: pkg.dark ? C.sand : C.bordo,
+                  border: `0.5px solid ${pkg.dark ? C.sand : C.bordo}`,
+                  padding: "2px 8px",
+                }}>Lansman Fiyatı</span>
+                <span style={{
+                  fontFamily: C.sans, fontSize: "8.5px",
+                  color: pkg.dark ? "rgba(248,245,240,0.3)" : C.ash,
+                }}>30 Haziran 2026'ya kadar</span>
               </div>
 
               <div style={{ height: "0.5px", background: pkg.dark ? "rgba(248,245,240,0.1)" : C.border, marginBottom: "24px" }} />
