@@ -583,7 +583,7 @@ export default function Baslangic() {
             Proje sürecinde bir sorunuz mu var? WhatsApp veya e-posta ile ulaşabilirsiniz.
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-            <a href="https://wa.me/905XXXXXXXXX" target="_blank" rel="noreferrer" style={{
+            <a href="https://wa.me/905456649930" target="_blank" rel="noreferrer" style={{
               display: "inline-flex", alignItems: "center", gap: "8px",
               fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.14em",
               textTransform: "uppercase", color: "#F8F5F0",

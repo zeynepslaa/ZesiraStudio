@@ -47,7 +47,7 @@ export default function Home() {
       `Aşama: ${form.asama}`,
       `\nProje:\n${form.mesaj}`,
     ].join("\n");
-    window.location.href = `mailto:info@zesirastudio.com?subject=${encodeURIComponent(`Proje Başvurusu — ${form.brand || form.name}`)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:slaaylmzz8@gmail.com?subject=${encodeURIComponent(`Proje Başvurusu — ${form.brand || form.name}`)}&body=${encodeURIComponent(body)}`;
     setSent(true);
   };
 
@@ -691,10 +691,10 @@ export default function Home() {
             </p>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-              <a href="mailto:info@zesirastudio.com" style={{ fontFamily: C.sans, fontSize: "10px", color: "rgba(248,245,240,0.45)", textDecoration: "none", letterSpacing: "0.06em" }}>
-                info@zesirastudio.com
+              <a href="mailto:slaaylmzz8@gmail.com" style={{ fontFamily: C.sans, fontSize: "10px", color: "rgba(248,245,240,0.45)", textDecoration: "none", letterSpacing: "0.06em" }}>
+                slaaylmzz8@gmail.com
               </a>
-              <a href="https://wa.me/905XXXXXXXXX" target="_blank" rel="noreferrer" style={{
+              <a href="https://wa.me/905456649930" target="_blank" rel="noreferrer" style={{
                 display: "inline-flex", alignItems: "center", gap: "10px",
                 fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.16em",
                 textTransform: "uppercase", color: "#F8F5F0",
