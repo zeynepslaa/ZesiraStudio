@@ -268,7 +268,7 @@ export default function Home() {
             <h2 style={{ fontSize: "28px", color: "#2B1F1C", fontWeight: 400 }}>Every project is a world of its own.</h2>
           </div>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "20px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
 
           {/* AURELLE — Concept, live external */}
           <a href="https://aurelle-nine.vercel.app" target="_blank" rel="noreferrer" className="work-card" style={{ cursor: "pointer", textDecoration: "none", color: "inherit", display: "block" }}>
@@ -337,6 +337,43 @@ export default function Home() {
             </div>
             <div style={{ fontSize: "13px", color: "#2B1F1C", marginBottom: "4px" }}>Maison Céleste</div>
             <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#B09880" }}>Concept — Fine Jewellery</div>
+          </a>
+
+          {/* VORA ISTANBUL — Concept, Luxury Launch Experience */}
+          <a href="https://vora-istanbul.vercel.app" target="_blank" rel="noreferrer" className="work-card" style={{ cursor: "pointer", textDecoration: "none", color: "inherit", display: "block" }}>
+            <div style={{ aspectRatio: "4/3", marginBottom: "12px", position: "relative", overflow: "hidden" }}>
+              {/* VORA palette: dark concrete / steel / Bosphorus */}
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg, #181C20 0%, #111418 55%, #0C1016 100%)" }} />
+              {/* Bosphorus water hint at bottom */}
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "38%", background: "linear-gradient(to top, rgba(28,42,52,0.85) 0%, transparent 100%)" }} />
+              {/* Board-formed concrete lines */}
+              <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.12 }} xmlns="http://www.w3.org/2000/svg">
+                {[0,1,2,3,4,5,6,7].map(i => (
+                  <line key={i} x1="0" y1={`${12 + i * 12}%`} x2="100%" y2={`${12 + i * 12}%`} stroke="#A0926A" strokeWidth="0.5" />
+                ))}
+              </svg>
+              {/* Centered logo */}
+              <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                <svg viewBox="0 0 220 110" width="180" xmlns="http://www.w3.org/2000/svg">
+                  {/* Bronze top rule */}
+                  <line x1="60" y1="18" x2="160" y2="18" stroke="#A0926A" strokeWidth="0.6" opacity="0.7" />
+                  {/* Wordmark */}
+                  <text x="110" y="58" textAnchor="middle" fontFamily="'Bodoni Moda', Georgia, serif" fontSize="38" fill="#E8DEC8" letterSpacing="10" fontWeight="400">VORA</text>
+                  {/* Subline */}
+                  <text x="110" y="76" textAnchor="middle" fontFamily="Montserrat, sans-serif" fontSize="6.5" fill="#A0926A" letterSpacing="4.5" opacity="0.8">ISTANBUL</text>
+                  {/* Bronze bottom rule */}
+                  <line x1="60" y1="88" x2="160" y2="88" stroke="#A0926A" strokeWidth="0.6" opacity="0.7" />
+                  {/* Tagline */}
+                  <text x="110" y="100" textAnchor="middle" fontFamily="Montserrat, sans-serif" fontSize="5.5" fill="#6A7A82" letterSpacing="2.5" opacity="0.65">TWELVE RESIDENCES · BOSPHORUS</text>
+                </svg>
+              </div>
+              <div style={{ position: "absolute", top: "12px", left: "12px", zIndex: 3, background: "rgba(18,20,24,0.82)", padding: "3px 8px" }}>
+                <span style={{ fontFamily: "Montserrat, sans-serif", fontSize: "7px", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(160,146,106,0.75)" }}>Concept Project</span>
+              </div>
+              <div style={{ position: "absolute", bottom: "10px", right: "10px", zIndex: 3, background: "#6B1E24", color: "#F5F0E8", fontFamily: "Montserrat, sans-serif", fontSize: "9px", padding: "3px 8px", opacity: 0, transition: "opacity 0.4s" }} className="card-arrow">↗</div>
+            </div>
+            <div style={{ fontSize: "13px", color: "#2B1F1C", marginBottom: "4px" }}>VORA Istanbul</div>
+            <div style={{ fontFamily: "Montserrat, sans-serif", fontSize: "9px", letterSpacing: "0.1em", textTransform: "uppercase", color: "#B09880" }}>Luxury Launch — Residential</div>
           </a>
 
         </div>
