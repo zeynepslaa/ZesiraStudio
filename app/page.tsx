@@ -229,7 +229,7 @@ export default function Home() {
             display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
             gap: "14px",
           }}>
-            <div style={{
+            <div className="intro-wordmark" style={{
               opacity: studioOp,
               transition: "opacity 1.8s ease",
               fontFamily: C.serif,
@@ -241,7 +241,7 @@ export default function Home() {
             }}>
               Zesira Studio
             </div>
-            <div style={{
+            <div className="intro-tagline" style={{
               opacity: tagOp,
               transition: "opacity 1.4s ease",
               fontFamily: C.sans,
@@ -330,7 +330,7 @@ export default function Home() {
 
       {/* ─────────────────── DEĞER ÖNERİSİ ─────────────────── */}
       <section style={{ paddingTop: "120px", borderBottom: `0.5px solid ${C.border}` }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "72px 48px" }}>
+        <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "72px 48px" }}>
           <p style={{
             fontFamily: C.serif,
             fontSize: "clamp(17px, 2vw, 24px)",
@@ -347,7 +347,7 @@ export default function Home() {
       {/* ─────────────────── PROJELER ─────────────────── */}
       <section id="projeler">
         {/* Section header */}
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "60px 48px 56px" }}>
+        <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "60px 48px 56px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
             <div>
               <p style={{ fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.26em", textTransform: "uppercase", color: C.bordo, marginBottom: "12px" }}>Seçili Projeler</p>
@@ -384,7 +384,7 @@ export default function Home() {
               </div>
 
               {/* Info */}
-              <div style={{
+              <div className="project-info" style={{
                 order: p.flip ? 1 : 2,
                 padding: "56px 52px",
                 display: "flex", flexDirection: "column", justifyContent: "center",
@@ -447,7 +447,7 @@ export default function Home() {
 
       {/* ─────────────────── PAKETLER ─────────────────── */}
       <section id="paketler" style={{ borderTop: `0.5px solid ${C.border}` }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "80px 48px 56px" }}>
+        <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "80px 48px 56px" }}>
           <p style={{ fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.26em", textTransform: "uppercase", color: C.bordo, marginBottom: "12px" }}>Paketler</p>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
             <h2 style={{ fontFamily: C.serif, fontSize: "clamp(28px, 3vw, 40px)", fontWeight: 400 }}>Hangi paket size uygun?</h2>
@@ -462,7 +462,7 @@ export default function Home() {
           maxWidth: "1200px", margin: "0 auto", padding: "0 48px 100px",
           display: "grid", gridTemplateColumns: "repeat(3, 1fr)",
           gap: "0", border: `0.5px solid ${C.border}`,
-        }} className="package-grid">
+        }} className="package-grid container">
           {packages.map((pkg, i) => (
             <div key={pkg.num} style={{
               background: pkg.dark ? C.dark : C.bg,
@@ -606,7 +606,7 @@ export default function Home() {
 
       {/* ─────────────────── SÜREÇ ─────────────────── */}
       <section id="surec" style={{ borderTop: `0.5px solid ${C.border}`, padding: "100px 0" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 48px" }}>
+        <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 48px" }}>
           <div style={{ marginBottom: "60px" }}>
             <p style={{ fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.26em", textTransform: "uppercase", color: C.bordo, marginBottom: "12px" }}>Süreç</p>
             <h2 style={{ fontFamily: C.serif, fontSize: "clamp(28px, 3vw, 40px)", fontWeight: 400, marginBottom: "14px" }}>Nasıl çalışıyoruz?</h2>
@@ -663,7 +663,7 @@ export default function Home() {
           maxWidth: "1200px", margin: "0 auto", padding: "0 48px",
           display: "grid", gridTemplateColumns: "1fr 1fr",
           gap: "80px",
-        }} className="about-grid">
+        }} className="about-grid container">
 
           {/* Left — Archive */}
           <div>
@@ -743,7 +743,7 @@ export default function Home() {
           maxWidth: "1200px", margin: "0 auto", padding: "0 48px",
           display: "grid", gridTemplateColumns: "1fr 1.4fr",
           gap: "80px",
-        }} className="contact-grid">
+        }} className="contact-grid container">
           {/* Left */}
           <div>
             <p style={{ fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.26em", textTransform: "uppercase", color: C.sand, marginBottom: "20px" }}>İletişim</p>
@@ -861,24 +861,70 @@ export default function Home() {
         body { background: #F8F5F0; }
         input::placeholder, textarea::placeholder { color: rgba(248,245,240,0.2); font-style: italic; }
 
+        /* ── Desktop ── */
         .nav-desktop { display: flex !important; }
         .nav-mobile  { display: none  !important; }
-
         .project-img:hover { transform: scale(1.03); }
         .archive-row:hover { opacity: 0.65; }
-        @media (max-width: 640px) { .system-grid { grid-template-columns: 1fr !important; } }
 
+        /* ── Tablet ≤ 900px ── */
         @media (max-width: 900px) {
-          .nav-desktop { display: none  !important; }
-          .nav-mobile  { display: flex  !important; }
-          .project-row { grid-template-columns: 1fr !important; }
+          .nav-desktop  { display: none !important; }
+          .nav-mobile   { display: flex !important; }
+          .project-row  { grid-template-columns: 1fr !important; }
           .package-grid { grid-template-columns: 1fr !important; }
-          .about-grid   { grid-template-columns: 1fr !important; }
-          .contact-grid { grid-template-columns: 1fr !important; }
+          .about-grid   { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .contact-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
           .steps-grid   { grid-template-columns: repeat(4, 1fr) !important; }
+          .system-grid  { grid-template-columns: repeat(2, 1fr) !important; }
+          /* image always on top in project rows */
+          .project-row > div { order: unset !important; }
+          .project-row > div:first-child { order: 1 !important; }
+          .project-row > div:nth-child(2) { order: 2 !important; }
         }
-        @media (max-width: 540px) {
+
+        /* ── Mobile ≤ 640px ── */
+        @media (max-width: 640px) {
+          /* Nav */
+          header > div[style] { padding-left: 20px !important; padding-right: 20px !important; }
+
+          /* All main content containers */
+          .container { padding-left: 20px !important; padding-right: 20px !important; }
+
+          /* Section vertical padding */
+          #surec,
+          #hakkinda { padding: 60px 0 !important; }
+          #iletisim  { padding: 60px 0 !important; }
+
+          /* Value prop section */
+          .container[style*="72px"] { padding-top: 40px !important; padding-bottom: 40px !important; }
+
+          /* Project section header */
+          .container[style*="60px 48px 56px"] { padding-top: 40px !important; padding-bottom: 32px !important; }
+
+          /* Package header container */
+          .container[style*="80px 48px 56px"] { padding-top: 52px !important; padding-bottom: 32px !important; }
+
+          /* Package grid bottom padding */
+          .package-grid.container { padding-bottom: 0 !important; }
+          .package-grid > div { padding: 28px 20px 32px !important; border-right: none !important; }
+
+          /* Project info panel */
+          .project-info { padding: 32px 20px !important; border-left: none !important; border-right: none !important; }
+
+          /* Steps */
           .steps-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .steps-grid > div { padding: 16px 14px !important; }
+
+          /* System grid */
+          .system-grid { grid-template-columns: 1fr !important; }
+
+          /* Footer */
+          footer { padding: 16px 20px !important; }
+
+          /* Intro: smaller text on mobile */
+          .intro-wordmark { font-size: 18px !important; letter-spacing: 0.14em !important; }
+          .intro-tagline  { font-size: 9px !important; }
         }
       `}</style>
     </main>
