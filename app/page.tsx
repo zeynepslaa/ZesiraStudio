@@ -328,8 +328,24 @@ export default function Home() {
         )}
       </header>
 
+      {/* ─────────────────── DEĞER ÖNERİSİ ─────────────────── */}
+      <section style={{ paddingTop: "120px", borderBottom: `0.5px solid ${C.border}` }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "72px 48px" }}>
+          <p style={{
+            fontFamily: C.serif,
+            fontSize: "clamp(17px, 2vw, 24px)",
+            fontWeight: 400,
+            color: C.ash,
+            lineHeight: 1.7,
+            maxWidth: "680px",
+          }}>
+            Hazır şablonlar üretmiyoruz. Her proje, o markanın kimliği için sıfırdan tasarlanır — teslimattan önce bile süreç başlamış olur.
+          </p>
+        </div>
+      </section>
+
       {/* ─────────────────── PROJELER ─────────────────── */}
-      <section id="projeler" style={{ paddingTop: "120px" }}>
+      <section id="projeler">
         {/* Section header */}
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "60px 48px 56px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
@@ -614,55 +630,103 @@ export default function Home() {
           </div>
 
           {/* System note */}
-          <div style={{ marginTop: "44px", padding: "24px 28px", background: "rgba(26,23,20,0.03)", borderLeft: `2px solid ${C.bordo}` }}>
-            <div style={{ fontFamily: C.sans, fontSize: "8.5px", letterSpacing: "0.2em", textTransform: "uppercase", color: C.bordo, marginBottom: "10px" }}>Operasyonel Sistem</div>
-            <p style={{ fontFamily: C.sans, fontSize: "10px", color: C.ash, lineHeight: 2 }}>
-              Her proje keşif formu, teklif PDF'i, sözleşme, içerik talep formu ve proje başlangıç rehberiyle desteklenir.
-              Takip sistemi, mesaj şablonları ve teslim süreci her projede standart olarak uygulanır.
-              Müşteri her aşamada ne olduğunu, ne zaman olacağını ve ne beklemesi gerektiğini bilir.
-            </p>
+          <div style={{ marginTop: "52px" }}>
+            <div style={{
+              display: "grid", gridTemplateColumns: "1fr 1fr",
+              gap: "1px", background: C.border,
+              border: `0.5px solid ${C.border}`,
+            }} className="system-grid">
+              {[
+                { title: "Teklif PDF'i",          desc: "Her müşteriye kapsam, fiyat ve takvimi içeren özel teklif belgesi hazırlanır." },
+                { title: "İmzalı Sözleşme",        desc: "Proje başlamadan önce her iki tarafı koruyan standart sözleşme imzalanır." },
+                { title: "İçerik Talep Formu",     desc: "Ön ödeme sonrası müşteri, proje için gereken tüm içerikleri yapılandırılmış formla sunar." },
+                { title: "Müşteri Portalı",        desc: "Müşteri zesirastudio.com/baslangic üzerinden tüm adımları tek yerden yönetir." },
+              ].map(item => (
+                <div key={item.title} style={{ background: C.bg, padding: "24px 26px" }}>
+                  <div style={{ fontFamily: C.sans, fontSize: "8.5px", letterSpacing: "0.18em", textTransform: "uppercase", color: C.bordo, marginBottom: "10px" }}>{item.title}</div>
+                  <p style={{ fontFamily: C.sans, fontSize: "10px", color: C.ash, lineHeight: 1.9 }}>{item.desc}</p>
+                </div>
+              ))}
+            </div>
+            <div style={{ marginTop: "20px", padding: "16px 20px", background: "rgba(107,30,36,0.04)", borderLeft: `2px solid ${C.bordo}` }}>
+              <p style={{ fontFamily: C.sans, fontSize: "10px", color: C.ash, lineHeight: 2 }}>
+                Çoğu freelancer DM → WhatsApp → dosya gönder süreciyle ilerler. Zesira'da her proje keşiften desteğe standart bir sistemle yürür. Müşteri her aşamada ne olduğunu, ne zaman olacağını ve ne beklemesi gerektiğini bilir.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ─────────────────── HAKKINDA ─────────────────── */}
+      {/* ─────────────────── HAKKINDA / ARŞİV ─────────────────── */}
       <section id="hakkinda" style={{ borderTop: `0.5px solid ${C.border}`, padding: "100px 0" }}>
         <div style={{
           maxWidth: "1200px", margin: "0 auto", padding: "0 48px",
           display: "grid", gridTemplateColumns: "1fr 1fr",
-          gap: "80px", alignItems: "center",
+          gap: "80px",
         }} className="about-grid">
-          {/* Photo slot */}
-          <div style={{
-            aspectRatio: "3/4",
-            background: "rgba(26,23,20,0.05)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            overflow: "hidden",
-          }}>
-            <span style={{ fontFamily: C.sans, fontSize: "9px", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(26,23,20,0.2)" }}>Fotoğraf</span>
+
+          {/* Left — Archive */}
+          <div>
+            <p style={{ fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.26em", textTransform: "uppercase", color: C.bordo, marginBottom: "32px" }}>Zesira Arşivi — 2025–2026</p>
+
+            {[
+              { name: "VORA Istanbul",       paket: "Luxury Launch Experience", img: IMG.voraCard,    url: "https://vora-istanbul.vercel.app",      real: true  },
+              { name: "Maison Céleste",       paket: "Editorial Brand Site",     img: IMG.celesteCard, url: "https://maison-celeste-xi.vercel.app", real: false },
+              { name: "Aurelle Skin Atelier", paket: "Starter Presence",         img: IMG.aurelleCard, url: "https://aurelle-nine.vercel.app",      real: false },
+            ].map((p, i) => (
+              <a key={i} href={p.url} target="_blank" rel="noreferrer" style={{ textDecoration: "none", display: "block" }}>
+                <div style={{
+                  display: "grid", gridTemplateColumns: "56px 1fr",
+                  gap: "16px", alignItems: "center",
+                  borderTop: `0.5px solid ${C.border}`,
+                  padding: "16px 0",
+                  transition: "opacity 0.2s",
+                }} className="archive-row">
+                  {/* Thumbnail */}
+                  <div style={{ width: "56px", height: "40px", overflow: "hidden", flexShrink: 0 }}>
+                    <img src={p.img} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                  </div>
+                  {/* Info */}
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <div>
+                      <div style={{ fontFamily: C.serif, fontSize: "14px", color: C.ink, marginBottom: "3px" }}>{p.name}</div>
+                      <div style={{ fontFamily: C.sans, fontSize: "9px", letterSpacing: "0.12em", textTransform: "uppercase", color: C.ash }}>{p.paket}</div>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                      {p.real && (
+                        <span style={{ fontFamily: C.sans, fontSize: "7.5px", letterSpacing: "0.14em", textTransform: "uppercase", color: "#F8F5F0", background: C.bordo, padding: "2px 7px" }}>Gerçek</span>
+                      )}
+                      <span style={{ fontFamily: C.sans, fontSize: "11px", color: "rgba(26,23,20,0.25)" }}>→</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            ))}
+
+            <div style={{ borderTop: `0.5px solid ${C.border}`, paddingTop: "20px", marginTop: "4px" }}>
+              <span style={{ fontFamily: C.sans, fontSize: "9px", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(26,23,20,0.3)" }}>
+                My Club — yakında
+              </span>
+            </div>
           </div>
 
-          {/* Bio */}
-          <div>
-            <p style={{ fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.26em", textTransform: "uppercase", color: C.bordo, marginBottom: "20px" }}>Hakkında</p>
-            <h2 style={{ fontFamily: C.serif, fontSize: "clamp(22px, 2.5vw, 34px)", fontWeight: 400, lineHeight: 1.35, marginBottom: "32px", color: C.ink }}>
-              Zesira Studio, modern markaların dijital deneyimlerini tasarlar.
+          {/* Right — Bio */}
+          <div style={{ paddingTop: "48px" }}>
+            <h2 style={{ fontFamily: C.serif, fontSize: "clamp(20px, 2.2vw, 30px)", fontWeight: 400, lineHeight: 1.4, marginBottom: "28px", color: C.ink }}>
+              Türkiye'deki modern markalar için editoryal web deneyimleri tasarlıyoruz.
             </h2>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "16px", marginBottom: "32px" }}>
               <p style={{ fontFamily: C.sans, fontSize: "11px", color: C.ash, lineHeight: 2 }}>
-                Zesira'nın arkasında Zeynep Sıla Yılmaz var. Markaların dijital varlıklarını oluştururken yalnızca güzel görünen değil, gerçekten işe yarayan sistemler yaratmayı önemsiyor.
+                Zesira'nın arkasında Zeynep Sıla Yılmaz var. Markaların dijital varlıklarını oluştururken yalnızca güzel görünen değil, gerçekten işe yarayan sistemler kurmayı önemsiyor.
               </p>
-              <p style={{ fontFamily: C.sans, fontSize: "11px", color: C.ash, lineHeight: 2 }}>
-                Her proje bir keşifle başlar. Markanın ne söylemek istediğini, kime hitap ettiğini ve nasıl hissettirmesi gerektiğini anlamadan tasarıma geçilmez.
-              </p>
-              <p style={{ fontFamily: C.sans, fontSize: "11px", color: C.ink, lineHeight: 2, fontStyle: "italic" }}>
-                "Zesira'yı kurduğumda aklımda tek bir soru vardı: Türkiye'deki modern markalar, uluslararası kalitede bir dijital deneyimi neden burada bulamasın?"
+              <p style={{ fontFamily: C.sans, fontSize: "11px", color: C.ink, lineHeight: 2, fontStyle: "italic", borderLeft: `2px solid ${C.bordo}`, paddingLeft: "16px" }}>
+                "Türkiye'deki modern markalar, uluslararası kalitede bir dijital deneyimi neden burada bulamasın?"
               </p>
             </div>
 
-            <div style={{ marginTop: "36px", display: "flex", gap: "32px" }}>
-              {[["3+", "Yıl Deneyim"], ["12+", "Tamamlanan Proje"], ["3", "Aktif Paket"]].map(([n, l]) => (
+            <div style={{ display: "flex", gap: "32px" }}>
+              {[["3+", "Yıl Deneyim"], ["3", "Aktif Paket"], ["7", "Adımlı Süreç"]].map(([n, l]) => (
                 <div key={l}>
                   <div style={{ fontFamily: C.serif, fontSize: "26px", color: C.ink, marginBottom: "4px" }}>{n}</div>
                   <div style={{ fontFamily: C.sans, fontSize: "9px", letterSpacing: "0.14em", textTransform: "uppercase", color: C.ash }}>{l}</div>
@@ -698,7 +762,7 @@ export default function Home() {
                 display: "inline-flex", alignItems: "center", gap: "10px",
                 fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.16em",
                 textTransform: "uppercase", color: "#F8F5F0",
-                background: "#25D366", padding: "10px 20px",
+                background: C.bordo, padding: "10px 20px",
                 textDecoration: "none", width: "fit-content",
               }}>
                 WhatsApp ile Ulaş
@@ -801,6 +865,8 @@ export default function Home() {
         .nav-mobile  { display: none  !important; }
 
         .project-img:hover { transform: scale(1.03); }
+        .archive-row:hover { opacity: 0.65; }
+        @media (max-width: 640px) { .system-grid { grid-template-columns: 1fr !important; } }
 
         @media (max-width: 900px) {
           .nav-desktop { display: none  !important; }
