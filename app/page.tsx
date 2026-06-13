@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { Pricing } from "@/components/ui/pricing";
 
 export default function Home() {
   // ── Intro states ──
@@ -453,163 +454,82 @@ export default function Home() {
       </section>
 
       {/* ─────────────────── PAKETLER ─────────────────── */}
-      <section id="paketler" style={{ borderTop: `0.5px solid ${C.border}` }}>
-        <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "80px 48px 56px" }}>
-          <p style={{ fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.26em", textTransform: "uppercase", color: C.bordo, marginBottom: "12px" }}>Paketler</p>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
-            <h2 style={{ fontFamily: C.serif, fontSize: "clamp(28px, 3vw, 40px)", fontWeight: 400 }}>Hangi paket size uygun?</h2>
-            <p style={{ fontFamily: C.sans, fontSize: "10px", color: C.ash, maxWidth: "300px", lineHeight: 2, textAlign: "right" }} className="nav-desktop">
-              Her paket farklı bir ihtiyaca ve sürece göre tasarlandı.
-            </p>
-          </div>
-        </div>
-
-        {/* Package grid */}
-        <div style={{
-          maxWidth: "1200px", margin: "0 auto", padding: "0 48px 100px",
-          display: "grid", gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "0", border: `0.5px solid ${C.border}`,
-        }} className="package-grid container">
-          {packages.map((pkg, i) => (
-            <div key={pkg.num} style={{
-              background: pkg.dark ? C.dark : C.bg,
-              padding: "44px 36px 48px",
-              position: "relative",
-              borderRight: i < 2 ? `0.5px solid ${pkg.dark ? "rgba(248,245,240,0.08)" : C.border}` : "none",
-            }}>
-              {pkg.badge && (
-                <div style={{
-                  position: "absolute", top: "20px", right: "20px",
-                  fontFamily: C.sans, fontSize: "8px", letterSpacing: "0.14em",
-                  textTransform: "uppercase", color: "#F8F5F0",
-                  background: C.bordo, padding: "3px 10px",
-                }}>{pkg.badge}</div>
-              )}
-
-              {/* Header */}
-              <div style={{ marginBottom: "24px" }}>
-                <div style={{ fontFamily: C.sans, fontSize: "9px", letterSpacing: "0.2em", textTransform: "uppercase", color: pkg.dark ? "rgba(248,245,240,0.28)" : C.ash, marginBottom: "8px" }}>
-                  Paket {pkg.num}
-                </div>
-                <h3 style={{ fontFamily: C.serif, fontSize: "21px", fontWeight: 400, color: pkg.dark ? "#F8F5F0" : C.ink, marginBottom: "10px", lineHeight: 1.25 }}>
-                  {pkg.name}
-                </h3>
-                <p style={{ fontFamily: C.sans, fontSize: "10px", color: pkg.dark ? "rgba(248,245,240,0.4)" : C.ash, lineHeight: 1.9 }}>
-                  {pkg.tagline}
-                </p>
-              </div>
-
-              {/* Price block */}
-              <div style={{
-                display: "flex", alignItems: "flex-end", gap: "10px",
-                marginBottom: "8px",
-              }}>
-                <span style={{
-                  fontFamily: C.serif, fontSize: "28px", fontWeight: 400,
-                  color: pkg.dark ? "#F8F5F0" : C.ink, lineHeight: 1,
-                }}>{(pkg as any).price}</span>
-                <span style={{
-                  fontFamily: C.sans, fontSize: "10px",
-                  color: pkg.dark ? "rgba(248,245,240,0.3)" : "rgba(26,23,20,0.3)",
-                  textDecoration: "line-through", paddingBottom: "3px",
-                }}>{(pkg as any).normalPrice}</span>
-              </div>
-              <div style={{
-                display: "inline-flex", alignItems: "center", gap: "5px",
-                marginBottom: "22px",
-              }}>
-                <span style={{
-                  fontFamily: C.sans, fontSize: "8px", letterSpacing: "0.14em",
-                  textTransform: "uppercase",
-                  color: pkg.dark ? C.sand : C.bordo,
-                  border: `0.5px solid ${pkg.dark ? C.sand : C.bordo}`,
-                  padding: "2px 8px",
-                }}>Lansman Fiyatı</span>
-                <span style={{
-                  fontFamily: C.sans, fontSize: "8.5px",
-                  color: pkg.dark ? "rgba(248,245,240,0.3)" : C.ash,
-                }}>30 Haziran 2026'ya kadar</span>
-              </div>
-
-              <div style={{ height: "0.5px", background: pkg.dark ? "rgba(248,245,240,0.1)" : C.border, marginBottom: "24px" }} />
-
-              {/* Who it's for */}
-              <div style={{ marginBottom: "22px" }}>
-                <div style={{ fontFamily: C.sans, fontSize: "8.5px", letterSpacing: "0.18em", textTransform: "uppercase", color: pkg.dark ? C.sand : C.bordo, marginBottom: "8px" }}>Kimler İçin</div>
-                <p style={{ fontFamily: C.sans, fontSize: "10px", color: pkg.dark ? "rgba(248,245,240,0.4)" : C.ash, lineHeight: 1.9 }}>{pkg.kimFor}</p>
-              </div>
-
-              {/* Includes */}
-              <div style={{ marginBottom: "18px" }}>
-                <div style={{ fontFamily: C.sans, fontSize: "8.5px", letterSpacing: "0.18em", textTransform: "uppercase", color: pkg.dark ? C.sand : C.bordo, marginBottom: "10px" }}>Dahil</div>
-                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                  {pkg.includes.map(item => (
-                    <div key={item} style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
-                      <span style={{ color: pkg.dark ? C.sand : C.bordo, fontSize: "10px", lineHeight: 1.7, flexShrink: 0 }}>✓</span>
-                      <span style={{ fontFamily: C.sans, fontSize: "10px", color: pkg.dark ? "rgba(248,245,240,0.6)" : C.ink, lineHeight: 1.7 }}>{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Excludes */}
-              {pkg.excludes.length > 0 && (
-                <div style={{ marginBottom: "22px" }}>
-                  <div style={{ fontFamily: C.sans, fontSize: "8.5px", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(26,23,20,0.28)", marginBottom: "10px" }}>Dahil Değil</div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                    {pkg.excludes.map(item => (
-                      <div key={item} style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
-                        <span style={{ color: "rgba(26,23,20,0.28)", fontSize: "10px", lineHeight: 1.7, flexShrink: 0 }}>—</span>
-                        <span style={{ fontFamily: C.sans, fontSize: "10px", color: "rgba(26,23,20,0.35)", lineHeight: 1.7 }}>{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <div style={{ height: "0.5px", background: pkg.dark ? "rgba(248,245,240,0.1)" : C.border, margin: "22px 0" }} />
-
-              {/* Meta */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "24px" }}>
-                {[
-                  { label: "Platform",  val: pkg.platform },
-                  { label: "Teslim",    val: pkg.timeline },
-                  { label: "Revizyon",  val: pkg.revisions },
-                ].map(m => (
-                  <div key={m.label}>
-                    <div style={{ fontFamily: C.sans, fontSize: "8px", letterSpacing: "0.16em", textTransform: "uppercase", color: pkg.dark ? "rgba(248,245,240,0.28)" : C.ash, marginBottom: "4px" }}>{m.label}</div>
-                    <div style={{ fontFamily: C.sans, fontSize: "10px", color: pkg.dark ? "rgba(248,245,240,0.65)" : C.ink }}>{m.val}</div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Example project */}
-              <div style={{
-                marginBottom: "24px", padding: "12px 16px",
-                background: pkg.dark ? "rgba(248,245,240,0.04)" : "rgba(26,23,20,0.03)",
-                borderLeft: `2px solid ${pkg.dark ? C.sand : C.bordo}`,
-              }}>
-                <div style={{ fontFamily: C.sans, fontSize: "8px", letterSpacing: "0.16em", textTransform: "uppercase", color: pkg.dark ? C.sand : C.bordo, marginBottom: "5px" }}>Örnek Proje</div>
-                <a href={pkg.project.url} target="_blank" rel="noreferrer" style={{ fontFamily: C.sans, fontSize: "10px", color: pkg.dark ? "rgba(248,245,240,0.65)" : C.ink, textDecoration: "none" }}>
-                  {pkg.project.name} →
-                </a>
-              </div>
-
-              {/* CTA */}
-              <a href="#iletisim" style={{
-                display: "block", textAlign: "center",
-                fontFamily: C.sans, fontSize: "10px", letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                color: pkg.dark ? "#F8F5F0" : C.ink,
-                border: `0.5px solid ${pkg.dark ? "rgba(248,245,240,0.25)" : "rgba(26,23,20,0.22)"}`,
-                padding: "12px 0", textDecoration: "none",
-              }}>
-                Teklif Al
-              </a>
-            </div>
-          ))}
-        </div>
-      </section>
+      <Pricing
+        title="Hangi paket size uygun?"
+        description="Her paket farklı bir ihtiyaca ve sürece göre tasarlandı."
+        plans={[
+          {
+            name: "Starter Presence",
+            price: "9.900 ₺",
+            normalPrice: "14.900 ₺",
+            features: [
+              "3 sayfaya kadar özel tasarım",
+              "Mobil uyumlu tasarım",
+              "İletişim formu",
+              "WhatsApp butonu",
+              "Temel SEO ayarları",
+              "Domain bağlantısı",
+              "Yayına alma desteği",
+              "1 revizyon turu",
+            ],
+            notIncluded: ["CMS (içerik yönetim sistemi)", "Animasyon", "Çoklu dil desteği"],
+            description: "Yeni kurulan markalar, solo kurucular ve dijital varlığına ilk adımını atan işletmeler.",
+            buttonText: "Teklif Al",
+            href: "#iletisim",
+            isPopular: false,
+            platform: "Framer / Next.js",
+            delivery: "2–3 hafta",
+            revisions: "1 tur",
+          },
+          {
+            name: "Editorial Brand Site",
+            price: "24.900 ₺",
+            normalPrice: "34.900 ₺",
+            badge: "En Çok Tercih Edilen",
+            features: [
+              "Starter kapsamındaki her şey",
+              "6 sayfaya kadar özel tasarım",
+              "Koleksiyon / hizmet sunum sayfaları",
+              "Marka hikâyesi bölümü",
+              "Gelişmiş içerik yapısı",
+              "Editoryal tasarım anlayışı",
+              "Stratejik yönlendirme",
+              "Google Business Profili kurulumu",
+              "2 revizyon turu",
+            ],
+            notIncluded: ["CMS (içerik yönetim sistemi)", "Animasyon", "Çoklu dil desteği"],
+            description: "Büyüyen markalar, hizmet sunan işletmeler, hikâyesini ve estetiğini öne çıkarmak isteyen stüdyolar.",
+            buttonText: "Teklif Al",
+            href: "#iletisim",
+            isPopular: true,
+            platform: "Framer / Next.js / WordPress",
+            delivery: "4–6 hafta",
+            revisions: "2 tur",
+          },
+          {
+            name: "Luxury Launch Experience",
+            price: "44.900 ₺",
+            normalPrice: "64.900 ₺",
+            features: [
+              "Editorial kapsamındaki her şey",
+              "Animasyon ve hareket tasarımı",
+              "Çoklu dil desteği (TR / EN)",
+              "CMS — içerik yönetim sistemi",
+              "Sosyal medya kiti",
+              "Google Business Profili",
+              "3 revizyon turu",
+              "30 gün yayın sonrası destek",
+            ],
+            description: "Yeni bir dönem açan markalar, prestijli lansman gerektiren projeler ve uluslararası hedef kitleye hitap eden işletmeler.",
+            buttonText: "Teklif Al",
+            href: "#iletisim",
+            isPopular: false,
+            platform: "Next.js (önerilir)",
+            delivery: "6–10 hafta",
+            revisions: "3 tur",
+          },
+        ]}
+      />
 
       {/* ─────────────────── SÜREÇ ─────────────────── */}
       <section id="surec" style={{ borderTop: `0.5px solid ${C.border}`, padding: "100px 0" }}>

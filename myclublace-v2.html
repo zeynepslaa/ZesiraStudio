@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Club — Fransız Dantel Tedarikçisi, Est. 2005</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --paper:    #F4F0EB;
+      --paper2:   #EDE7DF;
+      --ink:      #111111;
+      --ink2:     #3A3530;
+      --mid:      #6B6560;
+      --faint:    #B0A89E;
+      --rule:     #D4CCC4;
+      --rouge:    #7A1C2E;  /* damga kırmızısı */
+      --white:    #FDFBF8;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ─── TOPBAR ─── */
+    .topbar {
+      background: var(--ink);
+      padding: 8px 48px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .topbar-left {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.4);
+    }
+    .topbar-right {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.4);
+      display: flex; gap: 24px;
+    }
+    .topbar-right a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    .topbar-right a:hover { color: #fff; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--white);
+      border-bottom: 2px solid var(--ink);
+      padding: 0 48px;
+      display: flex; align-items: stretch; justify-content: space-between;
+    }
+    .nav-brand {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 16px 0;
+      text-decoration: none;
+    }
+    .nav-brand-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 600; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--ink); line-height: 1;
+    }
+    .nav-brand-sub {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--rouge); margin-top: 3px;
+    }
+    .nav-links {
+      display: flex; list-style: none; align-items: stretch;
+    }
+    .nav-links li {
+      display: flex; align-items: center;
+      border-left: 1px solid var(--rule);
+    }
+    .nav-links a {
+      padding: 0 22px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--mid); text-decoration: none; transition: color 0.15s;
+      display: flex; align-items: center; height: 100%;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links li.nav-cta { background: var(--ink); }
+    .nav-links li.nav-cta a { color: var(--white); }
+    .nav-links li.nav-cta a:hover { color: var(--rouge); }
+    .nav-lang {
+      display: flex; align-items: center; gap: 0;
+      border-left: 1px solid var(--rule);
+    }
+    .nav-lang button {
+      background: none; border: none; cursor: pointer; height: 100%; padding: 0 14px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.1em;
+      color: var(--mid); transition: color 0.15s;
+    }
+    .nav-lang button.active { color: var(--rouge); font-weight: 400; }
+
+    /* ─── HERO ─── */
+    .hero {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 84px);
+      border-bottom: 2px solid var(--ink);
+    }
+    .hero-left {
+      padding: 64px 48px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      border-right: 2px solid var(--ink);
+    }
+    .hero-credential {
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .hero-est {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--rouge);
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(44px, 4.5vw, 72px);
+      font-weight: 300; line-height: 1.05;
+      color: var(--ink); margin-top: 20px;
+    }
+    .hero-title em { font-style: italic; }
+    .hero-rule {
+      width: 48px; height: 2px;
+      background: var(--rouge);
+      margin: 28px 0;
+    }
+    .hero-desc {
+      font-size: 13px; line-height: 1.85;
+      color: var(--ink2); max-width: 380px;
+    }
+    .hero-meta {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      border-top: 1px solid var(--rule);
+      margin-top: 48px;
+    }
+    .hero-meta-item {
+      padding: 20px 0; border-right: 1px solid var(--rule);
+      padding-right: 20px; margin-right: 20px;
+    }
+    .hero-meta-item:last-child { border-right: none; }
+    .hero-meta-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px; font-weight: 300; color: var(--ink); line-height: 1;
+    }
+    .hero-meta-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--mid); margin-top: 4px;
+    }
+    .hero-actions { display: flex; gap: 12px; margin-top: 36px; }
+    .btn-solid {
+      padding: 13px 28px;
+      background: var(--ink); color: var(--white);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-solid:hover { background: var(--rouge); }
+    .btn-ghost {
+      padding: 13px 28px;
+      background: transparent; color: var(--ink);
+      border: 1px solid var(--ink);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+      text-decoration: none; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-ghost:hover { background: var(--ink); color: var(--white); }
+
+    .hero-right {
+      background: var(--paper2);
+      display: flex; flex-direction: column;
+    }
+    .hero-img-wrap {
+      flex: 1;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 12px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .img-placeholder-icon { opacity: 0.2; }
+    .img-placeholder-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--faint);
+    }
+    .hero-catalog-strip {
+      padding: 20px 28px;
+      display: flex; gap: 0;
+    }
+    .catalog-tag {
+      flex: 1; text-align: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--mid); padding: 8px 0;
+      border-right: 1px solid var(--rule);
+    }
+    .catalog-tag:last-child { border-right: none; }
+    .catalog-tag strong { display: block; color: var(--ink); margin-bottom: 2px; }
+
+    /* ─── BÖLÜM BAŞLIĞI ─── */
+    .section-header {
+      padding: 0 48px;
+      border-bottom: 1px solid var(--rule);
+      display: flex; align-items: center; gap: 20px;
+      height: 52px;
+    }
+    .section-header-code {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--rouge); flex-shrink: 0;
+    }
+    .section-header-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px; font-weight: 400; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--ink);
+    }
+    .section-header-line {
+      flex: 1; height: 1px; background: var(--rule);
+    }
+    .section-header-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; color: var(--faint); letter-spacing: 0.08em;
+    }
+
+    /* ─── KİMLİK ─── */
+    .identity {
+      display: grid; grid-template-columns: 5fr 4fr;
+      border-bottom: 2px solid var(--ink);
+    }
+    .identity-left {
+      padding: 60px 48px;
+      border-right: 2px solid var(--ink);
+    }
+    .identity-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 3vw, 46px);
+      font-weight: 300; line-height: 1.2; color: var(--ink);
+      margin-bottom: 28px;
+    }
+    .identity-headline em { font-style: italic; }
+    .identity-body {
+      font-size: 13px; line-height: 1.9; color: var(--ink2);
+      max-width: 480px;
+    }
+    .identity-body + .identity-body { margin-top: 16px; }
+    .identity-right {
+      background: var(--ink);
+      padding: 60px 48px;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .identity-facts { display: flex; flex-direction: column; gap: 0; }
+    .identity-fact {
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: flex-start; gap: 16px;
+    }
+    .identity-fact:first-child { border-top: 1px solid rgba(255,255,255,0.08); }
+    .fact-code {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; color: var(--rouge); letter-spacing: 0.1em;
+      flex-shrink: 0; padding-top: 2px;
+    }
+    .fact-text {
+      font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.6);
+    }
+    .fact-text strong { color: rgba(255,255,255,0.9); font-weight: 400; }
+    .identity-stamp {
+      margin-top: 40px;
+      border: 2px solid var(--rouge);
+      padding: 16px 20px; display: inline-flex; flex-direction: column; gap: 4px;
+      align-self: flex-start;
+    }
+    .stamp-line1 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--rouge);
+    }
+    .stamp-line2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--white);
+    }
+    .stamp-line3 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.14em;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ─── KATALOG ─── */
+    .catalog { border-bottom: 2px solid var(--ink); }
+    .catalog-intro {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--rule);
+    }
+    .catalog-intro-left {
+      padding: 40px 48px; border-right: 1px solid var(--rule);
+    }
+    .catalog-intro-right {
+      padding: 40px 48px;
+      display: flex; align-items: center;
+    }
+    .catalog-intro-right p {
+      font-size: 13px; line-height: 1.85; color: var(--mid);
+    }
+    .catalog-intro-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(24px, 2.5vw, 38px);
+      font-weight: 300; line-height: 1.15; color: var(--ink);
+    }
+    .catalog-intro-title em { font-style: italic; }
+    .catalog-note {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.1em;
+      color: var(--rouge); margin-top: 12px;
+    }
+
+    /* Ürün grid */
+    .product-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+    }
+    .product-card {
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .product-card:nth-child(3n) { border-right: none; }
+    .product-img {
+      aspect-ratio: 4/3;
+      background: var(--paper2);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 8px;
+      border-bottom: 1px solid var(--rule);
+      position: relative; overflow: hidden;
+    }
+    .product-img-placeholder {
+      opacity: 0.18; font-size: 11px; letter-spacing: 0.1em;
+      font-family: 'IBM Plex Mono', monospace; text-transform: uppercase;
+      color: var(--ink2); text-align: center; line-height: 1.6;
+    }
+    .product-badge {
+      position: absolute; top: 12px; left: 12px;
+      background: var(--ink); color: var(--white);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 4px 8px;
+    }
+    .product-badge.available { background: var(--rouge); }
+    .product-info { padding: 20px 22px 24px; }
+    .product-ref {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--rouge); margin-bottom: 6px;
+    }
+    .product-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 400; color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .product-origin {
+      font-size: 11px; color: var(--mid); margin-bottom: 14px;
+      font-style: italic;
+    }
+    .product-specs {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .spec {
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .spec-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--faint);
+    }
+    .spec-value {
+      font-size: 12px; color: var(--ink2); font-weight: 400;
+    }
+    .product-action {
+      margin-top: 16px; padding-top: 16px;
+      border-top: 1px solid var(--rule);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .product-action a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink); text-decoration: none;
+      transition: color 0.15s;
+    }
+    .product-action a:hover { color: var(--rouge); }
+    .stock-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #2E7D32; display: inline-block; margin-right: 6px;
+    }
+    .stock-dot.low { background: #E65100; }
+    .stock-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.1em; color: var(--mid);
+    }
+
+    /* Tüm katalog CTA */
+    .catalog-cta-row {
+      padding: 24px 48px;
+      display: flex; align-items: center; gap: 20px;
+      border-top: 1px solid var(--rule);
+    }
+    .catalog-cta-row p {
+      font-size: 12px; color: var(--mid);
+      font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em;
+    }
+
+    /* ─── TOPTAN / B2B ─── */
+    .wholesale { border-bottom: 2px solid var(--ink); }
+    .wholesale-body {
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+    .wholesale-left {
+      padding: 56px 48px;
+      border-right: 2px solid var(--ink);
+    }
+    .wholesale-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(26px, 2.8vw, 42px);
+      font-weight: 300; line-height: 1.2; color: var(--ink);
+      margin-bottom: 24px;
+    }
+    .wholesale-title em { font-style: italic; }
+    .wholesale-desc {
+      font-size: 13px; line-height: 1.85; color: var(--ink2); margin-bottom: 36px;
+    }
+    .conditions { display: flex; flex-direction: column; gap: 0; }
+    .condition {
+      display: grid; grid-template-columns: 100px 1fr;
+      gap: 16px; padding: 16px 0;
+      border-top: 1px solid var(--rule);
+    }
+    .condition:last-child { border-bottom: 1px solid var(--rule); }
+    .condition-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--rouge); padding-top: 2px;
+    }
+    .condition-value {
+      font-size: 13px; color: var(--ink2); line-height: 1.6;
+    }
+
+    /* ─── FORM ─── */
+    .wholesale-right {
+      padding: 56px 48px;
+      background: var(--paper2);
+    }
+    .form-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; font-weight: 300; color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .form-subheading {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.1em;
+      color: var(--mid); margin-bottom: 32px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .form-group label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--mid);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-bottom: 2px solid var(--ink);
+      padding: 11px 14px;
+      font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300;
+      color: var(--ink); outline: none; appearance: none;
+      transition: border-color 0.15s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-bottom-color: var(--rouge);
+    }
+    .form-group textarea { resize: vertical; min-height: 88px; }
+    .form-submit {
+      width: 100%; padding: 15px;
+      background: var(--ink); color: var(--white);
+      border: none; cursor: pointer;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+      transition: background 0.15s;
+      margin-top: 6px;
+    }
+    .form-submit:hover { background: var(--rouge); }
+    .form-note {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.08em; color: var(--faint);
+      margin-top: 10px; text-align: center;
+    }
+
+    /* ─── SÜREÇ ─── */
+    .process { border-bottom: 2px solid var(--ink); }
+    .process-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+    }
+    .process-step {
+      padding: 40px 32px;
+      border-right: 1px solid var(--rule);
+    }
+    .process-step:last-child { border-right: none; }
+    .process-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px; letter-spacing: 0.16em;
+      color: var(--rouge); margin-bottom: 20px;
+    }
+    .process-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 300; color: var(--ink);
+      margin-bottom: 10px; line-height: 1.2;
+    }
+    .process-desc {
+      font-size: 12px; line-height: 1.8; color: var(--mid);
+    }
+    .process-time {
+      display: inline-block; margin-top: 16px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.12em;
+      color: var(--faint);
+      border-top: 1px solid var(--rule); padding-top: 10px; width: 100%;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--ink);
+      border-top: 2px solid var(--ink);
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-col {
+      padding: 48px 36px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-col:last-child { border-right: none; }
+    .footer-brand-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--white); margin-bottom: 4px;
+    }
+    .footer-brand-sub {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--rouge); margin-bottom: 20px;
+    }
+    .footer-tagline {
+      font-size: 12px; line-height: 1.8; color: rgba(255,255,255,0.35);
+    }
+    .footer-col-title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--rouge); margin-bottom: 20px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a {
+      font-size: 12px; color: rgba(255,255,255,0.4);
+      text-decoration: none; transition: color 0.15s;
+      font-weight: 300;
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-contact-items { display: flex; flex-direction: column; gap: 12px; }
+    .footer-contact-item {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px; color: rgba(255,255,255,0.4);
+      letter-spacing: 0.06em; line-height: 1.5;
+    }
+    .footer-bottom {
+      padding: 18px 36px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-copy {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ─── MOBİL ─── */
+    @media (max-width: 960px) {
+      .topbar { padding: 8px 20px; }
+      .topbar-right { display: none; }
+      nav { padding: 0 20px; }
+      .nav-links li:not(.nav-cta) { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 40px 20px; }
+      .hero-right { display: none; }
+      .section-header { padding: 0 20px; }
+      .identity { grid-template-columns: 1fr; }
+      .identity-left { padding: 40px 20px; border-right: none; border-bottom: 2px solid var(--ink); }
+      .identity-right { padding: 40px 20px; }
+      .catalog-intro { grid-template-columns: 1fr; }
+      .catalog-intro-left { padding: 32px 20px; border-right: none; border-bottom: 1px solid var(--rule); }
+      .catalog-intro-right { padding: 24px 20px; }
+      .product-grid { grid-template-columns: 1fr 1fr; }
+      .product-card:nth-child(3n) { border-right: 1px solid var(--rule); }
+      .product-card:nth-child(2n) { border-right: none; }
+      .catalog-cta-row { padding: 20px; flex-direction: column; align-items: flex-start; }
+      .wholesale-body { grid-template-columns: 1fr; }
+      .wholesale-left { padding: 40px 20px; border-right: none; border-bottom: 2px solid var(--ink); }
+      .wholesale-right { padding: 40px 20px; }
+      .form-row { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: 1fr 1fr; }
+      .process-step { border-bottom: 1px solid var(--rule); }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-col { padding: 32px 20px; }
+      .footer-bottom { padding: 16px 20px; flex-direction: column; gap: 6px; }
+    }
+    @media (max-width: 600px) {
+      .product-grid { grid-template-columns: 1fr; }
+      .product-card:nth-child(2n) { border-right: none; }
+      .process-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .hero-meta { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <span class="topbar-left">MY CLUB — FRANSIZ DANTEL TEDARİKÇİSİ — EST. 2005</span>
+  <div class="topbar-right">
+    <a href="tel:+90XXXXXXXXXX">+90 (XXX) XXX XX XX</a>
+    <span>·</span>
+    <a href="mailto:info@myclublace.com">info@myclublace.com</a>
+    <span>·</span>
+    <span>İstanbul, TR</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">
+    <span class="nav-brand-name">My Club</span>
+    <span class="nav-brand-sub">Fransız Dantel — Est. 2005</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#katalog">Katalog</a></li>
+    <li><a href="#toptan">Toptan</a></li>
+    <li><a href="#surec">Süreç</a></li>
+    <li><a href="#iletisim">İletişim</a></li>
+    <li class="nav-cta"><a href="#iletisim">Toptan Teklif Al</a></li>
+  </ul>
+  <div class="nav-lang">
+    <button class="active">TR</button>
+    <button>EN</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div>
+      <p class="hero-est">Est. 2005 — Fransız Dantel Tedarikçisi</p>
+      <h1 class="hero-title">
+        Fransa'dan<br/>
+        <em>doğrudan</em><br/>
+        atölyenize.
+      </h1>
+      <div class="hero-rule"></div>
+      <p class="hero-desc">
+        My Club, 2005'ten bu yana Fransız dantelinin en nitelikli örneklerini Türkiye'deki gelinlik atölyeleri ve tasarımcılarla buluşturuyor. Chantilly'den Calais'ye, güpürden aplikeye 200'den fazla desen, stokta.
+      </p>
+      <div class="hero-actions">
+        <a href="#katalog" class="btn-solid">Kataloğu İncele</a>
+        <a href="#iletisim" class="btn-ghost">Toptan Teklif Al</a>
+      </div>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="hero-meta-num">2005</div>
+        <div class="hero-meta-label">Kuruluş Yılı</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-num">200+</div>
+        <div class="hero-meta-label">Desen Stokta</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-num">FR</div>
+        <div class="hero-meta-label">Kaynak Ülke</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-wrap">
+      <svg class="img-placeholder-icon" width="56" height="56" viewBox="0 0 56 56" fill="none">
+        <rect x="4" y="4" width="48" height="48" rx="1" stroke="#3A3530" stroke-width="1.5"/>
+        <circle cx="20" cy="20" r="5" stroke="#3A3530" stroke-width="1.5"/>
+        <path d="M4 36l13-9 9 7 7-5 18 16" stroke="#3A3530" stroke-width="1.5" stroke-linejoin="round"/>
+      </svg>
+      <p class="img-placeholder-label">Ürün fotoğrafı eklenecek</p>
+    </div>
+    <div class="hero-catalog-strip">
+      <div class="catalog-tag"><strong>Chantilly</strong>Fransa</div>
+      <div class="catalog-tag"><strong>Calais</strong>Fransa</div>
+      <div class="catalog-tag"><strong>Guipure</strong>Fransa</div>
+      <div class="catalog-tag"><strong>Alençon</strong>Fransa</div>
+    </div>
+  </div>
+</div>
+
+<!-- KİMLİK -->
+<div class="section-header">
+  <span class="section-header-code">01</span>
+  <span class="section-header-title">Kimliğimiz</span>
+  <span class="section-header-line"></span>
+  <span class="section-header-num">MC / IDENTITY</span>
+</div>
+<div class="identity">
+  <div class="identity-left">
+    <h2 class="identity-headline">
+      Bir moda evi değil.<br/>
+      Bir otel değil.<br/>
+      <em>2005'ten beri dantel.</em>
+    </h2>
+    <p class="identity-body">
+      My Club, Fransız dantel geleneğinin en köklü üretim bölgelerinden — Chantilly, Calais ve Alençon'dan — doğrudan tedarik yapan, İstanbul merkezli bir kumaş tedarik evidir. Lüks bir imge satmıyoruz. Gerçek bir stok, gerçek bir tedarik ağı ve yirmi yılı aşkın sektör deneyimi sunuyoruz.
+    </p>
+    <p class="identity-body">
+      Müşterilerimiz; gelinlik atölyeleri, couture tasarımcıları ve özel sipariş tekstil üreticileridir. Her sipariş, kullanım amacına ve atölye ölçeğine göre değerlendirilir. Numune klasörümüz, talep üzerine gönderilir.
+    </p>
+  </div>
+  <div class="identity-right">
+    <div class="identity-facts">
+      <div class="identity-fact">
+        <span class="fact-code">F.01</span>
+        <span class="fact-text"><strong>20+ yıl faaliyet.</strong> 2005'ten bu yana kesintisiz tedarik ve atölye hizmeti.</span>
+      </div>
+      <div class="identity-fact">
+        <span class="fact-code">F.02</span>
+        <span class="fact-text"><strong>Fransa kaynaklı stok.</strong> Chantilly, Calais, Alençon ve Lyon üretimi.</span>
+      </div>
+      <div class="identity-fact">
+        <span class="fact-code">F.03</span>
+        <span class="fact-text"><strong>200+ desen stokta.</strong> Güpür, aplikeli, nakışlı, şantuk ve tül kategorileri.</span>
+      </div>
+      <div class="identity-fact">
+        <span class="fact-code">F.04</span>
+        <span class="fact-text"><strong>Gelinlik atölyelerine özel.</strong> Toptan fiyat, numune paketi ve düzenli tedarik anlaşması.</span>
+      </div>
+    </div>
+    <div class="identity-stamp">
+      <span class="stamp-line1">Tedarikçi Kodu</span>
+      <span class="stamp-line2">MY CLUB</span>
+      <span class="stamp-line3">myclublace.com · Istanbul · TR</span>
+    </div>
+  </div>
+</div>
+
+<!-- KATALOG -->
+<div class="section-header" id="katalog">
+  <span class="section-header-code">02</span>
+  <span class="section-header-title">Ürün Kataloğu</span>
+  <span class="section-header-line"></span>
+  <span class="section-header-num">MC / CATALOG 2025</span>
+</div>
+<div class="catalog">
+  <div class="catalog-intro">
+    <div class="catalog-intro-left">
+      <h2 class="catalog-intro-title">
+        Stok listesi.<br/>
+        <em>Numune talebi açık.</em>
+      </h2>
+      <p class="catalog-note">↳ Tüm ürünler İstanbul deposunda stokta mevcuttur.</p>
+    </div>
+    <div class="catalog-intro-right">
+      <p>Aşağıdaki kategoriler mevcut stoğu temsil etmektedir. Metre başı fiyat, en bilgisi ve minimum sipariş miktarı için toptan talep formunu doldurun veya doğrudan arayın.</p>
+    </div>
+  </div>
+
+  <div class="product-grid">
+    <!-- Ürün 1 -->
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-placeholder">Ürün fotoğrafı<br/>eklenecek</div>
+        <span class="product-badge available">Stokta</span>
+      </div>
+      <div class="product-info">
+        <div class="product-ref">MC-GUP-001</div>
+        <div class="product-name">Güpür Dantel</div>
+        <div class="product-origin">Dentelle de Calais — Fransa</div>
+        <div class="product-specs">
+          <div class="spec">
+            <span class="spec-label">En</span>
+            <span class="spec-value">130 cm</span>
+          </div>
+          <div class="spec">
+            <span class="spec-label">Kompozisyon</span>
+            <span class="spec-value">%80 Polyester, %20 Naylon</span>
+          </div>
+          <div class="spec">
+            <span class="spec-label">Min. Sipariş</span>
+            <span class="spec-value">5 metre</span>
+          </div>
+          <div class="spec">
+            <span class="spec-label">Kullanım</span>
+            <span class="spec-value">Gelinlik, Abiye</span>
+          </div>
+        </div>
+        <div class="product-action">
+          <a href="#iletisim">Teklif Al →</a>
+          <span><span class="stock-dot"></span><span class="stock-label">Mevcut</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ürün 2 -->
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-placeholder">Ürün fotoğrafı<br/>eklenecek</div>
+        <span class="product-badge available">Stokta</span>
+      </div>
+      <div class="product-info">
+        <div class="product-ref">MC-APL-014</div>
+        <div class="product-name">Aplikeli Dantel</div>
+        <div class="product-origin">Broderie Française — Lyon</div>
+        <div class="product-specs">
+          <div class="spec">
+            <span class="spec-label">En</span>
+            <span class="spec-value">120 cm</span>
+          </div>
+          <div class="spec">
+            <span class="spec-label">Kompozisyon</span>
+            <span class="spec-value">%100 Polyester</span>
+          </div>
+          <div class="spec">
+            <span class="spec-label">Min. Sipariş</span>
+            <span class="spec-value">3 metre</span>
+          </div>
+          <div class="spec">
+            <span class="spec-label">Kullanım</span>
+            <span class="spec-value">Gelinlik, Tül Üzeri</span>
+          </div>
+        </div>
+        <div class="product-action">
+          <a href="#iletisim">Teklif Al →</a>
+          <span><span class="stock-dot"></span><span class="stock-label">Mevcut</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ürün 3 -->
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-placeholder">Ürün fotoğrafı<br/>eklenecek</div>
+        <span class="product-badge" style="background:var(--rouge)">Son Stok</span>
+      </div>
+      <div class="product-info">
+        <div class="product-ref">MC-CHA-007</div>
+        <div class="product-name">Chantilly Dantel</div>
+        <div class="product-origin">Dentelle de Chantilly — Fransa</div>
+        <div class="product-specs">
+          <div class="spec">
+            <span class="spec-label">En</span>
+            <span class="spec-value">150 cm</span>
+          </div>
+          <div class="spec">
+            <span class="spec-label">Kompozisyon</span>
+            <span class="spec-value">%90 İpek, %10 Naylon</span>
+          </div>
+          <div class="spec">
+            <span class="spec-label">Min. Sipariş</span>
+            <span class="spec-value">2 metre</span>
+          </div>
+          <div class="spec">
+            <span class="spec-label">Kullanım</span>
+            <span class="spec-value">Couture, Gelinlik</span>
+          </div>
+        </div>
+        <div class="product-action">
+          <a href="#iletisim">Teklif Al →</a>
+          <span><span class="stock-dot low"></span><span class="stock-label">Son stok</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ürün 4 -->
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-placeholder">Ürün fotoğrafı<br/>eklenecek</div>
+        <span class="product-badge available">Stokta</span>
+      </div>
+      <div class="product-info">
+        <div class="product-ref">MC-NAK-022</div>
+        <div class="product-name">Nakışlı Dantel</div>
+        <div class="product-origin">Broderie Alençon — Fransa</div>
+        <div class="product-specs">
+          <div class="spec">
+            <span class="spec-label">En</span>
+            <span class="spec-value">140 cm</span>
+          </div>
+          <div class="spec">
+            <span class="spec-label">Kompozisyon</span>
+            <span class="spec-value">%75 Polyester, %25 İpek</span>
+          </div>
+          <div class="spec">
+            <span class="spec-label">Min. Sipariş</span>
+            <span class="spec-value">5 metre</span>
+          </div>
+          <div class="spec">
+            <span class="spec-label">Kullanım</span>
+            <span class="spec-value">Gelinlik, Aksesuvar</span>
+          </div>
+        </div>
+        <div class="product-action">
+          <a href="#iletisim">Teklif Al →</a>
+          <span><span class="stock-dot"></span><span class="stock-label">Mevcut</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ürün 5 -->
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-placeholder">Ürün fotoğrafı<br/>eklenecek</div>
+        <span class="product-badge available">Stokta</span>
+      </div>
+      <div class="product-info">
+        <div class="product-ref">MC-SAN-003</div>
+        <div class="product-name">Şantuk Dantel</div>
+        <div class="product-origin">Tissu Shantung — Fransa</div>
+        <div class="product-specs">
+          <div class="spec">
+            <span class="spec-label">En</span>
+            <span class="spec-value">110 cm</span>
+          </div>
+          <div class="spec">
+            <span class="spec-label">Kompozisyon</span>
+            <span class="spec-value">%100 Polyester</span>
+          </div>
+          <div class="spec">
+            <span class="spec-label">Min. Sipariş</span>
+            <span class="spec-value">10 metre</span>
+          </div>
+          <div class="spec">
+            <span class="spec-label">Kullanım</span>
+            <span class="spec-value">Gelinlik İç Astar</span>
+          </div>
+        </div>
+        <div class="product-action">
+          <a href="#iletisim">Teklif Al →</a>
+          <span><span class="stock-dot"></span><span class="stock-label">Mevcut</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ürün 6 -->
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-placeholder">Ürün fotoğrafı<br/>eklenecek</div>
+        <span class="product-badge available">Stokta</span>
+      </div>
+      <div class="product-info">
+        <div class="product-ref">MC-TUL-011</div>
+        <div class="product-name">Tül & Organze</div>
+        <div class="product-origin">Tulle de Lyon — Fransa</div>
+        <div class="product-specs">
+          <div class="spec">
+            <span class="spec-label">En</span>
+            <span class="spec-value">300 cm</span>
+          </div>
+          <div class="spec">
+            <span class="spec-label">Kompozisyon</span>
+            <span class="spec-value">%100 Naylon</span>
+          </div>
+          <div class="spec">
+            <span class="spec-label">Min. Sipariş</span>
+            <span class="spec-value">10 metre</span>
+          </div>
+          <div class="spec">
+            <span class="spec-label">Kullanım</span>
+            <span class="spec-value">Duvak, Etek Dolgusu</span>
+          </div>
+        </div>
+        <div class="product-action">
+          <a href="#iletisim">Teklif Al →</a>
+          <span><span class="stock-dot"></span><span class="stock-label">Mevcut</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="catalog-cta-row">
+    <p>200+ desen stokta. Fiyat listesi ve tam katalog için toptan talep formunu doldurun.</p>
+    <a href="#iletisim" class="btn-solid">Toptan Teklif Al</a>
+  </div>
+</div>
+
+<!-- TOPTAN -->
+<div class="section-header" id="toptan">
+  <span class="section-header-code">03</span>
+  <span class="section-header-title">Toptan Tedarik</span>
+  <span class="section-header-line"></span>
+  <span class="section-header-num">MC / WHOLESALE</span>
+</div>
+<div class="wholesale">
+  <div class="wholesale-body">
+    <div class="wholesale-left">
+      <h2 class="wholesale-title">
+        Toptan tedarik,<br/>
+        <em>ticari koşullarla.</em>
+      </h2>
+      <p class="wholesale-desc">
+        My Club, ağırlıklı olarak sabit müşteri tabanıyla çalışır. Yeni bir atölye veya üretici olarak tedarik ilişkisi kurmak istiyorsanız aşağıdaki formu doldurun; fiyat listesi ve stok bilgisi doğrudan iletilir.
+      </p>
+      <div class="conditions">
+        <div class="condition">
+          <span class="condition-label">Min. Sipariş</span>
+          <span class="condition-value">Kategoriye göre 2–10 metre. Toptan fiyat listesi talep formundan iletilir.</span>
+        </div>
+        <div class="condition">
+          <span class="condition-label">Fiyatlandırma</span>
+          <span class="condition-value">Sipariş miktarına göre kademeli fiyat. Liste, form doldurulduktan sonra gönderilir.</span>
+        </div>
+        <div class="condition">
+          <span class="condition-label">Teslimat</span>
+          <span class="condition-value">Türkiye geneli 2–3 iş günü kargo. İstanbul içi aynı gün mümkün.</span>
+        </div>
+        <div class="condition">
+          <span class="condition-label">Düzenli Müşteri</span>
+          <span class="condition-value">Sabit sipariş veren atölyeler için öncelikli stok ve sabit fiyat anlaşması yapılabilir.</span>
+        </div>
+        <div class="condition">
+          <span class="condition-label">Ödeme</span>
+          <span class="condition-value">Banka havalesi veya vadeli ödeme (mevcut müşteriler için).</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="wholesale-right" id="iletisim">
+      <div class="form-heading">Toptan Teklif Talebi</div>
+      <div class="form-subheading">MC / WHOLESALE REQUEST FORM — 2025</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Ad Soyad</label>
+          <input type="text" placeholder="Ad Soyad" />
+        </div>
+        <div class="form-group">
+          <label>Atölye / Firma Adı</label>
+          <input type="text" placeholder="Atölye adınız" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>E-posta</label>
+          <input type="email" placeholder="email@atolye.com" />
+        </div>
+        <div class="form-group">
+          <label>Telefon / WhatsApp</label>
+          <input type="tel" placeholder="05XX XXX XX XX" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>İlgilendiğiniz Dantel Türü</label>
+        <select>
+          <option value="">Seçiniz</option>
+          <option>Güpür Dantel (MC-GUP)</option>
+          <option>Aplikeli Dantel (MC-APL)</option>
+          <option>Chantilly Dantel (MC-CHA)</option>
+          <option>Nakışlı Dantel (MC-NAK)</option>
+          <option>Şantuk Dantel (MC-SAN)</option>
+          <option>Tül & Organze (MC-TUL)</option>
+          <option>Tüm katalog listesi istiyorum</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Tahmini Miktar</label>
+          <select>
+            <option value="">Seçiniz</option>
+            <option>5–20 metre</option>
+            <option>20–100 metre</option>
+            <option>100+ metre</option>
+            <option>Henüz bilmiyorum</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Atölye Ölçeği</label>
+          <select>
+            <option value="">Seçiniz</option>
+            <option>Küçük atölye (1–5 kişi)</option>
+            <option>Orta atölye (5–20 kişi)</option>
+            <option>Büyük atölye / üretici</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Notunuz</label>
+        <textarea placeholder="Özel istek, kullanım amacı veya referans ürün kodu girebilirsiniz."></textarea>
+      </div>
+      <button class="form-submit">Talep Gönder →</button>
+      <p class="form-note">24 saat içinde dönüş yapılır. · Fiyat listesi ve stok bilgisi doğrudan iletilir.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SÜREÇ -->
+<div class="section-header" id="surec">
+  <span class="section-header-code">04</span>
+  <span class="section-header-title">Çalışma Süreci</span>
+  <span class="section-header-line"></span>
+  <span class="section-header-num">MC / PROCESS</span>
+</div>
+<div class="process">
+  <div class="process-grid">
+    <div class="process-step">
+      <div class="process-num">ADIM 01</div>
+      <div class="process-name">Talep Formu</div>
+      <div class="process-desc">İlgilendiğiniz dantel türünü, miktarı ve kullanım amacınızı formdan bildirin.</div>
+      <span class="process-time">→ 24 saat içinde dönüş</span>
+    </div>
+    <div class="process-step">
+      <div class="process-num">ADIM 02</div>
+      <div class="process-name">Fiyat Listesi</div>
+      <div class="process-desc">Talep edilen kategorilere göre güncel stok ve toptan fiyat listesi doğrudan iletilir.</div>
+      <span class="process-time">→ Aynı gün</span>
+    </div>
+    <div class="process-step">
+      <div class="process-num">ADIM 03</div>
+      <div class="process-name">Sipariş & Fatura</div>
+      <div class="process-desc">Numuneleri onayladıktan sonra miktar netleştirilir, fiyat listesi ve fatura iletilir.</div>
+      <span class="process-time">→ Aynı gün fatura</span>
+    </div>
+    <div class="process-step">
+      <div class="process-num">ADIM 04</div>
+      <div class="process-name">Teslim</div>
+      <div class="process-desc">Sipariş özenle paketlenerek kargoya verilir. İstanbul içi aynı gün seçeneği mevcuttur.</div>
+      <span class="process-time">→ 2–3 iş günü Türkiye geneli</span>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-col">
+      <div class="footer-brand-name">My Club</div>
+      <div class="footer-brand-sub">Fransız Dantel Tedarikçisi — Est. 2005</div>
+      <p class="footer-tagline">
+        2005'ten bu yana Fransız dantelinin en nitelikli örneklerini Türkiye'deki gelinlik atölyeleri ve tasarımcılarla buluşturuyoruz.
+      </p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Katalog</div>
+      <ul class="footer-links">
+        <li><a href="#">Güpür Dantel (MC-GUP)</a></li>
+        <li><a href="#">Aplikeli Dantel (MC-APL)</a></li>
+        <li><a href="#">Chantilly Dantel (MC-CHA)</a></li>
+        <li><a href="#">Nakışlı Dantel (MC-NAK)</a></li>
+        <li><a href="#">Şantuk Dantel (MC-SAN)</a></li>
+        <li><a href="#">Tül & Organze (MC-TUL)</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Kurumsal</div>
+      <ul class="footer-links">
+        <li><a href="#">Kimliğimiz</a></li>
+        <li><a href="#">Toptan Koşullar</a></li>
+        <li><a href="#">Toptan Koşullar</a></li>
+        <li><a href="#">Çalışma Süreci</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">İletişim</div>
+      <div class="footer-contact-items">
+        <div class="footer-contact-item">info@myclublace.com</div>
+        <div class="footer-contact-item">+90 (XXX) XXX XX XX</div>
+        <div class="footer-contact-item">WhatsApp ile ulaşın</div>
+        <div class="footer-contact-item">İstanbul, Türkiye</div>
+        <div class="footer-contact-item">myclublace.com</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 My Club — Fransız Dantel Tedarikçisi — Est. 2005</span>
+    <span class="footer-copy">MC / myclublace.com / Istanbul TR</span>
+  </div>
+</footer>
+
+</body>
+</html>
