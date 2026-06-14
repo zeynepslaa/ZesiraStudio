@@ -1,15 +1,37 @@
 import type { Metadata } from "next";
+import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
+const inter = Inter({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-heading",
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
+  metadataBase: new URL("https://zesirastudio.com"),
   title: "Zesira Studio — Modern Markalar İçin Web Siteleri ve Dijital Deneyimler",
-  description: "Modern markalar için web siteleri, kimlik sistemleri ve dijital deneyimler.",
+  description: "Lüks ve butik markalar için sıfırdan tasarlanan web siteleri. Ücretsiz dijital denetim ile başlayın.",
   openGraph: {
     title: "Zesira Studio",
-    description: "Modern markalar için web siteleri, kimlik sistemleri ve dijital deneyimler.",
+    description: "Lüks ve butik markalar için sıfırdan tasarlanan web siteleri ve dijital deneyimler.",
     url: "https://zesirastudio.com",
     siteName: "Zesira Studio",
     type: "website",
+    images: [{ url: "/zs/vora-homepage.png", width: 1440, height: 900, alt: "Zesira Studio — VORA Istanbul çalışması" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Zesira Studio",
+    description: "Lüks ve butik markalar için sıfırdan tasarlanan web siteleri.",
+    images: ["/zs/vora-homepage.png"],
   },
 };
 
@@ -19,13 +41,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="tr" className={`${inter.variable} ${spaceGrotesk.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet" />
+        <link rel="preload" as="image" href="/zs/vora-homepage.png" />
       </head>
-      <body>{children}</body>
+      <body className="font-sans antialiased">{children}</body>
     </html>
   );
 }

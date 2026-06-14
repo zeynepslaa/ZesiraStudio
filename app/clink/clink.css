@@ -1,0 +1,97 @@
+.clink-root {
+  margin: 0;
+  padding: 0;
+  background-color: #0e0e12;
+  color: #eeeef2;
+  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+  overflow-x: hidden;
+}
+
+.clink-root .font-display {
+  font-family: var(--font-syne), "Syne", sans-serif;
+}
+
+.clink-root .font-body {
+  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+}
+
+.clink-root * {
+  box-sizing: border-box;
+}
+
+.clink-root ::selection {
+  background: #ff4d6d44;
+  color: #eeeef2;
+}
+
+.clink-root ::-webkit-scrollbar {
+  width: 4px;
+}
+
+.clink-root ::-webkit-scrollbar-track {
+  background: #0e0e12;
+}
+
+.clink-root ::-webkit-scrollbar-thumb {
+  background: #2a2a34;
+  border-radius: 2px;
+}
+
+/* Sıvı akışı — bulanık şerit, nokta yok */
+.clink-stream-outer {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 77, 109, 0.45) 0%,
+    rgba(230, 100, 150, 0.35) 30%,
+    rgba(155, 95, 212, 0.3) 55%,
+    rgba(91, 46, 255, 0.28) 75%,
+    rgba(27, 79, 216, 0.15) 100%
+  );
+  filter: blur(18px);
+  border-radius: 45% 45% 50% 50%;
+  animation: clink-stream-pulse 3.5s ease-in-out infinite;
+}
+
+.clink-stream-inner {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 77, 109, 0.85) 0%,
+    rgba(255, 107, 44, 0.7) 22%,
+    rgba(180, 90, 210, 0.65) 48%,
+    rgba(91, 46, 255, 0.6) 72%,
+    rgba(27, 79, 216, 0.45) 100%
+  );
+  filter: blur(3px);
+  border-radius: 42% 42% 48% 48%;
+  box-shadow: 0 0 30px rgba(255, 77, 109, 0.25), 0 0 50px rgba(27, 79, 216, 0.2);
+  animation: clink-stream-pulse 3.5s ease-in-out infinite reverse;
+}
+
+@keyframes clink-stream-pulse {
+  0%,
+  100% {
+    opacity: 0.82;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.clink-pool {
+  height: 45%;
+  background: radial-gradient(
+    ellipse 130% 90% at 50% 100%,
+    rgba(255, 77, 109, 0.7) 0%,
+    rgba(160, 90, 210, 0.5) 40%,
+    rgba(27, 79, 216, 0.45) 100%
+  );
+  border-radius: 50% 50% 0 0 / 20% 20% 0 0;
+  filter: blur(1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clink-stream-outer,
+  .clink-stream-inner {
+    animation: none;
+  }
+}

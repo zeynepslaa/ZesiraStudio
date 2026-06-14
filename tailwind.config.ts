@@ -8,6 +8,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-body)", "Inter", "sans-serif"],
+        serif: ["var(--font-heading)", "Space Grotesk", "sans-serif"],
+        heading: ["var(--font-heading)", "Space Grotesk", "sans-serif"],
+        body: ["var(--font-body)", "Inter", "sans-serif"],
+        display: ["var(--font-heading)", "Space Grotesk", "sans-serif"],
+      },
       colors: {
         canvas: "#F6F2EC",
         linen: "#E9DED2",
@@ -18,10 +25,14 @@ const config: Config = {
         bordo: "#6B1E24",
         "bordo-dark": "#4A1219",
         "bordo-light": "#8B2E35",
-      },
-      fontFamily: {
-        serif: ["Bodoni Moda", "Georgia", "serif"],
-        sans: ["Montserrat", "sans-serif"],
+        clink: {
+          base: "#0E0E12",
+          surface: "#16161C",
+          elevated: "#1E1E26",
+          border: "#2A2A34",
+          text: "#EEEEF2",
+          muted: "#888894",
+        },
       },
       letterSpacing: {
         widest: "0.22em",
