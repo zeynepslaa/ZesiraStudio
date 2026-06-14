@@ -102,26 +102,26 @@ export function Pricing({
   }, [isLansman]);
 
   return (
-    <section id="paketler" style={{ padding: "100px 40px", background: "#F7F2EC" }}>
+    <section id="paketler" style={{ padding: "100px 40px", background: "#F8F5F0" }}>
       {/* Başlık */}
       <div style={{ textAlign: "center", marginBottom: "56px" }}>
         <p style={{
-          fontSize: "11px", letterSpacing: "0.22em", textTransform: "uppercase",
-          color: "#8B6A40", marginBottom: "12px",
-          fontFamily: "'Montserrat', sans-serif", fontWeight: 300,
+          fontSize: "10px", letterSpacing: "0.22em", textTransform: "uppercase",
+          color: "#6B1E24", marginBottom: "12px",
+          fontFamily: "'Inter', sans-serif", fontWeight: 600,
         }}>
-          Paketler
+          Fiyatlandırma
         </p>
         <h2 style={{
-          fontFamily: "'Bodoni Moda', serif",
+          fontFamily: "'Space Grotesk', serif",
           fontSize: "clamp(32px, 4vw, 52px)",
-          fontWeight: 400, color: "#241E18", marginBottom: "16px",
+          fontWeight: 400, color: "#1A1714", marginBottom: "16px",
         }}>
           {title}
         </h2>
         <p style={{
-          fontSize: "13px", color: "#6B5D4F", lineHeight: 1.8,
-          fontFamily: "'Montserrat', sans-serif", fontWeight: 300,
+          fontSize: "14px", color: "#7A7268", lineHeight: 1.7,
+          fontFamily: "'Inter', sans-serif", fontWeight: 400,
         }}>
           {description}
         </p>
@@ -133,8 +133,8 @@ export function Pricing({
         }}>
           <span style={{
             fontSize: "12px", letterSpacing: "0.08em",
-            color: !isLansman ? "#241E18" : "#B0A090",
-            fontFamily: "'Montserrat', sans-serif", fontWeight: 300,
+            color: !isLansman ? "#1A1714" : "#7A7268",
+            fontFamily: "'Inter', sans-serif", fontWeight: 300,
             transition: "color 0.2s",
           }}>
             Normal Fiyat
@@ -144,7 +144,7 @@ export function Pricing({
             style={{
               position: "relative", width: "48px", height: "26px",
               borderRadius: "13px", border: "none", cursor: "pointer",
-              background: isLansman ? "#241E18" : "#C4A882",
+              background: isLansman ? "#1A1714" : "#C4A882",
               transition: "background 0.3s",
               flexShrink: 0,
             }}
@@ -162,8 +162,8 @@ export function Pricing({
           </button>
           <span style={{
             fontSize: "12px", letterSpacing: "0.08em",
-            color: isLansman ? "#241E18" : "#B0A090",
-            fontFamily: "'Montserrat', sans-serif", fontWeight: 300,
+            color: isLansman ? "#1A1714" : "#7A7268",
+            fontFamily: "'Inter', sans-serif", fontWeight: 300,
             transition: "color 0.2s",
           }}>
             Lansman Fiyatı{" "}
@@ -224,7 +224,7 @@ export function Pricing({
                 <span style={{
                   fontSize: "10px", letterSpacing: "0.14em",
                   textTransform: "uppercase", color: "#241E18",
-                  fontFamily: "'Montserrat', sans-serif", fontWeight: 400,
+                  fontFamily: "'Inter', sans-serif", fontWeight: 400,
                 }}>
                   {plan.badge || "En Çok Tercih Edilen"}
                 </span>
@@ -233,7 +233,7 @@ export function Pricing({
 
             {/* Paket numarası */}
             <p style={{
-              fontFamily: "'Bodoni Moda', serif",
+              fontFamily: "'Space Grotesk', serif",
               fontSize: "13px", letterSpacing: "0.2em",
               color: plan.isPopular ? "#C4A882" : "#8B6A40",
               marginBottom: "8px",
@@ -243,7 +243,7 @@ export function Pricing({
 
             {/* Paket adı */}
             <h3 style={{
-              fontFamily: "'Bodoni Moda', serif",
+              fontFamily: "'Space Grotesk', serif",
               fontSize: "22px", fontWeight: 400, lineHeight: 1.2,
               color: plan.isPopular ? "#F7F2EC" : "#241E18",
               marginBottom: "6px",
@@ -252,32 +252,34 @@ export function Pricing({
             </h3>
 
             {/* Fiyat */}
-            <div style={{ margin: "20px 0 24px" }}>
-              <AnimatePresence mode="wait">
+            <div style={{ margin: "20px 0 24px", minHeight: "56px", position: "relative", overflow: "hidden" }}>
+              <AnimatePresence mode="wait" initial={false}>
                 <motion.div
-                  key={isLansman ? "lansman" : "normal"}
-                  initial={{ opacity: 0, y: -10 }}
+                  key={isLansman ? "L" : "N"}
+                  initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  transition={{ duration: 0.22 }}
+                  exit={{ opacity: 0, y: -24 }}
+                  transition={{ duration: 0.32, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  style={{ position: "absolute", width: "100%" }}
                 >
                   <div style={{
-                    fontFamily: "'Bodoni Moda', serif",
-                    fontSize: "36px", fontWeight: 400,
+                    fontFamily: "'Space Grotesk', serif",
+                    fontSize: "38px", fontWeight: 400,
                     color: plan.isPopular ? "#F7F2EC" : "#241E18",
                     lineHeight: 1,
                   }}>
                     {isLansman ? plan.price : plan.normalPrice}
                   </div>
-                  {!isLansman && (
-                    <div style={{
-                      fontSize: "11px", color: plan.isPopular ? "#9A8A7A" : "#B0A090",
-                      fontFamily: "'Montserrat', sans-serif",
-                      marginTop: "4px", letterSpacing: "0.06em",
-                    }}>
-                      lansman: {plan.price}
-                    </div>
-                  )}
+                  <div style={{
+                    fontSize: "11px",
+                    color: plan.isPopular ? "rgba(247,242,236,0.45)" : "#B0A090",
+                    fontFamily: "'Inter', sans-serif",
+                    marginTop: "6px", letterSpacing: "0.06em",
+                  }}>
+                    {isLansman
+                      ? `normal: ${plan.normalPrice}`
+                      : `lansman: ${plan.price}`}
+                  </div>
                 </motion.div>
               </AnimatePresence>
             </div>
@@ -293,7 +295,7 @@ export function Pricing({
                   <span style={{
                     fontSize: "12px", lineHeight: 1.6,
                     color: plan.isPopular ? "rgba(247,242,236,0.8)" : "#4A3D30",
-                    fontFamily: "'Montserrat', sans-serif", fontWeight: 300,
+                    fontFamily: "'Inter', sans-serif", fontWeight: 300,
                   }}>
                     {f}
                   </span>
@@ -306,7 +308,7 @@ export function Pricing({
                   <span style={{
                     fontSize: "12px", lineHeight: 1.6,
                     color: plan.isPopular ? "rgba(247,242,236,0.5)" : "#6B5D4F",
-                    fontFamily: "'Montserrat', sans-serif", fontWeight: 300,
+                    fontFamily: "'Inter', sans-serif", fontWeight: 300,
                     textDecoration: "line-through",
                   }}>
                     {f}
@@ -334,11 +336,11 @@ export function Pricing({
                   <div style={{
                     fontSize: "9px", letterSpacing: "0.14em", textTransform: "uppercase",
                     color: plan.isPopular ? "rgba(196,168,130,0.7)" : "#B0A090",
-                    fontFamily: "'Montserrat', sans-serif", fontWeight: 400,
+                    fontFamily: "'Inter', sans-serif", fontWeight: 400,
                   }}>{label}</div>
                   <div style={{
                     fontSize: "11px", color: plan.isPopular ? "#C4A882" : "#241E18",
-                    fontFamily: "'Montserrat', sans-serif", fontWeight: 300,
+                    fontFamily: "'Inter', sans-serif", fontWeight: 300,
                     marginTop: "2px",
                   }}>{val}</div>
                 </div>
@@ -354,7 +356,7 @@ export function Pricing({
                 background: plan.isPopular ? "#C4A882" : "#241E18",
                 color: plan.isPopular ? "#241E18" : "#F7F2EC",
                 textDecoration: "none",
-                fontFamily: "'Montserrat', sans-serif",
+                fontFamily: "'Inter', sans-serif",
                 fontSize: "11px", letterSpacing: "0.18em", fontWeight: 400,
                 textTransform: "uppercase",
                 transition: "opacity 0.2s",
@@ -367,7 +369,7 @@ export function Pricing({
 
             <p style={{
               fontSize: "11px", color: plan.isPopular ? "rgba(247,242,236,0.35)" : "#B0A090",
-              fontFamily: "'Montserrat', sans-serif", fontWeight: 300,
+              fontFamily: "'Inter', sans-serif", fontWeight: 300,
               textAlign: "center", marginTop: "12px", lineHeight: 1.6,
             }}>
               {plan.description}

@@ -1,0 +1,8 @@
+Buraya 2 JPEG koy:
+  pink-heat.jpg
+  blue-tide.jpg
+
+Ideogram'dan indirdiklerini buraya sürükle.
+JPEG yeterli, PNG şart değil.
+
+Sonra npm run dev → http://localhost:3001/clink
