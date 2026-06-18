@@ -58,7 +58,15 @@ export function ZsFooter({ copy }: { copy: ZsCopy["footer"] }) {
 
         <div className="pt-6 border-t border-white/[0.06] flex flex-col sm:flex-row justify-between items-center gap-3">
           <span className="text-xs text-white/25">{copy.rights}</span>
-          <span className="text-[10px] text-white/20">Istanbul · Remote-first</span>
+          <div className="flex items-center gap-4">
+            <a href="/terms" className="text-[11px] text-white/25 no-underline hover:text-white/50 transition-colors">
+              Kullanım Koşulları
+            </a>
+            <span className="text-white/10">·</span>
+            <a href="/privacy" className="text-[11px] text-white/25 no-underline hover:text-white/50 transition-colors">
+              Gizlilik Politikası
+            </a>
+          </div>
         </div>
       </div>
     </footer>
