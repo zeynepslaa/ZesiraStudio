@@ -36,31 +36,30 @@ import { getCopy, type Lang } from "@/lib/zs/i18n";
 import { trackZsEvent, getAnalyticsSessionId } from "@/lib/zs/analytics";
 
 const trustBrands = [
-  { name: "VORA Istanbul", url: "https://vora-istanbul.vercel.app" },
+  { name: "AFTER", url: "/after" },
   { name: "Maison Céleste", url: "https://maison-celeste-xi.vercel.app" },
   { name: "Aurelle Skin Atelier", url: "https://aurelle-nine.vercel.app" },
 ];
 
 const IMG = {
-  voraHomepage: "/zs/vora-homepage.png",
-  vora: "https://vora-istanbul.vercel.app/images/facade-detail.png",
+  afterHero: "/after/exterior.png",
 };
 
 const HERO_PROJECT = {
-  name: "VORA Istanbul",
-  paket: "Luxury Launch Experience",
-  url: "vora-istanbul.vercel.app",
-  href: "https://vora-istanbul.vercel.app",
-  img: IMG.voraHomepage,
+  name: "AFTER",
+  paket: "Lansman",
+  url: "zesirastudio.com/after",
+  href: "/after",
+  img: IMG.afterHero,
 };
 
 const workProofs = [
   {
-    project: "VORA Istanbul",
-    paket: "Luxury Launch Experience",
-    highlight: "Çoklu dil, scroll animasyonu ve editoryal lansman mimarisi.",
-    metric: "12 sayfa",
-    url: "https://vora-istanbul.vercel.app",
+    project: "AFTER",
+    paket: "Lansman",
+    highlight: "Gizemli members club — scroll chapter'lar, kapı animasyonu, video katmanları.",
+    metric: "5 sayfa",
+    url: "/after",
   },
   {
     project: "Maison Céleste",
@@ -116,7 +115,7 @@ export default function Home() {
     if (!auditForm.email || !auditForm.bottleneck) return;
     trackZsEvent({ name: "form_submit", form: "audit" });
     try {
-      const res = await fetch("https://formspree.io/f/mqeoypwz", {
+      const res = await fetch("https://zesirastudio.app.n8n.cloud/webhook/d8d58760-8874-4dcc-819a-9f77d43d1925", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
@@ -136,7 +135,7 @@ export default function Home() {
     if (!form.name || !form.email) return;
     trackZsEvent({ name: "form_submit", form: "contact", package: form.paket || undefined });
     try {
-      const res = await fetch("https://formspree.io/f/mqeoypwz", {
+      const res = await fetch("https://zesirastudio.app.n8n.cloud/webhook/d8d58760-8874-4dcc-819a-9f77d43d1925", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
@@ -448,7 +447,7 @@ export default function Home() {
         </SectionTransition>
 
         <SectionTransition as="div">
-          <CaseStudy copy={t.caseStudy} image={IMG.voraHomepage} />
+          <CaseStudy copy={t.caseStudy} image={IMG.afterHero} />
         </SectionTransition>
 
         <SectionTransition id="surec" className="py-16 md:py-24 border-t border-white/[0.06] bg-[#0A0A0B]">
@@ -523,7 +522,7 @@ export default function Home() {
                   <div className="aspect-video relative overflow-hidden">
                     <div className="zs-ken-burns-wrap w-full h-full">
                       <img
-                        src={IMG.voraHomepage}
+                        src={IMG.afterHero}
                         alt="Denetim önizlemesi"
                         className="w-full h-[140%] object-cover object-top opacity-90 zs-mockup-scroll"
                       />
@@ -578,7 +577,7 @@ export default function Home() {
                     <div className="lg:hidden mt-8 relative rounded-2xl border border-white/15 overflow-hidden bg-black/30">
                       <div className="aspect-video relative overflow-hidden">
                         <div className="zs-ken-burns-wrap w-full h-full">
-                          <img src={IMG.voraHomepage} alt="Denetim önizlemesi" className="w-full h-[140%] object-cover object-top opacity-90 zs-mockup-scroll" />
+                          <img src={IMG.afterHero} alt="Denetim önizlemesi" className="w-full h-[140%] object-cover object-top opacity-90 zs-mockup-scroll" />
                         </div>
                         <div className="absolute inset-0 bg-[#0A0A0B]/50 flex items-center justify-center">
                           <div className="w-14 h-14 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
