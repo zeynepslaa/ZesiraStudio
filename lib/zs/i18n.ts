@@ -166,7 +166,7 @@ const tr: ZsCopy = {
   },
   services: {
     eyebrow: "Hizmetler",
-    title: "Üç şeyi mükemmel yapıyoruz — geri kalanı değil.",
+    title: "Dört şeyi mükemmel yapıyoruz — geri kalanı değil.",
     sub: "İhtiyacınıza göre net paketler. Fiyat ve kapsam keşif sonrası teklif PDF'inde — önce doğru eşleşme.",
     offerings: [
       {
@@ -387,7 +387,7 @@ const en: ZsCopy = {
   },
   services: {
     eyebrow: "Services",
-    title: "We do three things exceptionally — nothing else.",
+    title: "We do four things exceptionally — nothing else.",
     sub: "Clear packages for your needs. Pricing and scope in a proposal PDF after discovery — fit first.",
     offerings: [
       {
