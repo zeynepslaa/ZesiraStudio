@@ -378,7 +378,7 @@ export default function Home() {
               </div>
             </Reveal>
 
-            <Stagger className="grid md:grid-cols-3 gap-4">
+            <Stagger className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {t.services.offerings.map((o, idx) => (
                 <StaggerItem key={o.title}>
                   <div

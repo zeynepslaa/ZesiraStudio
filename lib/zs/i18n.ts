@@ -190,6 +190,13 @@ const tr: ZsCopy = {
         bullets: ["TR / EN çoklu dil", "Animasyon & hareket tasarımı", "CMS + sosyal medya kiti"],
         cta: "Lansmanı Planla",
       },
+      {
+        title: "Akıllı Otomasyon",
+        tag: "İş süreçleri",
+        desc: "Web siteniz ve iş süreçleriniz artık sizin yerinize çalışıyor. Müşteri takibi, otomatik bildirimler ve CRM entegrasyonlarıyla zamandan kazanın, gelirden değil.",
+        bullets: ["Otomatik müşteri takibi", "E-posta & bildirim akışları", "CRM entegrasyonu"],
+        cta: "Otomasyon Kur",
+      },
     ],
   },
   compare: {
@@ -223,19 +230,21 @@ const tr: ZsCopy = {
   },
   caseStudy: {
     eyebrow: "Case study",
-    title: "VORA Istanbul — lansman deneyimi",
+    title: "AFTER — members club lansmanı",
     problem: "Problem",
-    problemText: "Yeni lüks konut projesi için dijitalde güçlü bir ilk izlenim gerekiyordu — şablon çözümler marka konumuna uymuyordu.",
+    problemText:
+      "Gizemli bir gece mekânı için dijitalde sinematik ilk izlenim gerekiyordu — şablon siteler atmosferi taşımıyordu.",
     solution: "Çözüm",
-    solutionText: "12 sayfalık editoryal site: scroll animasyonları, TR/EN dil desteği, koleksiyon ve lokasyon odaklı sayfa mimarisi.",
+    solutionText:
+      "Scroll chapter deneyimi: kapı animasyonu, video katmanları, yatay program vitrini ve TR/EN dil desteği.",
     result: "Sonuç",
     metrics: [
-      { label: "Sayfa", value: "12" },
-      { label: "Yükleme", value: "< 2sn" },
+      { label: "Sayfa", value: "5" },
+      { label: "Animasyon", value: "8+" },
       { label: "Dil", value: "TR / EN" },
-      { label: "Paket", value: "Luxury Launch" },
+      { label: "Paket", value: "Lansman" },
     ],
-    cta: "Canlı siteyi incele",
+    cta: "Canlı demoyu incele",
   },
   process: {
     eyebrow: "Süreç",
@@ -402,6 +411,13 @@ const en: ZsCopy = {
         bullets: ["TR / EN multilingual", "Animation & motion design", "CMS + social media kit"],
         cta: "Plan Launch",
       },
+      {
+        title: "Smart Automation",
+        tag: "Workflows",
+        desc: "Your website and business processes now work for you. Save time — not revenue — with client tracking, automated notifications, and CRM integrations.",
+        bullets: ["Automated client follow-up", "Email & notification flows", "CRM integration"],
+        cta: "Set Up Automation",
+      },
     ],
   },
   compare: {
@@ -435,19 +451,21 @@ const en: ZsCopy = {
   },
   caseStudy: {
     eyebrow: "Case study",
-    title: "VORA Istanbul — launch experience",
+    title: "AFTER — members club launch",
     problem: "Problem",
-    problemText: "A new luxury residential project needed a strong digital first impression — template solutions didn't match the brand position.",
+    problemText:
+      "A mysterious night venue needed a cinematic digital first impression — template sites couldn't carry the atmosphere.",
     solution: "Solution",
-    solutionText: "12-page editorial site: scroll animations, TR/EN support, collection and location-focused page architecture.",
+    solutionText:
+      "Scroll chapter experience: door animation, video layers, horizontal program showcase, and TR/EN support.",
     result: "Outcome",
     metrics: [
-      { label: "Pages", value: "12" },
-      { label: "Load", value: "< 2s" },
+      { label: "Pages", value: "5" },
+      { label: "Motion", value: "8+" },
       { label: "Languages", value: "TR / EN" },
-      { label: "Package", value: "Luxury Launch" },
+      { label: "Package", value: "Launch" },
     ],
-    cta: "View live site",
+    cta: "View live demo",
   },
   process: {
     eyebrow: "Process",
