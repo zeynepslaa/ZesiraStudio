@@ -89,13 +89,13 @@ export default function TermsPage() {
           <Section num="05" title="İletişim">
             Bu koşullarla ilgili sorularınız için bizimle iletişime geçebilirsiniz:
             <br /><br />
-            <a href="mailto:slaaylmzz8@gmail.com" style={{
+            <a href="mailto:info@zesirastudio.com" style={{
               color: "#f5f0eb",
               textDecoration: "underline",
               textUnderlineOffset: "4px",
               opacity: 0.7,
             }}>
-              slaaylmzz8@gmail.com
+              info@zesirastudio.com
             </a>
           </Section>
 

@@ -134,7 +134,7 @@ export default function Baslangic() {
       `İÇERİK HAZIR: ${form.icerikHazir}`,
     ].join("\n");
 
-    window.location.href = `mailto:slaaylmzz8@gmail.com?subject=${encodeURIComponent(`İçerik Talep Formu — ${form.marka}`)}&body=${encodeURIComponent(lines)}`;
+    window.location.href = `mailto:info@zesirastudio.com?subject=${encodeURIComponent(`İçerik Talep Formu — ${form.marka}`)}&body=${encodeURIComponent(lines)}`;
     setSubmitted(true);
   };
 
@@ -592,11 +592,11 @@ export default function Baslangic() {
             }}>
               WhatsApp
             </a>
-            <a href="mailto:slaaylmzz8@gmail.com" style={{
+            <a href="mailto:info@zesirastudio.com" style={{
               fontFamily: C.sans, fontSize: "10px", color: C.ash,
               textDecoration: "none", letterSpacing: "0.06em",
             }}>
-              slaaylmzz8@gmail.com
+              info@zesirastudio.com
             </a>
           </div>
         </div>

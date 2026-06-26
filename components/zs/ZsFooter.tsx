@@ -33,10 +33,10 @@ export function ZsFooter({ copy }: { copy: ZsCopy["footer"] }) {
             <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-4">{copy.contact}</p>
             <div className="flex flex-col gap-2.5">
               <a
-                href="mailto:slaaylmzz8@gmail.com"
+                href="mailto:info@zesirastudio.com"
                 className="text-sm text-white/50 no-underline hover:text-white/80 transition-colors"
               >
-                slaaylmzz8@gmail.com
+                info@zesirastudio.com
               </a>
               <a
                 href="https://wa.me/905456649930"

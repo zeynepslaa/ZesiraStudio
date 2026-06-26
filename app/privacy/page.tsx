@@ -92,13 +92,13 @@ export default function PrivacyPage() {
           <Section num="06" title="İletişim">
             Gizlilik politikamızla ilgili tüm soru ve talepleriniz için:
             <br /><br />
-            <a href="mailto:slaaylmzz8@gmail.com" style={{
+            <a href="mailto:info@zesirastudio.com" style={{
               color: "#f5f0eb",
               textDecoration: "underline",
               textUnderlineOffset: "4px",
               opacity: 0.7,
             }}>
-              slaaylmzz8@gmail.com
+              info@zesirastudio.com
             </a>
           </Section>
 

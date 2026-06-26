@@ -600,8 +600,8 @@ export default function Home() {
               <h2 className="zs-title text-[clamp(28px,3vw,40px)] leading-snug mb-5">{t.contact.title}</h2>
               <p className="text-sm text-white/45 leading-relaxed mb-8">{t.contact.sub}</p>
               <div className="flex flex-col gap-3">
-                <a href="mailto:slaaylmzz8@gmail.com" className="text-[11px] text-white/40 no-underline tracking-wide hover:text-white/70 transition-colors">
-                  slaaylmzz8@gmail.com
+                <a href="mailto:info@zesirastudio.com" className="text-[11px] text-white/40 no-underline tracking-wide hover:text-white/70 transition-colors">
+                  info@zesirastudio.com
                 </a>
                 <a
                   href="https://wa.me/905456649930"
