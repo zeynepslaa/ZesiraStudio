@@ -44,6 +44,22 @@ export default function RootLayout({
     <html lang="tr" className={`${inter.variable} ${spaceGrotesk.variable}`}>
       <head>
         <link rel="preload" as="image" href="/zs/vora-homepage.png" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ProfessionalService",
+              name: "Zesira Studio",
+              url: "https://zesirastudio.com",
+              description:
+                "Lüks ve butik markalar için sıfırdan tasarlanan, editoryal web siteleri ve dijital deneyimler.",
+              areaServed: { "@type": "City", name: "Istanbul" },
+              email: "info@zesirastudio.com",
+              image: "https://zesirastudio.com/zs/vora-homepage.png",
+            }),
+          }}
+        />
       </head>
       <body className="font-sans antialiased">{children}</body>
     </html>
