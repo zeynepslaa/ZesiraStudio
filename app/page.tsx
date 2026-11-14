@@ -42,7 +42,7 @@ const trustBrands = [
 ];
 
 const IMG = {
-  afelHero: "/zs/afel-hero.jpg",
+  afelHero: "/zs/afel-hero-tall.jpg",
   afelScroll: "/zs/afel-scroll.jpg",
 };
 
