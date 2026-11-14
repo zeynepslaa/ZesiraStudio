@@ -37,21 +37,21 @@ import { trackZsEvent, getAnalyticsSessionId } from "@/lib/zs/analytics";
 
 const trustBrands = [
   { name: "AFEL Eğitim", url: "https://afelegitim.com" },
-  { name: "AFTER", url: "/after" },
   { name: "Maison Céleste", url: "https://maison-celeste-xi.vercel.app" },
   { name: "Aurelle Skin Atelier", url: "https://aurelle-nine.vercel.app" },
 ];
 
 const IMG = {
-  afterHero: "/after/exterior.png",
+  afelHero: "/zs/afel-hero.jpg",
+  afelScroll: "/zs/afel-scroll.jpg",
 };
 
 const HERO_PROJECT = {
-  name: "AFTER",
-  paket: "Lansman",
-  url: "zesirastudio.com/after",
-  href: "/after",
-  img: IMG.afterHero,
+  name: "AFEL Eğitim",
+  paket: "Kurumsal web sitesi",
+  url: "afelegitim.com",
+  href: "https://afelegitim.com",
+  img: IMG.afelHero,
 };
 
 const workProofs = [
@@ -62,13 +62,6 @@ const workProofs = [
     metric: "Yayında",
     url: "https://afelegitim.com",
     label: "Gerçek müşteri",
-  },
-  {
-    project: "AFTER",
-    paket: "Lansman",
-    highlight: "Gizemli members club — scroll chapter'lar, kapı animasyonu, video katmanları.",
-    metric: "5 sayfa",
-    url: "/after",
   },
   {
     project: "Maison Céleste",
@@ -445,7 +438,7 @@ export default function Home() {
               <h2 className="zs-title text-[clamp(28px,3vw,40px)] mb-4">{t.proof.title}</h2>
               <p className="text-sm zs-muted max-w-lg mx-auto">{t.proof.sub}</p>
             </Reveal>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid md:grid-cols-3 gap-4">
               {workProofs.map((w, i) => (
                 <Reveal key={w.project} delay={i * 0.08} variant="scale">
                   <WorkProofCard {...w} />
@@ -531,7 +524,7 @@ export default function Home() {
                   <div className="aspect-video relative overflow-hidden">
                     <div className="zs-ken-burns-wrap w-full h-full">
                       <img
-                        src={IMG.afterHero}
+                        src={IMG.afelScroll}
                         alt="Denetim önizlemesi"
                         className="w-full h-[140%] object-cover object-top opacity-90 zs-mockup-scroll"
                       />
@@ -586,7 +579,7 @@ export default function Home() {
                     <div className="lg:hidden mt-8 relative rounded-2xl border border-white/15 overflow-hidden bg-black/30">
                       <div className="aspect-video relative overflow-hidden">
                         <div className="zs-ken-burns-wrap w-full h-full">
-                          <img src={IMG.afterHero} alt="Denetim önizlemesi" className="w-full h-[140%] object-cover object-top opacity-90 zs-mockup-scroll" />
+                          <img src={IMG.afelScroll} alt="Denetim önizlemesi" className="w-full h-[140%] object-cover object-top opacity-90 zs-mockup-scroll" />
                         </div>
                         <div className="absolute inset-0 bg-[#0A0A0B]/50 flex items-center justify-center">
                           <div className="w-14 h-14 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
