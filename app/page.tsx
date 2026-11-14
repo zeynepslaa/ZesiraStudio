@@ -36,6 +36,7 @@ import { getCopy, type Lang } from "@/lib/zs/i18n";
 import { trackZsEvent, getAnalyticsSessionId } from "@/lib/zs/analytics";
 
 const trustBrands = [
+  { name: "AFEL Eğitim", url: "https://afelegitim.com" },
   { name: "AFTER", url: "/after" },
   { name: "Maison Céleste", url: "https://maison-celeste-xi.vercel.app" },
   { name: "Aurelle Skin Atelier", url: "https://aurelle-nine.vercel.app" },
@@ -54,6 +55,14 @@ const HERO_PROJECT = {
 };
 
 const workProofs = [
+  {
+    project: "AFEL Eğitim",
+    paket: "Kurumsal web sitesi",
+    highlight: "Butik kurs için özgün kurumsal site — program vitrini, kişiye özel anlatım, mobilde tek dokunuşla iletişim.",
+    metric: "Yayında",
+    url: "https://afelegitim.com",
+    label: "Gerçek müşteri",
+  },
   {
     project: "AFTER",
     paket: "Lansman",
@@ -436,7 +445,7 @@ export default function Home() {
               <h2 className="zs-title text-[clamp(28px,3vw,40px)] mb-4">{t.proof.title}</h2>
               <p className="text-sm zs-muted max-w-lg mx-auto">{t.proof.sub}</p>
             </Reveal>
-            <div className="grid md:grid-cols-3 gap-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {workProofs.map((w, i) => (
                 <Reveal key={w.project} delay={i * 0.08} variant="scale">
                   <WorkProofCard {...w} />
@@ -447,7 +456,7 @@ export default function Home() {
         </SectionTransition>
 
         <SectionTransition as="div">
-          <CaseStudy copy={t.caseStudy} image={IMG.afterHero} />
+          <CaseStudy copy={t.caseStudy} image="/zs/afel-case.jpg" href="https://afelegitim.com" projectName="AFEL Eğitim" />
         </SectionTransition>
 
         <SectionTransition id="surec" className="py-16 md:py-24 border-t border-white/[0.06] bg-[#0A0A0B]">

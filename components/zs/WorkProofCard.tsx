@@ -8,9 +8,10 @@ type WorkProofCardProps = {
   highlight: string;
   metric: string;
   url: string;
+  label?: string;
 };
 
-export function WorkProofCard({ project, paket, highlight, metric, url }: WorkProofCardProps) {
+export function WorkProofCard({ project, paket, highlight, metric, url, label = "Stüdyo çalışması" }: WorkProofCardProps) {
   return (
     <a
       href={url}
@@ -18,7 +19,7 @@ export function WorkProofCard({ project, paket, highlight, metric, url }: WorkPr
       rel="noreferrer"
       className="group block zs-card zs-card-hover p-6 h-full no-underline"
     >
-      <p className="text-[10px] font-semibold text-[#C4A882] uppercase tracking-wider mb-3">Stüdyo çalışması</p>
+      <p className="text-[10px] font-semibold text-[#C4A882] uppercase tracking-wider mb-3">{label}</p>
       <h3 className="font-serif text-lg font-bold text-white mb-1 group-hover:text-[#C4A882] transition-colors">{project}</h3>
       <p className="text-xs text-white/40 mb-4">{paket}</p>
       <p className="text-sm text-white/55 leading-relaxed mb-5">{highlight}</p>

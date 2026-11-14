@@ -6,9 +6,19 @@ import { Reveal } from "./motion";
 import { CountUp } from "./CountUp";
 import type { ZsCopy } from "@/lib/zs/i18n";
 
-const VORA_URL = "https://vora-istanbul.vercel.app";
+const AFTER_URL = "/after";
 
-export function CaseStudy({ copy, image }: { copy: ZsCopy["caseStudy"]; image: string }) {
+export function CaseStudy({
+  copy,
+  image,
+  href = AFTER_URL,
+  projectName = "AFTER",
+}: {
+  copy: ZsCopy["caseStudy"];
+  image: string;
+  href?: string;
+  projectName?: string;
+}) {
   return (
     <section id="case-study" className="relative py-16 md:py-24 border-t border-white/[0.06] bg-[#0A0A0B] overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_30%,rgba(107,30,36,0.12)_0%,transparent_55%)] pointer-events-none" />
@@ -25,7 +35,7 @@ export function CaseStudy({ copy, image }: { copy: ZsCopy["caseStudy"]; image: s
               <div className="aspect-[4/3] relative">
                 <Image
                   src={image}
-                  alt="VORA Istanbul"
+                  alt={projectName}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover object-top"
@@ -66,9 +76,9 @@ export function CaseStudy({ copy, image }: { copy: ZsCopy["caseStudy"]; image: s
 
             <Reveal delay={0.2}>
               <a
-                href={VORA_URL}
-                target="_blank"
-                rel="noreferrer"
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noreferrer" : undefined}
                 className="inline-flex items-center gap-2 text-sm font-semibold text-[#C4A882] hover:text-white no-underline transition-colors w-fit"
               >
                 {copy.cta} <ArrowUpRight size={14} />
